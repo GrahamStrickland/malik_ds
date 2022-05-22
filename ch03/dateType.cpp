@@ -14,7 +14,7 @@ using namespace std;
 bool dateType::checkDate(int month, int day, int year) const
 {
     bool isValid = true;
-    if (month <= 0 && month > 12) isValid = false;
+    if (month <= 0 || month > 12) isValid = false;
     switch(month) {
         case 1:
         case 3:

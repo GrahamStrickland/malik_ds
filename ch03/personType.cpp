@@ -6,7 +6,6 @@
 //************************************************************
 
 #include <iostream>
-#include <string>
 #include "personType.h"
 
 using namespace std;

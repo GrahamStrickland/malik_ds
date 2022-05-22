@@ -11,7 +11,7 @@ int main()
 {
     using namespace std;
 
-    dateType birthday(1, 28, 1991);
+    dateType birthday(05, 18, 1872);
     dateType newDate;
     int month, day, year;
 

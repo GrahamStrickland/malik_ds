@@ -7,7 +7,7 @@ int main()
     using namespace std;
 
     personType person1;
-    personType person2("Graham", "Strickland");
+    personType person2("Bertrand", "Russell");
 
     cout << "The name of person2 is ";
     person2.print();

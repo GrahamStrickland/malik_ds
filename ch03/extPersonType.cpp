@@ -5,7 +5,6 @@
 //************************************************************
 
 #include <iostream>
-#include <string>
 #include <cassert>
 #include "extPersonType.h"
 

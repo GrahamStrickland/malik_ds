@@ -7,8 +7,8 @@ int main()
     using namespace std;
 
     addressType add1;
-    addressType add2("30 Oxford Street", "Cape Town",
-            "Western Cape", "7708");
+    addressType add2("Ravenscroft", "Trellech",
+            "Monmouthshire", "NP15 1AA");
     string address, city, state, zip;
 
     cout << "Address 2:\n";

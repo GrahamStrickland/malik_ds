@@ -1,36 +1,27 @@
-Name: Graham Strickland
+Name: Bertrand Russell
 Relationship: Family Member
-Birth Date: 01-28-1991
-Street Address: 30 Oxford Street
-City: Cape Town
-State: Western Cape
-Zip Code: 7708
-Phone Number: 0727131038
+Birth Date: 05-18-1872
+Street Address: Ravenscroft
+City: Trellech
+State: Monmouthshire
+Zip Code: NP15 1AA
+Phone Number: 0100111010
 
-Name: Brett Martindale
+Name: George Moore
 Relationship: Friend
-Birth Date: 10-29-1990
-Street Address: 30 Oxford Street
-City: Cape Town
-State: Western Cape
-Zip Code: 7708
-Phone Number: 0761666761
+Birth Date: 11-04-1873
+Street Address: Upper Norwood
+City: London
+State: Greater London
+Zip Code: SE19
+Phone Number: 0821094987
 
-Name: Christine Strickland
-Relationship: Family Member
-Birth Date: 03-06-1957
-Street Address: 123 Wembley Square
-City: Cape Town
-State: Western Cape
-Zip Code: 8001
-Phone Number: 0733653338
-
-Name: Natalie Strickland
-Relationship: Family Member
-Birth Date: 10-22-1982
-Street Address: 15 Grosvenor Road
-City: Cape Town
-State: Western Cape
-Zip Code: 7800
-Phone Number: 0722072178
+Name: Gottlob Frege
+Relationship: Business Associate
+Birth Date: 11-08-1925
+Street Address: Frege Household
+City: Wismar
+State: Mecklenburg-Vorpommern
+Zip Code: 23966
+Phone Number: 0102849175
 
