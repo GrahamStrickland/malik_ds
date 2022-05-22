@@ -1,0 +1,45 @@
+//************************************************************
+// Author: D.S. Malik
+//
+// class personType
+// This class specifies the members to implement a name.
+//************************************************************
+
+#include "personType.h"
+
+using namespace std;
+
+void personType::print(ostream& outs) const
+{
+    outs << firstName << " " << lastName;
+}
+
+void personType::setName(string first, string last)
+{
+    firstName = first;
+    lastName = last;
+}
+
+string personType::getFirstName() const
+{
+    return firstName;
+}
+
+string personType::getLastName() const
+{
+    return lastName;
+}
+
+    //Default constructor
+personType::personType()
+{
+    firstName = "";
+    lastName = "";
+}
+
+    //Constructor with parameters
+personType::personType(string first, string last)
+{
+    firstName = first;
+    lastName = last;
+}

@@ -1,0 +1,35 @@
+Name: Graham Strickland
+Relationship: Family Member
+Birth Date: 01-28-1991
+Street Address: 30 Oxford Street
+City: Cape Town
+State: Western Cape
+Zip Code: 7708
+Phone Number: 0727131038
+
+Name: Brett Martindale
+Relationship: Friend
+Birth Date: 10-29-1990
+Street Address: 30 Oxford Street
+City: Cape Town
+State: Western Cape
+Zip Code: 7708
+Phone Number: 0761666761
+
+Name: Christine Strickland
+Relationship: Family Member
+Birth Date: 03-06-1957
+Street Address: 123 Wembley Square
+City: Cape Town
+State: Western Cape
+Zip Code: 8001
+Phone Number: 0733653338
+
+Name: Natalie Strickland
+Relationship: Family Member
+Birth Date: 10-22-1982
+Street Address: 15 Grosvenor Road
+City: Cape Town
+State: Western Cape
+Zip Code: 7800
+Phone Number: 0722072178
