@@ -5,13 +5,18 @@
 #include <cassert>
 #include "knightsTour.h"
 
+using namespace std;
+
 knightsTour::knightsTour(int size) : boardSize(size)
 {
-    board = new int[boardsize];
+    *board = new int[boardSize];
 
-    for (int rank = 0; rank < boardSize; rank++)
-        for (int file = 0; file < boardSize; file++)
+    for (int rank = 0; rank < boardSize; rank++) {
+        board[rank] = new int[boardSize];
+        for (int file = 0; file < boardSize; file++) {
             board[rank][file] = 0;
+        }
+    }
 }
 
 bool knightsTour::canPlaceKnight(int rank, int file)
@@ -29,46 +34,49 @@ void knightsTour::findMove(int rank, int file, int moves)
     board[rank][file] = moves;
 
     // Move through squares and backtrack if taken.
-    while (moves < size * size) {
+    while (moves < boardSize * boardSize) {
         if (canPlaceKnight(rank+2, file+1)) {
             moves++;
-            findMove(rank+2, file+1);
-        } else if (canPlaceKnight(rank+2, file-1) {
+            findMove(rank+2, file+1, moves);
+        } else if (canPlaceKnight(rank+2, file-1)) {
             moves++;
-            findMove(rank+1, file-1);
-        } else if (canPlaceKnight(rank+1, file+2) {
+            findMove(rank+2, file-1, moves);
+        } else if (canPlaceKnight(rank+1, file+2)) {
             moves++;
-            findMove(rank+1, file+1);
-        } else if (canPlaceKnight(rank+1, file-2) {
+            findMove(rank+1, file+2, moves);
+        } else if (canPlaceKnight(rank+1, file-2)) {
             moves++;
-            findMove(rank+1, file+1);
-        } else if (canPlaceKnight(rank-2, file+1) {
+            findMove(rank+1, file-2, moves);
+        } else if (canPlaceKnight(rank-2, file+1)) {
             moves++;
-            findMove(rank+1, file+1);
-        } else if (canPlaceKnight(rank-2, file-1) {
+            findMove(rank-2, file+1, moves);
+        } else if (canPlaceKnight(rank-2, file-1)) {
             moves++;
-            findMove(rank+1, file+1);
-        } else if (canPlaceKnight(rank-1, file+2) {
+            findMove(rank-2, file-1, moves);
+        } else if (canPlaceKnight(rank-1, file+2)) {
             moves++;
-            findMove(rank+1, file+1);
-        } else if (canPlaceKnight(rank-1, file-2) {
+            findMove(rank-1, file+2, moves);
+        } else if (canPlaceKnight(rank-1, file-2)) {
             moves++;
-            findMove(rank+1, file+1);
+            findMove(rank-1, file-2, moves);
         } else {    // Search unsuccessful.
-            cout << "Cannot find a tour starting from this position.";
+            cout << "Cannot find a tour starting from this position."
+                 << endl;
             printTour();
+            break;
         }
     }
 
     printTour();    // Tour found, print result.
 }
 
-void knightsTour::printTour()
+void knightsTour::printTour() const
 {
     for (int rank = 0; rank < boardSize; rank++) {
         for (int file = 0; file < boardSize; file++)
             cout << board[rank][file] << " ";
         cout << endl;
+    }
     cout << endl;
 }
 

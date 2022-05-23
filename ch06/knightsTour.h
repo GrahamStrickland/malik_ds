@@ -30,13 +30,13 @@ public:
         // Function to print the knight's tour.
         // Postcondition: board printed to console.
 
-    void beginTour(int rank, int file)
+    void beginTour(int rank, int file);
         // Function to begin the search for a knight's tour.
         // Precondition: rank and file are valid squares on
         //  this board.
         // Postcondition: Search for knight's tour started.
 private: 
     int boardSize;
-    int *board;
+    int **board;
 };
 #endif // KNIGHTS_TOUR_H
