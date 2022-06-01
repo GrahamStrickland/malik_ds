@@ -11,6 +11,8 @@
 #include "queueADT.h"
 #include <cassert>
 
+using namespace std;
+
 //Definition of the node
 template <class Type>
 struct nodeType

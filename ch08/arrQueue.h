@@ -12,6 +12,8 @@
 #include <cassert>
 #include "queueADT.h"
 
+using namespace std;
+
 template <class Type>
 class queueType: public queueADT<Type>
 {
@@ -47,6 +49,10 @@ public:
         //  terminates; otherwise, the last element of the queue
         //  is returned.
 
+    int queueCount() const;
+        //Function to return the number of elements in the queue.
+        //Postcondition: Returned count.
+        
     void addQueue(const Type& queueElement);
         //Function to add queueElement to the queue.
         //Precondition: The queue exists and is not full.
@@ -81,6 +87,39 @@ private:
 };
 
 template <class Type>
+const queueType<Type>& queueType<Type>::operator=
+                        (const queueType<Type>& otherQueue);
+{
+    if (this != &otherQueue)    //avoid self-copy
+        copyQueue(otherQueue);
+
+    return *this;
+}
+
+template <class Type>
+bool stackType<Type>::operator==(const stackType<Type>& otherStack)
+{
+    if (maxStackSize != otherStack.maxStackSize)
+        return false;
+    else {
+        int current = 0;
+
+        while (current < maxStackSize && current != stackTop) 
+        {
+            if (list[current] != otherStack.list[current])
+                return false;
+            else
+                current++;
+        }
+
+        if (current != otherStack.stackTop)
+            return false;
+
+        return true;
+    }
+}
+
+template <class Type>
 bool queueType<Type>::isEmptyQueue() const
 {
     return (count == 0);
@@ -113,6 +152,12 @@ Type queueType<Type>::back() const
     assert(!isEmptyQueue());
     return list[queueRear];
 } //end back
+
+template <class Type>
+int queueType<Type>::queueCount() const
+{
+    return count;
+}
 
 template <class Type>
 void queueType<Type>::addQueue(const Type& newElement)

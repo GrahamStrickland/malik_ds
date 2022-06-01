@@ -11,7 +11,7 @@ template <class Type>
 class queueADT
 {
 public:
-    virutal bool isEmptyQueue() const = 0;
+    virtual bool isEmptyQueue() const = 0;
         //Function to determine whether the queue is empty.
         //Postcondition: Returns true if the queue is empty,
         //  otherwise returns false.
