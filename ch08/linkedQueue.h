@@ -25,7 +25,7 @@ template <class Type>
 class linkedQueueType: public queueADT<Type>
 {
 public:
-    const linkedQueueType<Type>& operator-
+    const linkedQueueType<Type>& operator=
                     (const linkedQueueType<Type>&);
         //Overload the assignment operator.
 
@@ -75,7 +75,22 @@ public:
 private:
     nodeType<Type> *queueFront; //pointer to the front of the queue
     nodeType<Type> *queueRear;  //pointer to the rear of the queue
+
+    void copyQueue(const linkedQueueType<Type>& otherQueue);
+        //Function to make a copy of otherQueue.
+        //Postcondition: A copy of otherQueue is created and
+        //  assigned to this queue.
 };
+  
+template <class Type>
+const linkedQueueType<Type>& linkedQueueType<Type>::operator=
+                        (const linkedQueueType<Type>& otherQueue)
+{
+    if (this != &otherQueue)    //avoid self-copy
+        copyQueue(otherQueue);
+
+    return *this;
+} //end operator=
 
 template <class Type>
 bool linkedQueueType<Type>::isEmptyQueue() const
@@ -161,4 +176,57 @@ linkedQueueType<Type>::linkedQueueType()
     queueFront = NULL;  //set front to null
     queueRear = NULL;   //set rear to null
 } //end default constructor
+
+template <class Type>
+linkedQueueType<Type>::linkedQueueType(const linkedType<Type>&
+                                        otherQueue)
+{
+    queueFront = NULL;
+    queueRear = NULL;
+    copyQueue(otherQueue);
+} //end copy constructor
+
+template <class Type>
+linkedQueueType<Type>::~linkedQueueType()
+{
+    initializeQueue();
+} //end destructor
+
+template <class Type>
+void linkedQueueType<Type>& linkedQueueType<Type>::copyQueue
+                        (const linkedQueueType<Type>& otherQueue)
+{
+    nodeType<Type> *newNode, *current, *last;
+
+    if (queueFront != NULL) //if queue is nonempty, make it empty
+        initializeQueue();
+
+    if (otherQueue.queueFront == NULL) {
+        queueFront = NULL;
+        queueRear = NULL;
+    } else {
+        current = otherQueue.queueFront;    //set current to point
+                                        //to the queue to be copied
+
+            //copy the queueFront element of the queue
+        queueFront = new nodeType<Type>;    //create the node
+
+        queueFront->info = current->info;   //copy the info
+        queueFront->link = NULL;    //set the link field to NULL
+        last = queueFront;          //set last to point to the node
+        current = current->link;    //set current to point to the
+                                    //next node
+            //copy the remaining queue
+        while (current != NULL)
+        {
+            newNode = new nodeType<Type>;
+
+            newNode->info = current->info;
+            newNode->link = NULL;
+            last->link = newNode;
+            last = newNode;
+            current = current->link;
+        } //end while
+    } //end else
+} //end copyQueue
 #endif //LINKED_QUEUE_H

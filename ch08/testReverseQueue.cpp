@@ -20,7 +20,8 @@ int main()
     for (int i = 0; i < queueSize; i++)
         queue.addQueue(i);
 
-    queueType<int> dummyQueue = queue;
+    queueType<int> dummyQueue;
+    dummyQueue = queue;
 
     cout << "Before reverseQueue(queue), queue: ";
     for (int i = 0; i < queueSize; i++) {

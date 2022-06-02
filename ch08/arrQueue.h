@@ -84,39 +84,21 @@ private:
                         //element of the queue
     Type *list;         //pointer to the array that holds
                         //the queue elements
+
+    void copyQueue(const queueType<Type>& otherQueue);
+        //Function to make a copy of otherQueue.
+        //Postcondition: A copy of otherQueue is created and assigned
+        //  to this queue.
 };
 
 template <class Type>
 const queueType<Type>& queueType<Type>::operator=
-                        (const queueType<Type>& otherQueue);
+                        (const queueType<Type>& otherQueue)
 {
     if (this != &otherQueue)    //avoid self-copy
         copyQueue(otherQueue);
 
     return *this;
-}
-
-template <class Type>
-bool stackType<Type>::operator==(const stackType<Type>& otherStack)
-{
-    if (maxStackSize != otherStack.maxStackSize)
-        return false;
-    else {
-        int current = 0;
-
-        while (current < maxStackSize && current != stackTop) 
-        {
-            if (list[current] != otherStack.list[current])
-                return false;
-            else
-                current++;
-        }
-
-        if (current != otherStack.stackTop)
-            return false;
-
-        return true;
-    }
 }
 
 template <class Type>
@@ -208,10 +190,34 @@ queueType<Type>::queueType(int queueSize)
     list = new Type[maxQueueSize];  //create the array to
                                     //hold the queue elements
 } //end constructor
+  
+template <class Type>
+queueType<Type>::queueType(const queueType<Type>& otherQueue)
+{
+    list = NULL;
+
+    copyQueue(otherQueue);
+}
 
 template <class Type>
 queueType<Type>::~queueType()
 {
     delete [] list;
 } //end destructor
+
+template <class Type>
+void queueType<Type>::copyQueue(const queueType<Type>& otherQueue)
+{
+    delete [] list;
+    maxQueueSize = otherQueue.maxQueueSize;
+    count = otherQueue.count;
+    queueFront = otherQueue.queueFront;
+    queueRear = otherQueue.queueRear;
+
+    list = new Type[maxQueueSize];
+
+        //copy otherQueue into this queue
+    for (int j = queueFront; j <= queueRear; j++ )
+        list[j] = otherQueue.list[j];
+} //end copyQueue
 #endif //ARR_QUEUE_H
