@@ -63,6 +63,12 @@ public:
         //Postcondition: The queue is changed and the first element
         //  is removed from the queue.
 
+    void deleteQueue();
+        //Function to remove the first element of the queue.
+        //Precondition: The queue exists and is not empty.
+        //Postcondition: The queue is changed and the first element
+        //  is removed from the queue.
+
     linkedQueueType();
         //Default constructor
 
@@ -149,6 +155,13 @@ Type linkedQueueType<Type>::front() const
     assert(queueFront != NULL);
     return queueFront->info;
 } //end front
+
+template <class Type>
+Type linkedQueueType<Type>::back() const
+{
+    assert(queueRear != NULL);
+    return queueRear->info;
+} //end back
   
 template <class Type>
 void linkedQueueType<Type>::deleteQueue()
@@ -178,7 +191,7 @@ linkedQueueType<Type>::linkedQueueType()
 } //end default constructor
 
 template <class Type>
-linkedQueueType<Type>::linkedQueueType(const linkedType<Type>&
+linkedQueueType<Type>::linkedQueueType(const linkedQueueType<Type>&
                                         otherQueue)
 {
     queueFront = NULL;
@@ -193,10 +206,10 @@ linkedQueueType<Type>::~linkedQueueType()
 } //end destructor
 
 template <class Type>
-void linkedQueueType<Type>& linkedQueueType<Type>::copyQueue
+void linkedQueueType<Type>::copyQueue
                         (const linkedQueueType<Type>& otherQueue)
 {
-    nodeType<Type> *newNode, *current, *last;
+    nodeType<Type> *newNode, *current;
 
     if (queueFront != NULL) //if queue is nonempty, make it empty
         initializeQueue();
@@ -213,7 +226,7 @@ void linkedQueueType<Type>& linkedQueueType<Type>::copyQueue
 
         queueFront->info = current->info;   //copy the info
         queueFront->link = NULL;    //set the link field to NULL
-        last = queueFront;          //set last to point to the node
+        queueRear = queueFront;     //set queueRear to point to the node
         current = current->link;    //set current to point to the
                                     //next node
             //copy the remaining queue
@@ -223,8 +236,8 @@ void linkedQueueType<Type>& linkedQueueType<Type>::copyQueue
 
             newNode->info = current->info;
             newNode->link = NULL;
-            last->link = newNode;
-            last = newNode;
+            queueRear->link = newNode;
+            queueRear = newNode;
             current = current->link;
         } //end while
     } //end else
