@@ -1,7 +1,8 @@
-//This is a driver program to test the ADT queueType.
+//This is a driver program to test the ADT queueType
+//implemented as an array with a reserved slot.
 
 #include <iostream>
-#include "arrQueue.h"
+#include "reservedSlotQueue.h"
 
 using namespace std;
 
@@ -28,10 +29,6 @@ int main()
         queue1.deleteQueue();
     }
     cout << endl;
-    
-    //Test queueCount().
-    cout << "queue1.queueCount() = " << queue1.queueCount() << endl;
-    cout << "queue2.queueCount() = " << queue2.queueCount() << endl;
     
     return 0;
 }

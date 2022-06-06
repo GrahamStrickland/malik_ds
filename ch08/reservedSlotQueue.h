@@ -1,5 +1,5 @@
-#ifndef ARR_QUEUE_H
-#define ARR_QUEUE_H
+#ifndef RESERVED_SLOT_QUEUE_H
+#define RESERVED_SLOT_QUEUE_H
 
 //*************************************************************
 // Author: D.S. Malik
@@ -104,8 +104,7 @@ bool queueType<Type>::isEmptyQueue() const
 template <class Type>
 bool queueType<Type>::isFullQueue() const
 {
-    return (queueFront == 0 && queueRear == maxQueueSize - 1)
-        || queueRear == queueFront - 1;
+    return queueFront == queueRear + 1;
 } //end isFullQueue
   
 template <class Type>
@@ -119,9 +118,10 @@ template <class Type>
 Type queueType<Type>::front() const
 {
     assert(!isEmptyQueue());
-    return list[queueFront];
+    return list[(queueFront + 1) % maxQueueSize];
 } //end front
 
+template <class Type>
 Type queueType<Type>::back() const
 {
     assert(!isEmptyQueue());
@@ -131,12 +131,12 @@ Type queueType<Type>::back() const
 template <class Type>
 void queueType<Type>::addQueue(const Type& newElement)
 {
-    if (!isFullQueue())
+    if (!isFullQueue()) {
         queueRear = (queueRear + 1) % maxQueueSize; //use the
                             //mod operator to advance queueRear
                             //because the array is circular
         list[queueRear] = newElement;
-    else
+    } else
         cout << "Cannot add to a full queue." << endl;
 } //end addQueue
 
@@ -199,4 +199,4 @@ void queueType<Type>::copyQueue(const queueType<Type>& otherQueue)
     for (int j = queueFront; j <= queueRear; j++ )
         list[j] = otherQueue.list[j];
 } //end copyQueue
-#endif //ARR_QUEUE_H
+#endif //RESERVED_SLOT_QUEUE_H
