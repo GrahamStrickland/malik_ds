@@ -104,7 +104,8 @@ bool queueType<Type>::isEmptyQueue() const
 template <class Type>
 bool queueType<Type>::isFullQueue() const
 {
-    return queueFront == queueRear + 1;
+    return (queueFront == queueRear + 1) ||
+        (queueFront == 0 && queueRear == maxQueueSize - 1);
 } //end isFullQueue
   
 template <class Type>
