@@ -112,7 +112,7 @@ template <class Type>
 void queueType<Type>::initializeQueue()
 {
     queueFront = 0;
-    queueRear = maxQueueSize - 1;
+    queueRear = 0;
 } //end initializeQueue
 
 template <class Type>
@@ -167,7 +167,7 @@ queueType<Type>::queueType(int queueSize)
         maxQueueSize = queueSize;   //set maxQueueSize to
                                     //queueSize
     queueFront = 0;                 //initialize queueFront
-    queueRear = maxQueueSize - 1;   //initialize queueRear
+    queueRear = 0;                  //initialize queueRear
     list = new Type[maxQueueSize];  //create the array to
                                     //hold the queue elements
 } //end constructor
