@@ -65,6 +65,14 @@ public:
         //Postcondition: The queue is changed and the first element
         //  is removed from the queue.
 
+    void moveNthFront(int n);
+        //Function to move the nth element in the queue to the front.
+        //Precondition: The queue exists and is not empty, 
+        //  0 < n <= count.
+        //Postcondition: The queue is changed and the first element
+        //  is now the previous nth element, all other elements
+        //  occur in order.
+
     queueType(int queueSize = 100);
         //Constructor
 
@@ -170,6 +178,41 @@ void queueType<Type>::deleteQueue()
         cout << "Cannot remove from an empty queue." << endl;
 } //end deleteQueue
 
+template <class Type>
+void queueType<Type>::moveNthFront(int n)
+{
+    if (n > 0 && n <= count) {
+        //Add queue[0..n-1] to store.
+        int nthElem;
+        queueType store(n);
+        for (int i = 0; i < n-1; i++) {
+            store.addQueue(front());
+            deleteQueue();
+        }
+
+        //Extract nth element and place at rear.
+        nthElem = front();
+        deleteQueue();
+        addQueue(nthElem);
+
+        //Add store to back of queue.
+        while (!store.isEmptyQueue()) {
+            addQueue(store.front());
+            store.deleteQueue();
+        }
+
+        //Place front of queue behind back.
+        while (front() != nthElem)
+        {
+            addQueue(front());
+            deleteQueue();
+        }
+    }
+    else
+        cout << "Invalid entry! Queue contains " << queueCount() 
+             << " elements." << endl;
+} //end moveNthFront
+  
 template <class Type>
 queueType<Type>::queueType(int queueSize)
 {
