@@ -57,6 +57,10 @@ public:
         //  terminates; otherwise, the last element of the
         //  queue is returned.
 
+    int queueCount() const;
+        //Function to return the number of elements in the queue.
+        //Postcondition: Returned count.
+
     void addQueue(const Type& queueElement);
         //Function to remove the first element of the queue.
         //Precondition: The queue exists and is not empty.
@@ -81,6 +85,8 @@ public:
 private:
     nodeType<Type> *queueFront; //pointer to the front of the queue
     nodeType<Type> *queueRear;  //pointer to the rear of the queue
+    int count;                  //variable to store the number of
+                                //elements in the queue
 
     void copyQueue(const linkedQueueType<Type>& otherQueue);
         //Function to make a copy of otherQueue.
@@ -125,7 +131,28 @@ void linkedQueueType<Type>::initializeQueue()
     }
 
     queueRear = NULL;   //set rear to NULL
+    count = 0;          //set count
 } //end initializeQueue
+
+template <class Type>
+Type linkedQueueType<Type>::front() const
+{
+    assert(queueFront != NULL);
+    return queueFront->info;
+} //end front
+
+template <class Type>
+Type linkedQueueType<Type>::back() const
+{
+    assert(queueRear != NULL);
+    return queueRear->info;
+} //end back
+
+template <class Type>
+int linkedQueueType<Type>::queueCount() const
+{
+    return count;
+} //end queueCount
 
 template <class Type>
 void linkedQueueType<Type>::addQueue(const Type& newElement)
@@ -147,21 +174,9 @@ void linkedQueueType<Type>::addQueue(const Type& newElement)
         queueRear->link = newNode;
         queueRear = queueRear->link;
     }
+    count++;        //increment count
 } //end addQueue
 
-template <class Type>
-Type linkedQueueType<Type>::front() const
-{
-    assert(queueFront != NULL);
-    return queueFront->info;
-} //end front
-
-template <class Type>
-Type linkedQueueType<Type>::back() const
-{
-    assert(queueRear != NULL);
-    return queueRear->info;
-} //end back
   
 template <class Type>
 void linkedQueueType<Type>::deleteQueue()
@@ -178,6 +193,7 @@ void linkedQueueType<Type>::deleteQueue()
         if (queueFront == NULL) //if after deletion the
                                 //queue is empty
             queueRear = NULL;   //set queueRear to NULL
+        count--;                //decrement count
     }
     else
         cout << "Cannot remove from an empty queue" << endl;
@@ -188,6 +204,7 @@ linkedQueueType<Type>::linkedQueueType()
 {
     queueFront = NULL;  //set front to null
     queueRear = NULL;   //set rear to null
+    count = 0;
 } //end default constructor
 
 template <class Type>
@@ -240,6 +257,7 @@ void linkedQueueType<Type>::copyQueue
             queueRear = newNode;
             current = current->link;
         } //end while
+        count = otherQueue.count;
     } //end else
 } //end copyQueue
 #endif //LINKED_QUEUE_H
