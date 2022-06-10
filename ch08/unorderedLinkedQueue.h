@@ -6,7 +6,7 @@
 using namespace std;
 
 template <class Type>
-class linkedQueueType<Type>: public unorderedLinkedList<Type>
+class linkedQueueType: public unorderedLinkedList<Type>
 {
 public:
     const linkedQueueType<Type>& operator=
@@ -80,43 +80,50 @@ const linkedQueueType<Type>& linkedQueueType<Type>::operator=
 template <class Type>
 bool linkedQueueType<Type>::isEmptyQueue() const
 {
-    return linkedListType<Type>::isEmptyList();
+    using linkedListType<Type>::isEmptyList;
+    return isEmptyList();
 } //end isEmptyQueue
 
 template <class Type>
 void linkedQueueType<Type>::initializeQueue()
 {
-    linkedListType<Type>::initializeList();
+    using linkedListType<Type>::initializeList;
+    initializeList();
 } //end initializeQueue
 
 template <class Type>
 Type linkedQueueType<Type>::front() const
 {
-    return linkedListType<Type>::front();
+    using linkedListType<Type>::front;
+    return front();
 } //end front
 
 template <class Type>
 Type linkedQueueType<Type>::back() const
 {
-    return linkedListType<Type>::back();
+    using linkedListType<Type>::back;
+    return back();
 } //end back
 
 template <class Type>
 int linkedQueueType<Type>::queueCount() const
 {
+    using linkedListType<Type>::count;
     return count;
 } //end queueCount
 
 template <class Type>
 void linkedQueueType<Type>::addQueue(const Type& queueElement)
 {
-    unorderedLinkedList<Type>::insertLast(queueElement);
+    using unorderedLinkedList<Type>::insertLast;
+    insertLast(queueElement);
 } //end addQueue
 
 template <class Type>
 void linkedQueueType<Type>::deleteQueue()
 {
-    unorderedLinkedList<Type>::deleteItemAt(0);
+    using unorderedLinkedList<Type>::deleteItemAt;
+    deleteItemAt(0);
 } //end deleteQueue
 
 template <class Type>
@@ -143,6 +150,7 @@ template <class Type>
 void linkedQueueType<Type>::copyQueue
                         (const linkedQueueType<Type>& otherQueue)
 {
-    linkedListType<Type>::copyList(otherQueue);
+    using linkedListType<Type>::copyList;
+    copyList(otherQueue);
 }
 #endif //UNORDERED_LINKED_QUEUE_H
