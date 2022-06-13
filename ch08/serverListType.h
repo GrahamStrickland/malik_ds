@@ -38,7 +38,7 @@ public:
     void setServerBusy(int serverID, customerType cCustomer,
                        int tTime);
         //Function to set a server busy.
-        //Postcondition: The server specified by serverId is set to
+        //Postcondition: The server specified by serverID is set to
         //  "busy", to serve the customer specified by cCustomer,
         //  and the transaction time is set according to the
         //  parameter tTime.

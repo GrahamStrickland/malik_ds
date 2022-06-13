@@ -44,7 +44,37 @@ void serverType::setTransactionTime()
     transactionTime = time;
 }
 
+int serverType::getRemainingTransactionTime() const
+{
+    return transactionTime;
+}
+
 void serverType::decreaseTransactionTime()
 {
     transactionTime--;
+}
+
+void serverType::setCurrentCustomer(customerType cCustomer)
+{
+    currentCustomer = cCustomer;
+}
+
+int serverType::getCurrentCustomerNumber() const
+{
+    return currentCustomer.getCustomerNumber();
+}
+
+int serverType::getCurrentCustomerArrivalTime() const
+{
+    return currentCustomer.getArrivalTime();
+}
+
+int serverType::getCurrentCustomerWaitingTime() const
+{
+    return currentCustomer.getWaitingTime();
+}
+
+int serverType::getCurrentCustomerTransactionTime() const
+{
+    return currentCustomer.getTransactionTime();
 }

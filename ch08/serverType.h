@@ -8,6 +8,7 @@
 // This class specifies the members to implement a server.
 //************************************************************
 
+#include <string>
 #include "customerType.h"
 
 class serverType
