@@ -13,6 +13,8 @@
 #include <fstream>
 #include "serverType.h"
 
+using namespace std;
+
 class serverListType
 {
 public:

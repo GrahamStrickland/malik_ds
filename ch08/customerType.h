@@ -27,7 +27,7 @@ public:
         //Postcondition: customerNumber = cN; arrivalTime = arrvTime;
         //  waitingTime = wTime; transactionTime = tTime;
 
-    int getWaitingtime() const;
+    int getWaitingTime() const;
         //Function to return the waiting time of a customer.
         //Postcondition: waitingTime = time;
 

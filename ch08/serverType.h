@@ -11,6 +11,8 @@
 #include <string>
 #include "customerType.h"
 
+using namespace std;
+
 class serverType
 {
 public:

@@ -11,7 +11,7 @@
 using namespace std;
 
 waitingCustomerQueueType::waitingCustomerQueueType(int size)
-                          :queueType<CustomerType>(size)
+                          :queueType<customerType>(size)
 {
 }
 

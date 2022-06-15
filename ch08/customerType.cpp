@@ -5,6 +5,7 @@
 // This class specifies the members to implement a customer.
 //************************************************************
 
+#include <string>
 #include "customerType.h"
 
 using namespace std;
