@@ -47,8 +47,10 @@ void startTransaction(int& serverID, waitingCustomerQueueType& customerQueue,
         serverListType& serverList)
 {
     // 1. Remove the customer from the front of the queue.
-    customer = customerQueue.front();
-    customerQueue.deleteQueue();
+    if (!customerQueue.isEmptyQueue()) {
+        customer = customerQueue.front();
+        customerQueue.deleteQueue();
+    }
 
     // 2. Update the total waiting time by adding the current
     // customer's waiting time to the previous total waiting time.
@@ -93,7 +95,8 @@ void runSimulation()
         // 2.3. If a customer arrives, increment the number of customers by 1
         // and add the new customer to the queue.
         randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-        if (randomNumber > exp(-(1.0 / static_cast<double>(tBetweenCArrival))))
+        if (randomNumber > exp(-(1.0 / static_cast<double>(tBetweenCArrival)))
+                && !queue.isFullQueue())
         {
             numOfCustomers++;
             cust.setCustomerInfo(numOfCustomers, clock, 0, transTime);
