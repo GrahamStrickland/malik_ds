@@ -12,10 +12,6 @@ using namespace std;
 void setSimulationParameters(int& sTime, int& numOfServers,
                              int& transTime, int& tBetweenCArrival);
 
-void startTransaction(int& serverID, waitingCustomerQueueType& customerQueue,
-        customerType& customer, int& totalWait, int& transTime,
-        serverListType& serverList);
-
 void runSimulation();
 
 int main() {
@@ -42,24 +38,6 @@ void setSimulationParameters(int& sTime, int& numOfServers,
     cout << endl;
 }
 
-void startTransaction(int& serverID, waitingCustomerQueueType& customerQueue,
-        customerType& customer, int& totalWait, int& transTime,
-        serverListType& serverList)
-{
-    // 1. Remove the customer from the front of the queue.
-    if (!customerQueue.isEmptyQueue()) {
-        customer = customerQueue.front();
-        customerQueue.deleteQueue();
-    }
-
-    // 2. Update the total waiting time by adding the current
-    // customer's waiting time to the previous total waiting time.
-    totalWait = totalWait + customer.getWaitingTime();
-
-    // 3. Set the free server to begin the transaction.
-    serverList.setServerBusy(serverID, customer, transTime);
-}
-
 void runSimulation()
 {
     // 1. Declare and initialize the variables such as the simulation parameters,
@@ -68,10 +46,9 @@ void runSimulation()
     // left in the waiting queue, number of customers left with the servers,
     // waitingCustomerQueue, and a list of servers.
     int simulationTime, numOfServers, transTime, tBetweenCArrival, numOfCustomers = 0, 
-        clock = 0, totalWaitingTime = 0, avgWaitingTime = 0, numOfCustArrived = 0, 
-        numOfCustServed = 0, numOfCustInQueue = 0, numOfCustAtServers = 0,
-        serverID;
-    double randomNumber = 0.0;
+        clock = 0, totalWaitingTime = 0, numOfCustArrived = 0, numOfCustServed = 0, 
+        numOfCustInQueue = 0, numOfCustAtServers = 0, serverID;
+    double randomNumber = 0.0, avgWaitingTime = 0.0;
     setSimulationParameters(simulationTime, numOfServers, transTime, tBetweenCArrival);
     waitingCustomerQueueType queue;
     serverListType servers(numOfServers);
@@ -98,32 +75,51 @@ void runSimulation()
         if (randomNumber > exp(-(1.0 / static_cast<double>(tBetweenCArrival)))
                 && !queue.isFullQueue())
         {
-            numOfCustomers++;
             cust.setCustomerInfo(numOfCustomers, clock, 0, transTime);
             queue.addQueue(cust);
             cout << "Customer number " << numOfCustomers + 1 << " arrived at time unit " 
-                 << clock;
+                 << clock << endl;
+            numOfCustomers++;
+            numOfCustArrived++;
+            numOfCustInQueue++;
         }
 
         // 2.4. If a server is free and the customer's queue is nonempty,
         // remove a customer from the front of the queue and send
         // the customer to the free server
         serverID = servers.getFreeServerID();
-        if (serverID)
-            startTransaction(serverID, queue, cust, totalWaitingTime, transTime, servers);
+        if (serverID != -1) {
+            // 2.4.1. Remove the customer from the front of the queue.
+            if (!queue.isEmptyQueue()) {
+                cust = queue.front();
+                queue.deleteQueue();
+            }
+
+            // 2.4.2. Update the total waiting time by adding the current
+            // customer's waiting time to the previous total waiting time.
+            totalWaitingTime = totalWaitingTime + cust.getWaitingTime();
+
+            // 2.4.3. Set the free server to begin the transaction.
+            servers.setServerBusy(serverID, cust, transTime);
+            numOfCustAtServers++;
+            numOfCustInQueue--;
+        }
     }
 
     // 3. Print the appropriate results. Your results must include the number of
     // customers left in the queue, the number of customers still with servers,
     // the number of customers arrived, and the number of customers who
     // actually completed a transaction.
+    avgWaitingTime = static_cast<double>(totalWaitingTime) / 
+                     static_cast<double>(numOfCustomers);
     cout << endl << "The simulation ran for " << simulationTime << " time units"
          << endl << "Number of servers: " << numOfServers << endl << "Average "
-         << "transaction time:" << transTime << endl << "Average arrival time "
+         << "transaction time: " << transTime << endl << "Average arrival time "
          << "difference between customers: " << tBetweenCArrival << endl
-         << "Total waiting time: " << totalWaitingTime << "Number of customers "
+         << "Total waiting time: " << totalWaitingTime << endl << "Number of customers "
          << "that completed a transaction: " << numOfCustServed << endl
-         << "Number of customers left in the queue: " << numOfCustInQueue
+         << "Number of customers left at the servers: " << numOfCustAtServers << endl
+         << "Number of customers left in the queue: " << numOfCustInQueue << endl
          << "Average waiting time: " << avgWaitingTime << endl
          << "************** END SIMULATION **************" << endl;
 }

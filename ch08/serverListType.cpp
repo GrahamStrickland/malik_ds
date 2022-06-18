@@ -31,6 +31,8 @@ int serverListType::getFreeServerID() const
             serverID = i;
             break;
         }
+
+    return serverID;
 }
 
 int serverListType::getNumberOfBusyServers() const
@@ -74,7 +76,7 @@ void serverListType::updateServers(ostream& outF)
                 outF << "From server number " << (i + 1)
                      << " customer number "
                      << servers[i].getCurrentCustomerNumber()
-                     << "\n     depareted at clock unit "
+                     << "\n     departed at clock unit "
                      << servers[i].getCurrentCustomerArrivalTime()
                      + servers[i].getCurrentCustomerWaitingTime()
                      + servers[i].getCurrentCustomerTransactionTime()
