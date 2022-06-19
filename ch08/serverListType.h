@@ -50,7 +50,7 @@ public:
         //Postcondition: The server specified by serverID is set to
         //  "busy", to serve the customer specified by cCustomer.
 
-    void updateServers(ostream& outFile);
+    int updateServers(ostream& outFile);
         //Function to update the status of a server.
         //Postcondition: The transaction time of each busy server
         //  is decremented by one unit. If the transaction time of

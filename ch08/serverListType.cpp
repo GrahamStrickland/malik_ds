@@ -64,8 +64,10 @@ void serverListType::setServerBusy(int serverID,
     servers[serverID].setCurrentCustomer(cCustomer);
 }
 
-void serverListType::updateServers(ostream& outF)
+int serverListType::updateServers(ostream& outF)
 {
+    int serversFreed = 0;
+    
     for (int i = 0; i < numOfServers; i++)
         if (!servers[i].isFree())
         {
@@ -82,6 +84,9 @@ void serverListType::updateServers(ostream& outF)
                      + servers[i].getCurrentCustomerTransactionTime()
                      << endl;
                 servers[i].setFree();
+                serversFreed++;
             }
         }
+
+    return serversFreed;
 }

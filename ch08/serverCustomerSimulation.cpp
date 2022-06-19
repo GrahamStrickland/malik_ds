@@ -47,7 +47,7 @@ void runSimulation()
     // waitingCustomerQueue, and a list of servers.
     int simulationTime, numOfServers, transTime, tBetweenCArrival, numOfCustomers = 0, 
         clock = 0, totalWaitingTime = 0, numOfCustArrived = 0, numOfCustServed = 0, 
-        numOfCustInQueue = 0, numOfCustAtServers = 0, serverID;
+        numOfCustInQueue = 0, numOfCustAtServers = 0, serverID, served = 0;
     double randomNumber = 0.0, avgWaitingTime = 0.0;
     setSimulationParameters(simulationTime, numOfServers, transTime, tBetweenCArrival);
     waitingCustomerQueueType queue;
@@ -62,7 +62,9 @@ void runSimulation()
     {
         // 2.1. Update the server list to decrement the transaction time of
         // each busy server by one time unit.
-        servers.updateServers(cout);
+        served = servers.updateServers(cout);
+        numOfCustServed += served;
+        numOfCustAtServers -= served;
 
         // 2.2. If the customer's queue is nonempty, increment the waiting
         // time of each customer by one time unit.
@@ -88,12 +90,10 @@ void runSimulation()
         // remove a customer from the front of the queue and send
         // the customer to the free server
         serverID = servers.getFreeServerID();
-        if (serverID != -1) {
+        if (serverID != -1 && !queue.isEmptyQueue()) {
             // 2.4.1. Remove the customer from the front of the queue.
-            if (!queue.isEmptyQueue()) {
-                cust = queue.front();
-                queue.deleteQueue();
-            }
+            cust = queue.front();
+            queue.deleteQueue();
 
             // 2.4.2. Update the total waiting time by adding the current
             // customer's waiting time to the previous total waiting time.
@@ -110,8 +110,18 @@ void runSimulation()
     // customers left in the queue, the number of customers still with servers,
     // the number of customers arrived, and the number of customers who
     // actually completed a transaction.
+    int custWaitingTime = 0;
+    while (!queue.isEmptyQueue()) {
+        cust = queue.front();
+        custWaitingTime = cust.getWaitingTime();
+        if (custWaitingTime > 0)
+            totalWaitingTime += custWaitingTime;
+        queue.deleteQueue();
+    }
     avgWaitingTime = static_cast<double>(totalWaitingTime) / 
                      static_cast<double>(numOfCustomers);
+    cout.setf(ios::showpoint);
+    cout.precision(2);
     cout << endl << "The simulation ran for " << simulationTime << " time units"
          << endl << "Number of servers: " << numOfServers << endl << "Average "
          << "transaction time: " << transTime << endl << "Average arrival time "
