@@ -10,8 +10,7 @@
 
 using namespace std;
 
-waitingCustomerQueueType::waitingCustomerQueueType(int size)
-                          :queueType<customerType>(size)
+waitingCustomerQueueType::waitingCustomerQueueType()
 {
 }
 
@@ -22,17 +21,17 @@ void waitingCustomerQueueType::updateWaitingQueue()
     cust.setWaitingTime(-1);
     int wTime = 0;
 
-    addQueue(cust);
+    push(cust);
 
     while (wTime != -1)
     {
         cust = front();
-        deleteQueue();
+        pop();
 
         wTime = cust.getWaitingTime();
         if (wTime == -1)
             break;
         cust.incrementWaitingTime();
-        addQueue(cust);
+        push(cust);
     }
 }

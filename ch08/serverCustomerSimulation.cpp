@@ -68,17 +68,16 @@ void runSimulation()
 
         // 2.2. If the customer's queue is nonempty, increment the waiting
         // time of each customer by one time unit.
-        if (!queue.isEmptyQueue())
+        if (!queue.empty())
             queue.updateWaitingQueue();
 
         // 2.3. If a customer arrives, increment the number of customers by 1
         // and add the new customer to the queue.
         randomNumber = static_cast<double>(rand()) / static_cast<double>(RAND_MAX);
-        if (randomNumber > exp(-(1.0 / static_cast<double>(tBetweenCArrival)))
-                && !queue.isFullQueue())
+        if (randomNumber > exp(-(1.0 / static_cast<double>(tBetweenCArrival))))
         {
             cust.setCustomerInfo(numOfCustomers, clock, 0, transTime);
-            queue.addQueue(cust);
+            queue.push(cust);
             cout << "Customer number " << numOfCustomers + 1 << " arrived at time unit " 
                  << clock << endl;
             numOfCustomers++;
@@ -90,10 +89,10 @@ void runSimulation()
         // remove a customer from the front of the queue and send
         // the customer to the free server
         serverID = servers.getFreeServerID();
-        if (serverID != -1 && !queue.isEmptyQueue()) {
+        if (serverID != -1 && !queue.empty()) {
             // 2.4.1. Remove the customer from the front of the queue.
             cust = queue.front();
-            queue.deleteQueue();
+            queue.pop();
 
             // 2.4.2. Update the total waiting time by adding the current
             // customer's waiting time to the previous total waiting time.
@@ -111,12 +110,12 @@ void runSimulation()
     // the number of customers arrived, and the number of customers who
     // actually completed a transaction.
     int custWaitingTime = 0;
-    while (!queue.isEmptyQueue()) {
+    while (!queue.empty()) {
         cust = queue.front();
         custWaitingTime = cust.getWaitingTime();
         if (custWaitingTime > 0)
             totalWaitingTime += custWaitingTime;
-        queue.deleteQueue();
+        queue.pop();
     }
     avgWaitingTime = static_cast<double>(totalWaitingTime) / 
                      static_cast<double>(numOfCustomers);
