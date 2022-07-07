@@ -8,8 +8,6 @@
 #include <iostream>
 #include <cassert>
 
-using namespace std;
-
 template <class elemType>
 class arrayListType
 {
@@ -161,9 +159,9 @@ template <class elemType>
 void arrayListType<elemType>::print() const
 {
     for (int i = 0; i < length; i++)
-        cout << list[i] << " ";
+        std::cout << list[i] << " ";
 
-    cout << endl;
+    std::cout << '\n';
 }
 
 template <class elemType>
@@ -178,11 +176,11 @@ void arrayListType<elemType>::insertAt
                   (int location, const elemType& insertItem)
 {
     if (location < 0 || location >= maxSize)
-        cerr << "The position of the item to be inserted "
-             << "is out of range" << endl;
+        std::cerr << "The position of the item to be inserted "
+                  << "is out of range\n";
     else
         if (length >= maxSize)  //list is full
-            cerr << "Cannot insert in a full list" << endl;
+            std::cerr << "Cannot insert in a full list\n";
         else
         {
             for (int i = length; i > location; i--)
@@ -199,7 +197,7 @@ template <class elemType>
 void arrayListType<elemType>::insertEnd(const elemType& insertItem)
 {
     if (length >= maxSize)  //the list is full
-        cerr << "Cannot insert in a full list" << endl;
+        std::cerr << "Cannot insert in a full list\n";
     else
     {
         list[length] = insertItem;  //insert the item at the end
@@ -211,8 +209,8 @@ template <class elemType>
 void arrayListType<elemType>::removeAt(int location)
 {
     if (location < 0 || location >= length)
-        cerr << "The location of the item to be removed "
-             << "is out of range" << endl;
+        std::cerr << "The location of the item to be removed "
+                  << "is out of range\n";
     else
     {
         for (int i = location; i < length - 1; i++)
@@ -227,8 +225,8 @@ void arrayListType<elemType>::retrieveAt
                               (int location, elemType& retItem) const
 {
     if (location < 0 || location >= length)
-        cerr << "The location of the item to be retrieved is "
-             << "out of range." << endl;
+        std::cerr << "The location of the item to be retrieved is "
+                  << "out of range.\n";
     else
         retItem = list[location];
 }   //end retrieveAt
@@ -238,8 +236,8 @@ void arrayListType<elemType>::replaceAt
                             (int location, const elemType& repItem)
 {
     if (location < 0 || location >= length)
-        cerr << "The location of the item to be replaced is "
-             << "out of range." << endl;
+        std::cerr << "The location of the item to be replaced is "
+                  << "out of range.\n";
     else
         list[location] = repItem;
 }   //end replaceAt
@@ -255,8 +253,8 @@ arrayListType<elemType>::arrayListType(int size)
 {
     if (size < 0)
     {
-        cerr << "The array size must be positive. Creating "
-             <<"an array of size 100. " << endl;
+        std::cerr << "The array size must be positive. Creating "
+                  <<"an array of size 100.\n";
 
         maxSize = 100;
     }
@@ -337,7 +335,7 @@ void arrayListType<elemType>::insert(const elemType& insertItem)
         list[length++] = insertItem;    //insert the item and
                                         //increment the length
     else if (length == maxSize)
-        cerr << "Cannot insert in a full list." << endl;
+        std::cerr << "Cannot insert in a full list.\n";
     else
     {
         loc = seqSearch(insertItem);
@@ -346,8 +344,8 @@ void arrayListType<elemType>::insert(const elemType& insertItem)
                         //does not exist in the list
             list[length++] = insertItem;
         else
-            cerr << "The item to be inserted is already in "
-                 << "the list. No duplicates are allowed." << endl;
+            std::cerr << "The item to be inserted is already in "
+                      << "the list. No duplicates are allowed.\n";
     }
 }   //end insert
 
@@ -357,7 +355,7 @@ void arrayListType<elemType>::remove(const elemType& removeItem)
     int loc;
 
     if (length == 0)
-        cerr << "Cannot delete from an empty list." << endl;
+        std::cerr << "Cannot delete from an empty list.\n";
     else
     {
         loc = seqSearch(removeItem);
@@ -365,7 +363,7 @@ void arrayListType<elemType>::remove(const elemType& removeItem)
         if (loc != -1)
             removeAt(loc);
         else
-            cout << "The item to be deleted is not in the list."
-                 << endl;
+            std::cout << "The item to be deleted is not in "
+                      << "the list.\n";
     }
 }   //end remove

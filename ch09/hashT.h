@@ -93,9 +93,9 @@ void hashT<elemType>::insert(int hashIndex, const elemType& rec)
     }
 
     else if (HTable[hashIndex] == rec)
-        cerr << "Error: No duplicates are allowed." << endl;
+        std::cerr << "Error: No duplicates are allowed.\n";
     else
-        cerr << "Error: The table is full. "
-             << "Unable to resolve the collision." << endl;
+        std::cerr << "Error: The table is full. "
+                  << "Unable to resolve the collision.\n";
 }
 #endif //HASH_T_H

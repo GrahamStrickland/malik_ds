@@ -3,8 +3,6 @@
 
 #include "arrayListType.h"
 
-using namespace std;
-
 template <class elemType>
 class orderedArrayListType: public arrayListType<elemType>
 {
@@ -57,7 +55,7 @@ void orderedArrayListType<elemType>::insertOrd(const elemType& item)
         this->length++;
     }
     else if (this->length == this->maxSize)
-        cerr << "Cannot insert into a full list." << endl;
+        std::cerr << "Cannot insert into a full list.\n";
     else
     {
         while (first <= last && !found)
@@ -73,8 +71,8 @@ void orderedArrayListType<elemType>::insertOrd(const elemType& item)
         }//end while
          
         if (found)
-            cerr << "The insert item is already in the list. "
-                 << "Duplicates are not allowed." << endl;
+            std::cerr << "The insert item is already in the list. "
+                      << "Duplicates are not allowed.\n";
         else
         {
             if (this->list[mid] < item)
