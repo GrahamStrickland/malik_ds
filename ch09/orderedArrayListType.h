@@ -8,8 +8,29 @@ class orderedArrayListType: public arrayListType<elemType>
 {
 public:
     int binarySearch(const elemType& item) const;
+        //Function to search the list for item using a binary
+        //  search algorithm.
+        //Postcondition: Returned index of item in list if
+        //  item is in list; otherwise -1.
+
+    int recursiveBinarySearch(const elemType& item, int first, 
+            int last) const;
+        //Function to search the list for item using a recursive
+        //  binary search algorithm.
+        //Precondition: first must be set to 0 and last to 
+        //  list.length initially if entire list is to be
+        //  searched.
+        //Postcondition: Returned index of item in list if
+        //  item is in list; otherwise -1.
+        
     void insertOrd(const elemType& item);
+        //Function to insert an item into the list using an
+        //  adaptation of the binary search algorithm.
+        //Postcondition: item inserted in correct position
+        //  in list; size = size + 1;
+
     orderedArrayListType(int size = 100);
+        //Constructor with parameter.
 };
 
 template <class elemType>
@@ -39,6 +60,22 @@ int orderedArrayListType<elemType>::binarySearch
     else
         return -1;
 }//end binarySearch
+ 
+template <class elemType>
+int orderedArrayListType<elemType>::recursiveBinarySearch
+        (const elemType& item, int first, int last) const
+{
+    int mid = (first + last) / 2;
+
+    if (this->list[mid] == item)
+        return mid;
+    else if (first > last) 
+        return -1;
+    else if (this->list[mid] > item)
+        return recursiveBinarySearch(item, first, mid - 1);
+    else
+        return recursiveBinarySearch(item, mid + 1, first);
+}//end recursiveBinarySearch
 
 template <class elemType>
 void orderedArrayListType<elemType>::insertOrd(const elemType& item)

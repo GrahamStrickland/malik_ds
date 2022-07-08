@@ -95,6 +95,14 @@ public:
         //  in the array where the item is found; otherwise,
         //  returns -1.
 
+     int recursiveSeqSearch(const elemType& item, int loc) const;
+        //Function to recursively search the list for a given item.
+        //Precondition: loc must be set to 0 initially to search
+        //  entire list.
+        //Postcondition: If the item is found, returns the location
+        //  in the array where the item is found; otherwise,
+        //  returns -1.
+        
      void insert(const elemType& insertItem);
         //Function to insert the item specified by the parameter
         //insertItem at the end of the list. However, first the
@@ -324,6 +332,16 @@ int arrayListType<elemType>::seqSearch(const elemType& item) const
         return loc;
     else
         return -1;
+}   //end seqSearch
+
+template <class elemType>
+int arrayListType<elemType>::recursiveSeqSearch(const elemType& item, int loc) const
+{
+    if (loc == length)
+        return -1;
+    else if (list[loc] == item)
+        return loc;
+    else return recursiveSeqSearch(item, loc+1);
 }   //end seqSearch
 
 template <class elemType>
