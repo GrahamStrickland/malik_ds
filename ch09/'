@@ -88,7 +88,7 @@ template <class elemType>
 int orderedArrayListType<elemType>::seqOrdSearch
     (const elemType& item) const
 {
-    for (int i = 0; i < this->length && this->list[i] <= item; i++)
+    for (int i = 0; i < this->length && this->list[i] < item; i++)
         if (this->list[i] == item)
             return i;
     return -1;
