@@ -1,17 +1,33 @@
-#ifndef ORDERED_ARRAY_LIST_TYPE
-#define ORDERED_ARRAY_LIST_TYPE
+#ifndef ORDERED_COMPARISON_LIST_TYPE
+#define ORDERED_COMPARISON_LIST_TYPE
 
 #include "arrayListType.h"
 
+const int MIN_SEARCH_SIZE = 15;
+
 template <class elemType>
-class orderedArrayListType: public arrayListType<elemType>
+class orderedComparisonListType: public arrayListType<elemType>
 {
 public:
-    int binarySearch(const elemType& item) const;
+    int binarySearch(const elemType& item, int& numComparisons)
+        const;
         //Function to search the list for item using a binary
         //  search algorithm.
         //Postcondition: Returned index of item in list if
-        //  item is in list; otherwise -1.
+        //  item is in list; otherwise -1; numComparisons
+        //  adjusted to reflect how many comparisons were made
+        //  in the search.
+
+    int binarySeqSearch(const elemType& item, int& numComparisons)
+        const;
+        //Function to search the list for item using a binary
+        //  search algorithm, changing to a sequential search
+        //  algorithm when the size of the search list reduces
+        //  to 15.
+        //Postcondition: Returned index of item in list if
+        //  item is in list; otherwise -1; numComparisons
+        //  adjusted to reflect how many comparisons were made
+        //  in the search.
 
     int recursiveBinarySearch(const elemType& item, int first, 
             int last) const;
@@ -23,10 +39,13 @@ public:
         //Postcondition: Returned index of item in list if
         //  item is in list; otherwise -1.
         
-    int seqOrdSearch(const elemType& item) const;
+    int seqOrdSearch(const elemType& item, int first, int last)
+        const;
         //Function to search the list sequentially for item,
         //  returns -1 if item at current index in search
         //  > search item.
+        //Precondition: first must be set to the start index
+        //  of the subarray to be searched, last the end index.
         //Postcondition: Returned index of item in list if
         //  successful, otherwise -1.
         
@@ -36,14 +55,15 @@ public:
         //Postcondition: item inserted in correct position
         //  in list; size = size + 1;
 
-    orderedArrayListType(int size = 100);
+    orderedComparisonListType(int size = 100);
         //Constructor with parameter.
 };
 
 template <class elemType>
-int orderedArrayListType<elemType>::binarySearch
-                            (const elemType& item) const
+int orderedComparisonListType<elemType>::binarySearch
+    (const elemType& item, int& numComparisons) const
 {
+    numComparisons = 0;
     int first = 0;
     int last = this->length - 1;
     int mid;
@@ -56,10 +76,14 @@ int orderedArrayListType<elemType>::binarySearch
 
         if (this->list[mid] == item)
             found = true;
-        else if (this->list[mid] > item)
+        else if (this->list[mid] > item) {
             last = mid - 1;
-        else
+            numComparisons++;
+        } else {
             first = mid + 1;
+            numComparisons++;
+        }
+        numComparisons++;
     }
 
     if (found)
@@ -67,9 +91,52 @@ int orderedArrayListType<elemType>::binarySearch
     else
         return -1;
 }//end binarySearch
+
+template <class elemType>
+int orderedComparisonListType<elemType>::binarySeqSearch
+    (const elemType& item, int& numComparisons) const
+{
+    numComparisons = 0;
+    int first = 0;
+    int last = this->length - 1;
+    int mid;
+
+    bool found = false;
+
+    while (first <= last && !found 
+            && (last - first) > MIN_SEARCH_SIZE) 
+    {
+        mid = (first + last) / 2;
+
+        if (this->list[mid] == item)
+            found = true;
+        else if (this->list[mid] > item) {
+            last = mid - 1;
+            numComparisons++;
+        } else {
+            first = mid + 1;
+            numComparisons++;
+        }
+        numComparisons++;
+    }
+
+    if (found)
+        return mid;
+    else {
+        int loc;
+        if (this->list[mid] > item) {
+            loc = seqOrdSearch(item, first, mid-1);
+            numComparisons += (mid-1) - loc;
+        } else {
+            loc = seqOrdSearch(item, mid+1, last);
+            numComparisons += loc - (mid+1);
+        }
+        return loc;
+    }
+}//end binarySearch
  
 template <class elemType>
-int orderedArrayListType<elemType>::recursiveBinarySearch
+int orderedComparisonListType<elemType>::recursiveBinarySearch
         (const elemType& item, int first, int last) const
 {
     if (first > last) 
@@ -85,17 +152,17 @@ int orderedArrayListType<elemType>::recursiveBinarySearch
 }//end recursiveBinarySearch
 
 template <class elemType>
-int orderedArrayListType<elemType>::seqOrdSearch
-    (const elemType& item) const
+int orderedComparisonListType<elemType>::seqOrdSearch
+    (const elemType& item, int first, int last) const
 {
-    for (int i = 0; i < this->length && this->list[i] < item; i++)
+    for (int i = first; i < last && this->list[i] <= item; i++)
         if (this->list[i] == item)
             return i;
     return -1;
 }//end seqOrdSearch
 
 template <class elemType>
-void orderedArrayListType<elemType>::insertOrd(const elemType& item)
+void orderedComparisonListType<elemType>::insertOrd(const elemType& item)
 {
     int first = 0;
     int last = this->length - 1;
@@ -138,7 +205,7 @@ void orderedArrayListType<elemType>::insertOrd(const elemType& item)
 }//end insertOrd
  
 template <class elemType>
-orderedArrayListType<elemType>::orderedArrayListType(int size)
+orderedComparisonListType<elemType>::orderedComparisonListType(int size)
     : arrayListType<elemType>(size)
 {}
-#endif //ORDERED_ARRAY_LIST_TYPE
+#endif //ORDERED_COMPARISON_LIST_TYPE
