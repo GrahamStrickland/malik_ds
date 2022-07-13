@@ -120,17 +120,20 @@ int orderedComparisonListType<elemType>::binarySeqSearch
         numComparisons++;
     }
 
-    if (found)
+    if (found)  //Do not call sequential search.
         return mid;
-    else {
-        int loc;
-        if (this->list[mid] > item) {
-            loc = seqOrdSearch(item, first, mid-1);
-            numComparisons += (mid-1) - loc;
-        } else {
-            loc = seqOrdSearch(item, mid+1, last);
-            numComparisons += loc - (mid+1);
-        }
+    else {      //Call sequential search and calculate number of comparisons.
+        int loc;    
+        if (this->list[mid] > item) //Calculate subarray start and end.
+            last = mid-1;
+        else 
+            first = mid+1;
+        loc = seqOrdSearch(item, first, last);
+        if (found)  //Not all elements in subarray compared.
+            numComparisons += last - loc + 1;
+        else        //All elements in subarray compared.
+            numComparisons += last - first + 1;
+
         return loc;
     }
 }//end binarySearch
