@@ -1,5 +1,5 @@
-#ifndef ORDERED_COMPARISON_LIST_TYPE
-#define ORDERED_COMPARISON_LIST_TYPE
+#ifndef ORDERED_COMPARISON_LIST_TYPE_H
+#define ORDERED_COMPARISON_LIST_TYPE_H
 
 #include "arrayListType.h"
 
@@ -208,4 +208,4 @@ template <class elemType>
 orderedComparisonListType<elemType>::orderedComparisonListType(int size)
     : arrayListType<elemType>(size)
 {}
-#endif //ORDERED_COMPARISON_LIST_TYPE
+#endif //ORDERED_COMPARISON_LIST_TYPE_H
