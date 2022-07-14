@@ -9,7 +9,7 @@
 int main()
 {
     orderedArrayListType<int> list;
-    int numItems, numRemoved;
+    int numItems, numRemoved, retItem;
 
     //Seed random number generator.
     srand(time(0));
@@ -36,7 +36,8 @@ int main()
 
     //Remove random items from list and print contents.
     for (int i = 0; i < numRemoved; ++i) {
-        list.removeOrd(list.retriveAt(rand() % numItems));
+        list.retrieveAt(rand() % numItems, retItem);
+        list.removeOrd(retItem);
         numItems--;
     }
     std::cout << "list after removing " << numRemoved 

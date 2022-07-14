@@ -35,6 +35,11 @@ public:
         //  adaptation of the binary search algorithm.
         //Postcondition: item inserted in correct position
         //  in list; size = size + 1;
+    
+    void removeOrd(const elemType& item);
+        //Function to remove an item from the list and
+        //  to adjust ordering of other items accordingly.
+        //Postcondition: item removed from list; length--;
 
     orderedArrayListType(int size = 100);
         //Constructor with parameter.
@@ -137,6 +142,12 @@ void orderedArrayListType<elemType>::insertOrd(const elemType& item)
     }
 }//end insertOrd
  
+template <class elemType>
+void orderedArrayListType<elemType>::removeOrd(const elemType& item)
+{
+    this->length--;
+}
+
 template <class elemType>
 orderedArrayListType<elemType>::orderedArrayListType(int size)
     : arrayListType<elemType>(size)
