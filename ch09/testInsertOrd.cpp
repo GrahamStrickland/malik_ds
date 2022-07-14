@@ -1,6 +1,5 @@
-//This is a driver program to test the ADT orderedArrayListType
-//  which implements an ordered array-based list with binary
-//  search method.
+//This is a driver program to test the function insertOrd()
+//of the ADT orderedArrayListType
 
 #include <iostream> // std::cout
 #include <string>   // std::to_string
