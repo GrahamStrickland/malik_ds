@@ -129,6 +129,7 @@ int orderedComparisonListType<elemType>::binarySeqSearch
         else 
             first = mid+1;
         loc = seqOrdSearch(item, first, last);
+        found = loc != -1;
         if (found)  //Not all elements in subarray compared.
             numComparisons += last - loc + 1;
         else        //All elements in subarray compared.
@@ -158,7 +159,7 @@ template <class elemType>
 int orderedComparisonListType<elemType>::seqOrdSearch
     (const elemType& item, int first, int last) const
 {
-    for (int i = first; i < last && this->list[i] <= item; i++)
+    for (int i = first; i <= last && this->list[i] <= item; i++)
         if (this->list[i] == item)
             return i;
     return -1;
