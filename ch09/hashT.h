@@ -1,11 +1,13 @@
 #ifndef HASH_T_H
-#define HASHT_T_H
+#define HASH_T_H
 //****************************************************************
 // Author: D.S. Malik
 //
 // This class specifies the members to implement a hash table as
 // an ADT. It uses quadratic probing to resolve collisions.
 //****************************************************************
+
+#include <iostream>
 
 template <class elemType>
 class hashT
@@ -68,6 +70,7 @@ private:
     int HTSize;     //maximum size of the hash table
 };
 
+
 template <class elemType>
 void hashT<elemType>::insert(int hashIndex, const elemType& rec)
 {
@@ -97,5 +100,51 @@ void hashT<elemType>::insert(int hashIndex, const elemType& rec)
     else
         std::cerr << "Error: The table is full. "
                   << "Unable to resolve the collision.\n";
+} //end insert
+
+template <class elemType>
+void hashT<elemType>::search(int& hashIndex, const elemType& rec, 
+                                bool& found) const
+{
+    //Function body to be completed.
+} //end search
+
+template <class elemType>
+bool hashT<elemType>::isItemAtEqual(int hashIndex, 
+                                    const elemType& rec) const
+{
+    //Function body to be completed.
+    return true;
 }
+
+template <class elemType>
+void hashT<elemType>::retrieve(int hashIndex, elemType& rec) const
+{
+    //Function body to be completed.
+}
+
+template <class elemType>
+void hashT<elemType>::remove(int hashIndex, const elemType& rec)
+{
+    //Function body to be completed.
+}
+
+template <class elemType>
+void hashT<elemType>::print() const
+{
+    //Function body to be completed.
+}
+
+template <class elemType>
+hashT<elemType>::hashT(int size) : HTSize(size)
+{
+    //Function body to be completed.
+}
+
+template <class elemType>
+hashT<elemType>::~hashT()
+{
+    //Function body to be completed.
+}
+
 #endif //HASH_T_H
