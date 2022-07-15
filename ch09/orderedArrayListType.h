@@ -145,7 +145,13 @@ void orderedArrayListType<elemType>::insertOrd(const elemType& item)
 template <class elemType>
 void orderedArrayListType<elemType>::removeOrd(const elemType& item)
 {
-    this->length--;
+    int loc = binarySearch(item);
+    if (loc != -1) {
+        for (int i = loc; i < this->length; ++i)
+            this->list[i] = this->list[i+1];
+        this->length--;
+    } else
+        std::cerr << "Error: item " << item << " does not occur in list.\n";
 }
 
 template <class elemType>

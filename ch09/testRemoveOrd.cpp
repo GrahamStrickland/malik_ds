@@ -26,7 +26,8 @@ int main()
 
     std::cout << "list: ";
     list.print();
-    std::cout << '\n';
+    std::cout << "list.listSize() = " << list.listSize()
+              << '\n';
 
     //Input number of items to be removed.
     std::cout << "How many items would you like to remove? "
@@ -43,7 +44,11 @@ int main()
     std::cout << "list after removing " << numRemoved 
               << " items at random: ";
     list.print();
-    std::cout << '\n';
+    std::cout << "list.listSize() = " << list.listSize()
+              << '\n';
+
+    //Remove negative item from list to test error.
+    list.removeOrd(-1);
 
     return 0;
 }
