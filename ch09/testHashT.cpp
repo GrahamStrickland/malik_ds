@@ -3,11 +3,29 @@
 
 #include "hashT.h"
 
-int main()
-{
-    hashT<int> hTable;
+int hashFunction(int k, int hashSize);
+    //Hashing function for hashTables.
+    //Postcondition: returned k % hashSize.
 
-    std::cout << "Program working correctly.\n";
+int main()
+{   //Test constructors.
+    int ID, 
+        studentHashSize(13), 
+        teacherHashSize(19), 
+        workerHashSize(7);
+    hashT<int> studentID(studentHashSize),
+               teacherID(teacherHashSize), 
+               workerID(workerHashSize);
+
+    //Test insertion function.
+    std::cout << "Please enter ID of student: ";
+    std::cin >> ID;
+    studentID.insert(hashFunction(ID, studentHashSize), ID);
 
     return 0;
+}
+
+int hashFunction(int k, int hashSize)
+{
+    return k % hashSize;
 }

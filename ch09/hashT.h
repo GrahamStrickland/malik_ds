@@ -93,9 +93,7 @@ void hashT<elemType>::insert(int hashIndex, const elemType& rec)
         HTable[hashIndex] = rec;
         indexStatusList[hashIndex] = 1;
         length++;
-    }
-
-    else if (HTable[hashIndex] == rec)
+    } else if (HTable[hashIndex] == rec)
         std::cerr << "Error: No duplicates are allowed.\n";
     else
         std::cerr << "Error: The table is full. "
@@ -138,7 +136,9 @@ void hashT<elemType>::print() const
 template <class elemType>
 hashT<elemType>::hashT(int size) : HTSize(size)
 {
-    //Function body to be completed.
+    HTable = new elemType[HTSize];
+    indexStatusList = new int[HTSize];
+    length = 0;
 }
 
 template <class elemType>
