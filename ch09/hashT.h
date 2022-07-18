@@ -104,7 +104,19 @@ template <class elemType>
 void hashT<elemType>::search(int& hashIndex, const elemType& rec, 
                                 bool& found) const
 {
-    //Function body to be completed.
+    int inc;
+
+    inc = 1;
+
+    while ((indexStatusList[hashIndex] == 1 || 
+        indexStatusList[hashIndex] == 0) 
+        && HTable[hashIndex] != rec)
+    {
+        hashIndex = (hashIndex + inc) % HTSize;
+        inc = inc + 2;
+    }
+
+    found = HTable[hashIndex] == rec;
 } //end search
 
 template <class elemType>
@@ -144,7 +156,8 @@ hashT<elemType>::hashT(int size) : HTSize(size)
 template <class elemType>
 hashT<elemType>::~hashT()
 {
-    //Function body to be completed.
+    delete [] HTable;
+    delete [] indexStatusList;
 }
 
 #endif //HASH_T_H
