@@ -127,7 +127,11 @@ bool hashT<elemType>::isItemAtEqual(int hashIndex,
 template <class elemType>
 void hashT<elemType>::retrieve(int hashIndex, elemType& rec) const
 {
-    //Function body to be completed.
+    if (indexStatusList[hashIndex] == 1) 
+        rec = HTable[hashIndex];
+    else
+        std::cerr << "Error: no item stored at position "
+                  << hashIndex << ".\n";
 }
 
 template <class elemType>

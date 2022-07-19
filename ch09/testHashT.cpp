@@ -40,7 +40,7 @@ int main()
         std::cin >> ID;
     }
 
-    //Test isItemAtEqual() method.
+    //Test isItemAtEqual() and retrieve() methods.
     std::cout << "\nPlease enter an index and the item stored at "
               << "that index.\nIndex: ";
     std::cin >> hashIndex;
@@ -48,7 +48,10 @@ int main()
     std::cin >> ID;
     std::cout << ID << (studentID.isItemAtEqual(hashIndex, ID)
               ? " is equal to" : " is not equal to") << " item at "
-              << "position " << hashIndex << ".\n\n";
+              << "position " << hashIndex << ".\nItem stored at "
+              << "position " << hashIndex << ": ";
+    studentID.retrieve(hashIndex, ID);
+    std::cout << ID << ".\n\n";
 
     //End of test.
     std::cout << "End of test.\n";
