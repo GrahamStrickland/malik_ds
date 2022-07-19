@@ -104,12 +104,10 @@ template <class elemType>
 void hashT<elemType>::search(int& hashIndex, const elemType& rec, 
                                 bool& found) const
 {
-    int inc;
-
-    inc = 1;
+    int inc = 1;
 
     while ((indexStatusList[hashIndex] == 1 || 
-        indexStatusList[hashIndex] == 0) 
+        indexStatusList[hashIndex] == -1) 
         && HTable[hashIndex] != rec)
     {
         hashIndex = (hashIndex + inc) % HTSize;
