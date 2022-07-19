@@ -121,8 +121,7 @@ template <class elemType>
 bool hashT<elemType>::isItemAtEqual(int hashIndex, 
                                     const elemType& rec) const
 {
-    //Function body to be completed.
-    return true;
+    return HTable[hashIndex] == rec;
 }
 
 template <class elemType>

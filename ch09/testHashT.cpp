@@ -15,7 +15,7 @@ int main()
     hashT<int> studentID(studentHashSize);
     bool found(false);
 
-    //Test insertion function.
+    //Test insert() method.
     std::cout << "Welcome to the student ID entry portal.\n"
               << "Enter ID's for the first eight students.\n";
     for (int i = 0; i < numStudents; ++i) {
@@ -27,7 +27,7 @@ int main()
     }
     std::cout << "\n";
 
-    //Test search function.
+    //Test search() method.
     std::cout << "Please enter a student ID to search for: ";
     std::cin >> ID;
     while (ID != -1) {
@@ -39,6 +39,16 @@ int main()
                   << "Please enter another ID (-1 to exit): ";
         std::cin >> ID;
     }
+
+    //Test isItemAtEqual() method.
+    std::cout << "\nPlease enter an index and the item stored at "
+              << "that index.\nIndex: ";
+    std::cin >> hashIndex;
+    std::cout << "ID stored at index " << hashIndex << ": ";
+    std::cin >> ID;
+    std::cout << ID << (studentID.isItemAtEqual(hashIndex, ID)
+              ? " is equal to" : " is not equal to") << " item at "
+              << "position " << hashIndex << ".\n\n";
 
     //End of test.
     std::cout << "End of test.\n";
