@@ -30,11 +30,18 @@ int main()
     //Test search function.
     std::cout << "Please enter a student ID to search for: ";
     std::cin >> ID;
-    hashIndex = hashFunction(ID, studentHashSize);
-    studentID.search(hashIndex, ID, found);
-    std::cout << (found ? "ID " + std::to_string(ID) + 
-        " found at position " + std::to_string(hashIndex) 
-        : "ID " + std::to_string(ID) + " not found.") << '\n';
+    while (ID != -1) {
+        hashIndex = hashFunction(ID, studentHashSize);
+        studentID.search(hashIndex, ID, found);
+        std::cout << (found ? "ID " + std::to_string(ID) + 
+                  " found at position " + std::to_string(hashIndex) 
+                  : "ID " + std::to_string(ID) + " not found.") << '\n'
+                  << "Please enter another ID (-1 to exit): ";
+        std::cin >> ID;
+    }
+
+    //End of test.
+    std::cout << "End of test.\n";
 
     return 0;
 }
