@@ -53,8 +53,16 @@ int main()
     studentID.retrieve(hashIndex, ID);
     std::cout << ID << ".\n\n";
 
+    //Test remove().
+    std::cout << "Please enter a student ID to remove: ";
+    std::cin >> ID;
+    std::cout << "Please enter the position of student ID "
+              << ID << ": ";
+    std::cin >> hashIndex;
+    studentID.remove(hashIndex, ID);
+
     //End of test.
-    std::cout << "End of test.\n";
+    std::cout << "\nEnd of test.\n";
 
     return 0;
 }

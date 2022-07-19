@@ -137,7 +137,16 @@ void hashT<elemType>::retrieve(int hashIndex, elemType& rec) const
 template <class elemType>
 void hashT<elemType>::remove(int hashIndex, const elemType& rec)
 {
-    //Function body to be completed.
+    if (indexStatusList[hashIndex] == 1 && HTable[hashIndex] == rec)
+        indexStatusList[hashIndex] = -1;
+    else {
+        bool found = false;
+        search(hashIndex, rec, found);
+        if (found)
+            indexStatusList[hashIndex] = -1;
+        else
+            std::cerr << "Error: " << rec << " not found in hash table.\n";
+    }
 }
 
 template <class elemType>
