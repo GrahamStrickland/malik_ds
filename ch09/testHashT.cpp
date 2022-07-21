@@ -61,6 +61,10 @@ int main()
     std::cin >> hashIndex;
     studentID.remove(hashIndex, ID);
 
+    //Test print().
+    std::cout << "Student ID's:\n";
+    studentID.print();
+
     //End of test.
     std::cout << "\nEnd of test.\n";
 

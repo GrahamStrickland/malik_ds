@@ -152,7 +152,9 @@ void hashT<elemType>::remove(int hashIndex, const elemType& rec)
 template <class elemType>
 void hashT<elemType>::print() const
 {
-    //Function body to be completed.
+    for (int i = 0; i < HTSize; ++i)
+        if (indexStatusList[i] == 1)
+            std::cout << i << ": " << HTable[i] << '\n';
 }
 
 template <class elemType>
