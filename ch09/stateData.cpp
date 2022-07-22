@@ -4,14 +4,14 @@
 #include <cassert>
 #include "stateData.h"
 
-istream& >>(const istream& ins, stateData& state)
+std::istream& operator >>(const std::istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
-    char c;
-    int inpOrder = 0;
+    int inpOrder = 0, exp = 1;
 
-    while ((line = getline(line, 25, ins)) != EOF) {
+    while (ins) {
+        std::getline(ins, line);
         pos = line.find(':', 0);
         switch(inpOrder) {
         case 0:
@@ -24,20 +24,20 @@ istream& >>(const istream& ins, stateData& state)
             state.area = line.substr(pos+1);
             break;
         case 3:
-            int exp = 1;
+            exp = 1;
             line = line.substr(pos+1);
             state.yearOfAdmission = 0;
-            for (int i = 0; i < line.lengh(); i++) {
+            for (int i = 0; i < line.length(); i++) {
                 state.yearOfAdmission += 
                 state.yearOfAdmission * exp + line.at(i) - '0';
                 exp *= 10;
             }
             break;
         case 4:
-            int exp = 1;
+            exp = 1;
             line = line.substr(pos+1);
             state.orderOfAdmission = 0;
-            for (int i = 0; i < line.lengh(); i++) {
+            for (int i = 0; i < line.length(); i++) {
                 state.orderOfAdmission += 
                 state.orderOfAdmission * exp + line.at(i) - '0';
                 exp *= 10;
@@ -51,7 +51,7 @@ istream& >>(const istream& ins, stateData& state)
     }
 }
 
-ostream& <<(const ostream& outs, const stateData& state) const
+std::ostream& operator <<(std::ostream& outs, const stateData& state)
 {
     outs << "Name: " << state.name << "\nCapital: "
          << state.capital << "\nArea: " << state.area
@@ -60,7 +60,7 @@ ostream& <<(const ostream& outs, const stateData& state) const
          << '\n';
 }
 
-stateData::stateData(string n, string c, string a, int y, int o)
+stateData::stateData(std::string n, std::string c, std::string a, int y, int o)
     : name(n), capital(c), area(a), yearOfAdmission(y), orderOfAdmission(o)
 {
     assert(yearOfAdmission > 1776 && yearOfAdmission < 2022);
@@ -92,12 +92,12 @@ bool stateData::operator <=(const stateData& otherState) const
     return name <= otherState.name;
 }
 
-bool stateData::opeartor >=(const stateData& otherState) const
+bool stateData::operator >=(const stateData& otherState) const
 {
     return name >= otherState.name;
 }
 
-void stateData::setStateInfo(string n, string c, string a,
+void stateData::setStateInfo(std::string n, std::string c, std::string a,
     int y, int o)
 {
     assert(y >= 1776 && y <= 2022);
@@ -109,8 +109,8 @@ void stateData::setStateInfo(string n, string c, string a,
     orderOfAdmission = o;
 }
 
-void stateData::getStateInfo(string& n, string& c, string& a,
-    int& y, int& o)
+void stateData::getStateInfo(std::string& n, std::string& c, std::string& a,
+    int& y, int& o) const
 {
     n = name;
     c = capital;
