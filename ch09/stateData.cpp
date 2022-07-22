@@ -1,13 +1,17 @@
+//This is the implementation of the ADT stataData,
+//the interface is in the file stateData.h
+
+#include <cassert>
 #include "stateData.h"
 
-istream& >>(const istream& infile, stateData& state)
+istream& >>(const istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
     char c;
     int inpOrder = 0;
 
-    while ((line = getline(line, 25, infile)) != EOF) {
+    while ((line = getline(line, 25, ins)) != EOF) {
         pos = line.find(':', 0);
         switch(inpOrder) {
         case 0:
@@ -20,10 +24,24 @@ istream& >>(const istream& infile, stateData& state)
             state.area = line.substr(pos+1);
             break;
         case 3:
-            state.yearOfAdmission = line.substr(pos+1);
+            int exp = 1;
+            line = line.substr(pos+1);
+            state.yearOfAdmission = 0;
+            for (int i = 0; i < line.lengh(); i++) {
+                state.yearOfAdmission += 
+                state.yearOfAdmission * exp + line.at(i) - '0';
+                exp *= 10;
+            }
             break;
         case 4:
-            state.orderOfAdmission = line.substr(pos+1);
+            int exp = 1;
+            line = line.substr(pos+1);
+            state.orderOfAdmission = 0;
+            for (int i = 0; i < line.lengh(); i++) {
+                state.orderOfAdmission += 
+                state.orderOfAdmission * exp + line.at(i) - '0';
+                exp *= 10;
+            }
             break;
         default:
             std::cerr << "Error: invalid input to >>\n";
@@ -33,11 +51,70 @@ istream& >>(const istream& infile, stateData& state)
     }
 }
 
-ostream& <<(const ostream& outfile, const stateData& state) const
+ostream& <<(const ostream& outs, const stateData& state) const
 {
-    outfile << "Name: " << state.name << "\nCapital: "
-            << state.capital << "\nArea: " << state.area
-            << "\nYear of Admission to Union: " << state.yearOfAdmission
-            << "\nOrder of Admission to Union: " << state.orderOfAdmission
-            << '\n';
+    outs << "Name: " << state.name << "\nCapital: "
+         << state.capital << "\nArea: " << state.area
+         << "\nYear of Admission to Union: " << state.yearOfAdmission
+         << "\nOrder of Admission to Union: " << state.orderOfAdmission
+         << '\n';
+}
+
+stateData::stateData(string n, string c, string a, int y, int o)
+    : name(n), capital(c), area(a), yearOfAdmission(y), orderOfAdmission(o)
+{
+    assert(yearOfAdmission > 1776 && yearOfAdmission < 2022);
+    assert(orderOfAdmission >= 1 && orderOfAdmission <= 50);
+}
+
+bool stateData::operator ==(const stateData& otherState) const
+{
+    return name == otherState.name;
+}
+
+bool stateData::operator !=(const stateData& otherState) const
+{
+    return name != otherState.name;
+}
+
+bool stateData::operator <(const stateData& otherState) const
+{
+    return name < otherState.name;
+}
+
+bool stateData::operator >(const stateData& otherState) const
+{
+    return name > otherState.name;
+}
+
+bool stateData::operator <=(const stateData& otherState) const
+{
+    return name <= otherState.name;
+}
+
+bool stateData::opeartor >=(const stateData& otherState) const
+{
+    return name >= otherState.name;
+}
+
+void stateData::setStateInfo(string n, string c, string a,
+    int y, int o)
+{
+    assert(y >= 1776 && y <= 2022);
+    assert(o >= 1 && o <= 50);
+    name = n;
+    capital = c;
+    area = a;
+    yearOfAdmission = y;
+    orderOfAdmission = o;
+}
+
+void stateData::getStateInfo(string& n, string& c, string& a,
+    int& y, int& o)
+{
+    n = name;
+    c = capital;
+    a = area;
+    y = yearOfAdmission;
+    o = orderOfAdmission;
 }

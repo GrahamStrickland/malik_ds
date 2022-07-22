@@ -9,14 +9,13 @@
 class stateData
 {
 public:
-    friend istream& >>(const istream& infile, stateData& state);
+    friend istream& >>(const istream& ins, stateData& state);
         //Overloaded extraction operator.
 
-    friend ostream& <<(const ostream& outfile, const stateData& state);
+    friend ostream& <<(const ostream& outs, const stateData& state);
         //Overloaded insertion operator.
 
-    stateData(string name="", string capital="", string area="", 
-        int yearOfAdmission=1776, int orderOfAdmission=1)
+    stateData(string n="", string c="", string a="", int y=1776, int o=1)
         //Constructor with default values.
 
     bool operator ==(const stateData& otherState) const;
@@ -49,14 +48,15 @@ public:
         //Postcondition: Returned true if name >= otherState.name;
         //  otherwise false.
 
-    void setStateInfo(string name, string capital, string area,
-        int yearOfAdmission, int orderOfAdmission);
+    void setStateInfo(string n, string c, string a, int y, int o);
         //Function to set member variables of stateData object.
         //Postcondition: All member variables set to arguments.
 
-    void getStateInfo(string& name, string& capital, string& area,
-        int& yearOfAdmission, int& orderOfAdmission) const;
+    void getStateInfo(string& n, string& c, string& a, int& y, 
+        int& o) const;
         //Function to get member variables of stateData object.
+        //Precondition: Reference arguments have been declared
+        //  and ready to be overwritten.
         //Postcondition: Values of member variables stored in
         //  reference arguments.
 
