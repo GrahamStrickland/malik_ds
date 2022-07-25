@@ -4,7 +4,7 @@
 #include <cassert>
 #include "stateData.h"
 
-std::istream& operator >>(const std::istream& ins, stateData& state)
+std::istream& operator >>(std::istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
@@ -49,6 +49,7 @@ std::istream& operator >>(const std::istream& ins, stateData& state)
         }
         inpOrder++;
     }
+    return ins;
 }
 
 std::ostream& operator <<(std::ostream& outs, const stateData& state)
@@ -58,6 +59,7 @@ std::ostream& operator <<(std::ostream& outs, const stateData& state)
          << "\nYear of Admission to Union: " << state.yearOfAdmission
          << "\nOrder of Admission to Union: " << state.orderOfAdmission
          << '\n';
+    return outs;
 }
 
 stateData::stateData(std::string n, std::string c, std::string a, int y, int o)

@@ -13,7 +13,7 @@
 class stateData
 {
 public:
-    friend std::istream& operator >>(const std::istream& ins, stateData& state);
+    friend std::istream& operator >>(std::istream& ins, stateData& state);
         //Overloaded extraction operator.
 
     friend std::ostream& operator <<(std::ostream& outs, const stateData& state);

@@ -1,0 +1,11 @@
+Name: Pennsylvania
+Capital: Harrisburg
+Area: Mid-Atlantic
+Year of Admission to Union: 1787
+Order of Admission to Union: 2
+
+Name: Hawaii
+Capital: Honolulu
+Area: Western
+Year of Admission to Union: 1959
+Order of Admission to Union: 50
