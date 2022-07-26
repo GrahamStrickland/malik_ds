@@ -56,8 +56,43 @@ int main()
         yearOfAdmission, orderOfAdmission);
 
     //Test stateData getter.
+    std::cout << "States entered so far:\n";
+    state1.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
+    state2.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
+    state3.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
+    state4.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
 
     //Test stateData stream operators.
+    stateData state5, state6;
+    infile << state5 << state6;
 
     //Test stateData comparison operators.
 
