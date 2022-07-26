@@ -8,9 +8,9 @@ std::istream& operator >>(std::istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
-    int inpOrder = 0, exp = 1;
 
     while (ins) {
+        int inpOrder = 0, exp = 1;
         std::getline(ins, line);
         pos = line.find(':', 0);
         switch(inpOrder) {

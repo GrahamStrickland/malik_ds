@@ -39,7 +39,7 @@ int main()
     int yearOfAdmission = 1845, orderOfAdmission = 28;
     state3.setStateInfo(name, capital, area,    
         yearOfAdmission, orderOfAdmission);
-    std::cout << "Please enter the name of a state: ";
+    std::cout << "\nPlease enter the name of a state: ";
     std::cin >> name;
     std::cout << "Please enter " << name << "\'s capital city: ";
     std::cin >> capital;
@@ -56,7 +56,7 @@ int main()
         yearOfAdmission, orderOfAdmission);
 
     //Test stateData getter.
-    std::cout << "States entered so far:\n";
+    std::cout << "\nStates entered so far:\n";
     state1.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
     std::cout << "\nName: " << name << "\nCapital: "
@@ -92,7 +92,7 @@ int main()
 
     //Test stateData stream operators.
     stateData state5, state6;
-    infile << state5 << state6;
+    infile >> state5 >> state6;
 
     //Test stateData comparison operators.
 
