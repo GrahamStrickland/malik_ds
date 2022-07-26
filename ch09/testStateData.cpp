@@ -32,10 +32,28 @@ int main()
         "Deep South", 1812, 18),
         state2("Arkansas", "Little Rock", 
         "South Central", 1836, 25),
-        state3;
+        state3, state4;
 
     //Test stateData setter.
-
+    std::string name = "Texas", capital = "Austin", area = "South Central";
+    int yearOfAdmission = 1845, orderOfAdmission = 28;
+    state3.setStateInfo(name, capital, area,    
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "Please enter the name of a state: ";
+    std::cin >> name;
+    std::cout << "Please enter " << name << "\'s capital city: ";
+    std::cin >> capital;
+    std::cout << "Please enter the area of " << name
+              << ": ";
+    std::cin >> area;
+    std::cout << "Please enter the year of " << name
+              << "\'s admission to the union: ";
+    std::cin >> yearOfAdmission;
+    std::cout << "Please enter the order of "  << name
+              << "\'s admission to the union: ";
+    std::cin >> orderOfAdmission;
+    state4.setStateInfo(name, capital, area,    
+        yearOfAdmission, orderOfAdmission);
 
     //Test stateData getter.
 
