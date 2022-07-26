@@ -9,29 +9,45 @@ std::istream& operator >>(std::istream& ins, stateData& state)
     std::string line;
     std::size_t pos;
 
-    while (ins) {
+    //Input line by line.
+    while (ins) {   //Order lines for data.
         int inpOrder = 0, exp = 1;
+
+        //Test for length of each line and newlines.
         std::getline(ins, line);
+        if (line.length() == 0)
+        {
+            std::cerr << "Empty line read.\n";
+            continue;
+        }
+
+        //Find ':' to separate label from data.
         pos = line.find(':', 0);
-        switch(inpOrder) {
+        switch(inpOrder) {  //Extract data.
         case 0:
             state.name = line.substr(pos+1);
+            inpOrder++;
             break;
         case 1:
             state.capital = line.substr(pos+1);
+            inpOrder++;
             break;
         case 2:
             state.area = line.substr(pos+1);
+            inpOrder++;
             break;
         case 3:
             exp = 1;
             line = line.substr(pos+1);
             state.yearOfAdmission = 0;
+
+            //Extract number.
             for (int i = 0; i < line.length(); i++) {
                 state.yearOfAdmission += 
                 state.yearOfAdmission * exp + line.at(i) - '0';
                 exp *= 10;
             }
+            inpOrder++;
             break;
         case 4:
             exp = 1;
@@ -42,12 +58,12 @@ std::istream& operator >>(std::istream& ins, stateData& state)
                 state.orderOfAdmission * exp + line.at(i) - '0';
                 exp *= 10;
             }
+            inpOrder = 0;
             break;
         default:
             std::cerr << "Error: invalid input to >>\n";
             break;
         }
-        inpOrder++;
     }
     return ins;
 }

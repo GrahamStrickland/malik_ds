@@ -40,12 +40,12 @@ int main()
     state3.setStateInfo(name, capital, area,    
         yearOfAdmission, orderOfAdmission);
     std::cout << "\nPlease enter the name of a state: ";
-    std::cin >> name;
+    getline(std::cin, name);
     std::cout << "Please enter " << name << "\'s capital city: ";
-    std::cin >> capital;
+    getline(std::cin, capital);
     std::cout << "Please enter the area of " << name
               << ": ";
-    std::cin >> area;
+    getline(std::cin, area);
     std::cout << "Please enter the year of " << name
               << "\'s admission to the union: ";
     std::cin >> yearOfAdmission;
@@ -90,9 +90,25 @@ int main()
               << " to Union: " << orderOfAdmission
               << "\n";
 
-    //Test stateData stream operators.
+    //Test stateData stream extraction operator.
     stateData state5, state6;
     infile >> state5 >> state6;
+    state5.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
+    state6.getStateInfo(name, capital, area,
+        yearOfAdmission, orderOfAdmission);
+    std::cout << "\nName: " << name << "\nCapital: "
+              << capital << "\nArea: " << area
+              << "\nYear of Admission to Union: "
+              << yearOfAdmission << "\nOrder of Admission "
+              << " to Union: " << orderOfAdmission
+              << "\n";
 
     //Test stateData comparison operators.
 
