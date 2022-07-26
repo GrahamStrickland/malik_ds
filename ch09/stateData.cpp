@@ -65,7 +65,7 @@ std::ostream& operator <<(std::ostream& outs, const stateData& state)
 stateData::stateData(std::string n, std::string c, std::string a, int y, int o)
     : name(n), capital(c), area(a), yearOfAdmission(y), orderOfAdmission(o)
 {
-    assert(yearOfAdmission > 1776 && yearOfAdmission < 2022);
+    assert(yearOfAdmission >= 1776 && yearOfAdmission <= 2022);
     assert(orderOfAdmission >= 1 && orderOfAdmission <= 50);
 }
 

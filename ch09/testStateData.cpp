@@ -27,6 +27,22 @@ int main()
         exit(EXIT_FAILURE);
     }
 
+    //Test stateData constructor.
+    stateData state1("Louisiana", "Baton Rouge",
+        "Deep South", 1812, 18),
+        state2("Arkansas", "Little Rock", 
+        "South Central", 1836, 25),
+        state3;
+
+    //Test stateData setter.
+
+
+    //Test stateData getter.
+
+    //Test stateData stream operators.
+
+    //Test stateData comparison operators.
+
     //Close files.
     infile.close();
     outfile.close();
