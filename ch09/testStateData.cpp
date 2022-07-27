@@ -40,6 +40,7 @@ int main()
     state3.setStateInfo(name, capital, area,    
         yearOfAdmission, orderOfAdmission);
     std::cout << "\nPlease enter the name of a state: ";
+    std::cin.ignore(100, '\n');
     getline(std::cin, name);
     std::cout << "Please enter " << name << "\'s capital city: ";
     getline(std::cin, capital);
@@ -63,7 +64,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
     state2.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
@@ -71,7 +72,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
     state3.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
@@ -79,7 +80,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
     state4.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
@@ -87,7 +88,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
 
     //Test stateData stream extraction operator.
@@ -99,7 +100,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
     state6.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
@@ -107,7 +108,7 @@ int main()
               << capital << "\nArea: " << area
               << "\nYear of Admission to Union: "
               << yearOfAdmission << "\nOrder of Admission "
-              << " to Union: " << orderOfAdmission
+              << "to Union: " << orderOfAdmission
               << "\n";
 
     //Test stateData comparison operators.

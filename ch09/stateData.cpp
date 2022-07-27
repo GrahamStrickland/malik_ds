@@ -8,62 +8,57 @@ std::istream& operator >>(std::istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
+    int inpOrder = 0, exp = 1;
 
     //Input line by line.
-    while (ins) {   //Order lines for data.
-        int inpOrder = 0, exp = 1;
-
+    while (inpOrder < 5) {   //Order lines for data.
         //Test for length of each line and newlines.
         std::getline(ins, line);
         if (line.length() == 0)
-        {
-            std::cerr << "Empty line read.\n";
             continue;
-        }
 
         //Find ':' to separate label from data.
         pos = line.find(':', 0);
         switch(inpOrder) {  //Extract data.
         case 0:
-            state.name = line.substr(pos+1);
-            inpOrder++;
+            state.name = line.substr(pos+2);
             break;
         case 1:
-            state.capital = line.substr(pos+1);
-            inpOrder++;
+            state.capital = line.substr(pos+2);
             break;
         case 2:
-            state.area = line.substr(pos+1);
-            inpOrder++;
+            state.area = line.substr(pos+2);
             break;
         case 3:
             exp = 1;
-            line = line.substr(pos+1);
+            line = line.substr(pos+2);
             state.yearOfAdmission = 0;
 
             //Extract number.
             for (int i = 0; i < line.length(); i++) {
-                state.yearOfAdmission += 
-                state.yearOfAdmission * exp + line.at(i) - '0';
+                state.yearOfAdmission = 
+                state.yearOfAdmission * exp + static_cast<int>(line.at(i) - 48);
+                std::cerr << "yearOfAdmission * " << exp << " + " << static_cast<int>(line.at(i) - 48) << " = " << state.yearOfAdmission << '\n';
                 exp *= 10;
             }
-            inpOrder++;
             break;
         case 4:
             exp = 1;
-            line = line.substr(pos+1);
+            line = line.substr(pos+2);
             state.orderOfAdmission = 0;
+
+            //Extract number.
             for (int i = 0; i < line.length(); i++) {
-                state.orderOfAdmission += 
-                state.orderOfAdmission * exp + line.at(i) - '0';
+                state.orderOfAdmission = 
+                state.orderOfAdmission * exp + static_cast<int>(line.at(i) - 48);
+                std::cerr << "orderOfAdmission * " << exp << " + " << static_cast<int>(line.at(i) - 48) << " = " << state.orderOfAdmission << '\n';
                 exp *= 10;
             }
-            inpOrder = 0;
             break;
         default:
-            std::cerr << "Error: invalid input to >>\n";
             break;
         }
+        inpOrder++;
     }
     return ins;
 }
