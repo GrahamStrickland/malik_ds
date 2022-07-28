@@ -80,6 +80,16 @@ int main()
             << state6;
 
     //Test stateData comparison operators.
+    std::cout << "\nTesting comparison operators:\n"
+              << (state1 == state1 ? "state1 == state1"
+                 : "state1 != state1") << '\n' << (state1 != state3 ?
+                 "state1 != state3" : "state1 == state3") << '\n'
+                 << (state2 < state3 ? "state2 < state3" : 
+                 "state2 >= state3") << '\n' << (state2 <= state3 ?
+                 "state2 <= state3" : "state2 > state3") << '\n'
+                 << (state4 > state5 ? "state4 > state5" : 
+                 "state4 <= state5") << '\n' << (state4 >= state6 ?
+                 "state4 >= state6" : "state4 < state6") << '\n';
 
     //Close files.
     infile.close();

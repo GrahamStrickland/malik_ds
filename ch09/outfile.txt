@@ -13,11 +13,11 @@ Capital: Austin
 Area: South Central
 Year of Admission to Union: 1845
 Order of Admission to Union: 28
-Name: Ohio
-Capital: Columbus
+Name: Indiana
+Capital: Inianapolis
 Area: Midwest
-Year of Admission to Union: 1803
-Order of Admission to Union: 17
+Year of Admission to Union: 1816
+Order of Admission to Union: 19
 Name: Pennsylvania
 Capital: Harrisburg
 Area: Mid-Atlantic
