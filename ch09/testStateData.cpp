@@ -21,6 +21,7 @@ int main()
     //Get output filename, open and test for errors.
     std::cout << "Please enter an output file name: ";
     std::cin >> outfName;
+    outfile.open(outfName);
     if (outfile.fail())
     {
         std::cerr << "Error: unable to open output file.\n";
@@ -57,32 +58,8 @@ int main()
         yearOfAdmission, orderOfAdmission);
 
     //Test stateData getter.
-    std::cout << "\nStates entered so far:\n";
+    std::cout << "\nTesting stateData.get():\n";
     state1.getStateInfo(name, capital, area,
-        yearOfAdmission, orderOfAdmission);
-    std::cout << "\nName: " << name << "\nCapital: "
-              << capital << "\nArea: " << area
-              << "\nYear of Admission to Union: "
-              << yearOfAdmission << "\nOrder of Admission "
-              << "to Union: " << orderOfAdmission
-              << "\n";
-    state2.getStateInfo(name, capital, area,
-        yearOfAdmission, orderOfAdmission);
-    std::cout << "\nName: " << name << "\nCapital: "
-              << capital << "\nArea: " << area
-              << "\nYear of Admission to Union: "
-              << yearOfAdmission << "\nOrder of Admission "
-              << "to Union: " << orderOfAdmission
-              << "\n";
-    state3.getStateInfo(name, capital, area,
-        yearOfAdmission, orderOfAdmission);
-    std::cout << "\nName: " << name << "\nCapital: "
-              << capital << "\nArea: " << area
-              << "\nYear of Admission to Union: "
-              << yearOfAdmission << "\nOrder of Admission "
-              << "to Union: " << orderOfAdmission
-              << "\n";
-    state4.getStateInfo(name, capital, area,
         yearOfAdmission, orderOfAdmission);
     std::cout << "\nName: " << name << "\nCapital: "
               << capital << "\nArea: " << area
@@ -94,22 +71,13 @@ int main()
     //Test stateData stream extraction operator.
     stateData state5, state6;
     infile >> state5 >> state6;
-    state5.getStateInfo(name, capital, area,
-        yearOfAdmission, orderOfAdmission);
-    std::cout << "\nName: " << name << "\nCapital: "
-              << capital << "\nArea: " << area
-              << "\nYear of Admission to Union: "
-              << yearOfAdmission << "\nOrder of Admission "
-              << "to Union: " << orderOfAdmission
-              << "\n";
-    state6.getStateInfo(name, capital, area,
-        yearOfAdmission, orderOfAdmission);
-    std::cout << "\nName: " << name << "\nCapital: "
-              << capital << "\nArea: " << area
-              << "\nYear of Admission to Union: "
-              << yearOfAdmission << "\nOrder of Admission "
-              << "to Union: " << orderOfAdmission
-              << "\n";
+    
+    //Test stateData stream insertion operator.
+    std::cout << "\nWriting to file:\n" << state1 << '\n' 
+              << state2 << '\n' << state3 << '\n' << state4 
+              << '\n' << state5 << '\n' << state6;
+    outfile << state1 << state2 << state3 << state4 << state5
+            << state6;
 
     //Test stateData comparison operators.
 
