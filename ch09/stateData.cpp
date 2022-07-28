@@ -8,7 +8,7 @@ std::istream& operator >>(std::istream& ins, stateData& state)
 {
     std::string line;
     std::size_t pos;
-    int inpOrder = 0, exp = 1;
+    int inpOrder = 0;
 
     //Input line by line.
     while (inpOrder < 5) {   //Order lines for data.
@@ -30,29 +30,23 @@ std::istream& operator >>(std::istream& ins, stateData& state)
             state.area = line.substr(pos+2);
             break;
         case 3:
-            exp = 1;
             line = line.substr(pos+2);
             state.yearOfAdmission = 0;
 
             //Extract number.
             for (int i = 0; i < line.length(); i++) {
                 state.yearOfAdmission = 
-                state.yearOfAdmission * exp + static_cast<int>(line.at(i) - 48);
-                std::cerr << "yearOfAdmission * " << exp << " + " << static_cast<int>(line.at(i) - 48) << " = " << state.yearOfAdmission << '\n';
-                exp *= 10;
+                state.yearOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
             }
             break;
         case 4:
-            exp = 1;
             line = line.substr(pos+2);
             state.orderOfAdmission = 0;
 
             //Extract number.
             for (int i = 0; i < line.length(); i++) {
                 state.orderOfAdmission = 
-                state.orderOfAdmission * exp + static_cast<int>(line.at(i) - 48);
-                std::cerr << "orderOfAdmission * " << exp << " + " << static_cast<int>(line.at(i) - 48) << " = " << state.orderOfAdmission << '\n';
-                exp *= 10;
+                state.orderOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
             }
             break;
         default:
