@@ -13,46 +13,49 @@ std::istream& operator >>(std::istream& ins, stateData& state)
     //Input line by line.
     while (inpOrder < 5) {   //Order lines for data.
         //Test for length of each line and newlines.
-        std::getline(ins, line);
-        if (line.length() == 0)
-            continue;
+        if (std::getline(ins, line)) {
+            if (line.length() == 0)
+                continue;
 
-        //Find ':' to separate label from data.
-        pos = line.find(':', 0);
-        switch(inpOrder) {  //Extract data.
-        case 0:
-            state.name = line.substr(pos+2);
-            break;
-        case 1:
-            state.capital = line.substr(pos+2);
-            break;
-        case 2:
-            state.area = line.substr(pos+2);
-            break;
-        case 3:
-            line = line.substr(pos+2);
-            state.yearOfAdmission = 0;
+            //Find ':' to separate label from data.
+            pos = line.find(':', 0);
+            switch(inpOrder) {  //Extract data.
+            case 0:
+                state.name = line.substr(pos+2);
+                break;
+            case 1:
+                state.capital = line.substr(pos+2);
+                break;
+            case 2:
+                state.area = line.substr(pos+2);
+                break;
+            case 3:
+                line = line.substr(pos+2);
+                state.yearOfAdmission = 0;
 
-            //Extract number.
-            for (int i = 0; i < line.length(); i++) {
-                state.yearOfAdmission = 
-                state.yearOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
+                //Extract number.
+                for (int i = 0; i < line.length(); i++) {
+                    state.yearOfAdmission = 
+                    state.yearOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
+                }
+                break;
+            case 4:
+                line = line.substr(pos+2);
+                state.orderOfAdmission = 0;
+
+                //Extract number.
+                for (int i = 0; i < line.length(); i++) {
+                    state.orderOfAdmission = 
+                    state.orderOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
+                }
+                break;
+            default:
+                break;
             }
-            break;
-        case 4:
-            line = line.substr(pos+2);
-            state.orderOfAdmission = 0;
-
-            //Extract number.
-            for (int i = 0; i < line.length(); i++) {
-                state.orderOfAdmission = 
-                state.orderOfAdmission * 10 + static_cast<int>(line.at(i) - 48);
-            }
-            break;
-        default:
+            inpOrder++;
+        } else {
             break;
         }
-        inpOrder++;
     }
     return ins;
 }
