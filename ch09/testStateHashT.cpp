@@ -34,6 +34,19 @@ int main()
     std::cout << (found ? name + " found in hash table.\n"
                 : name + " not found in hash table.\n");
 
+    //Search for non-existent state.
+    name = "Nebraska";
+    capital = "Lincoln";
+    area = "Midwest";
+    yearOfAdmission = 1867;
+    orderOfAdmission = 37;
+    state.setStateInfo(name, capital, area, yearOfAdmission, 
+        orderOfAdmission);
+    hashIndex = hashFunc(name);
+    stateHashT.search(hashIndex, state, found);
+    std::cout << (found ? name + " found in hash table.\n"
+                : name + " not found in hash table.\n");
+
     return EXIT_SUCCESS;
 }
 
