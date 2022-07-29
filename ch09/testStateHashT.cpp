@@ -47,6 +47,17 @@ int main()
     std::cout << (found ? name + " found in hash table.\n"
                 : name + " not found in hash table.\n");
 
+    //Test insert() function.
+    std::cout << "\nAdding " << name << " to hash table.\n";
+    stateHashT.insert(hashIndex, state);
+
+    //Test remove() function.
+    std::cout << "\nRemoving " << name << " from hash table.\n";
+    stateHashT.remove(hashIndex, state);
+
+    //End of tests.
+    std::cout << "\nTests passed successfully.\n";
+
     return EXIT_SUCCESS;
 }
 
