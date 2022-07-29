@@ -12,7 +12,7 @@ int main()
     //Get input filename, open and test for errors.
     std::cout << "Please enter an input file name: ";
     std::cin >> infName;
-    infile.open(infName);
+    infile.open(infName.c_str());
     if (infile.fail())
     {
         std::cerr << "Error: unable to open file.\n";
@@ -21,7 +21,7 @@ int main()
     //Get output filename, open and test for errors.
     std::cout << "Please enter an output file name: ";
     std::cin >> outfName;
-    outfile.open(outfName);
+    outfile.open(outfName.c_str());
     if (outfile.fail())
     {
         std::cerr << "Error: unable to open output file.\n";
