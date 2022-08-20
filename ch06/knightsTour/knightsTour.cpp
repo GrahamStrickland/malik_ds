@@ -5,8 +5,6 @@
 #include <cassert>
 #include "knightsTour.h"
 
-using namespace std;
-
 knightsTour::knightsTour(int size) : boardSize(size)
 {
     *board = new int[boardSize];
@@ -60,8 +58,7 @@ void knightsTour::findMove(int rank, int file, int moves)
             moves++;
             findMove(rank-1, file-2, moves);
         } else {    // Search unsuccessful.
-            cout << "Cannot find a tour starting from this position."
-                 << endl;
+            std::cout << "Cannot find a tour starting from this position.\n";
             printTour();
             break;
         }
@@ -74,10 +71,10 @@ void knightsTour::printTour() const
 {
     for (int rank = 0; rank < boardSize; rank++) {
         for (int file = 0; file < boardSize; file++)
-            cout << board[rank][file] << " ";
-        cout << endl;
+            std::cout << board[rank][file] << " ";
+        std::cout << '\n';
     }
-    cout << endl;
+    std::cout << '\n';
 }
 
 void knightsTour::beginTour(int rank, int file)
