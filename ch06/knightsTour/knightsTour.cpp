@@ -2,6 +2,7 @@
 // The interface is in the file "knightsTour.h".
 
 #include <iostream>
+#include <iomanip>
 #include <cassert>
 #include "knightsTour.h"
 
@@ -9,6 +10,11 @@ knightsTour::knightsTour(int size) : boardSize(size)
 {
     *board = new int[boardSize];
 
+    clearBoard();
+}
+
+void knightsTour::clearBoard()
+{
     for (int rank = 0; rank < boardSize; rank++) {
         board[rank] = new int[boardSize];
         for (int file = 0; file < boardSize; file++) {
@@ -58,20 +64,19 @@ void knightsTour::findMove(int rank, int file, int moves)
             moves++;
             findMove(rank-1, file-2, moves);
         } else {    // Search unsuccessful.
-            std::cout << "Cannot find a tour starting from this position.\n";
-            printTour();
+            board[rank][file] = 0;
+            moves--;
             break;
         }
     }
-
-    printTour();    // Tour found, print result.
 }
 
 void knightsTour::printTour() const
 {
+    std::cout << '\n';
     for (int rank = 0; rank < boardSize; rank++) {
         for (int file = 0; file < boardSize; file++)
-            std::cout << board[rank][file] << " ";
+            std::cout << std::setw(3) << board[rank][file];
         std::cout << '\n';
     }
     std::cout << '\n';
@@ -82,4 +87,6 @@ void knightsTour::beginTour(int rank, int file)
     assert(canPlaceKnight(rank, file));
 
     findMove(rank, file, 1);
+
+    printTour();    // Tour found, print result.
 }

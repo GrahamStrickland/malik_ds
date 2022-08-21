@@ -13,6 +13,10 @@ public:
         // Postcondition: boardSize = size, board initialized
         //  to size x size matrix of zeros.
         
+    void clearBoard();
+        // Function to clear the board.
+        // Postcondition: Each square in board set to 0.
+
     bool canPlaceKnight(int rank, int file);
         // Function to check whether the given rank and file
         //  have already been visited.
