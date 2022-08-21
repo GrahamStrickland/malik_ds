@@ -63,7 +63,7 @@ void knightsTour::findMove(int rank, int file, int moves)
         } else if (canPlaceKnight(rank-1, file-2)) {
             moves++;
             findMove(rank-1, file-2, moves);
-        } else {    // Search unsuccessful.
+        } else {    // Search unsuccessful, backtrack.
             board[rank][file] = 0;
             moves--;
             break;
