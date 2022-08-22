@@ -6,7 +6,9 @@
 #include <cassert>
 #include "knightsTour.h"
 
-knightsTour::knightsTour(int size) : boardSize(size)
+knightsTour::knightsTour(int size) : boardSize(size),
+    rankMove{1, 2, 2, 1, -1, -2, -2, -1},
+    fileMove{2, 1, -1, -2, -2, -1, 1, 2}
 {
     *board = new int[boardSize];
 
@@ -32,43 +34,24 @@ bool knightsTour::canPlaceKnight(int rank, int file)
     else return false;
 }
 
-void knightsTour::findMove(int rank, int file, int moves)
+bool knightsTour::findMove(int rank, int file, int moves) 
 {
-    // Move knight to given position.
-    board[rank][file] = moves;
-
     // Move through squares and backtrack if taken.
-    while (moves < boardSize * boardSize) {
-        if (canPlaceKnight(rank+2, file+1)) {
-            moves++;
-            findMove(rank+2, file+1, moves);
-        } else if (canPlaceKnight(rank+2, file-1)) {
-            moves++;
-            findMove(rank+2, file-1, moves);
-        } else if (canPlaceKnight(rank+1, file+2)) {
-            moves++;
-            findMove(rank+1, file+2, moves);
-        } else if (canPlaceKnight(rank+1, file-2)) {
-            moves++;
-            findMove(rank+1, file-2, moves);
-        } else if (canPlaceKnight(rank-2, file+1)) {
-            moves++;
-            findMove(rank-2, file+1, moves);
-        } else if (canPlaceKnight(rank-2, file-1)) {
-            moves++;
-            findMove(rank-2, file-1, moves);
-        } else if (canPlaceKnight(rank-1, file+2)) {
-            moves++;
-            findMove(rank-1, file+2, moves);
-        } else if (canPlaceKnight(rank-1, file-2)) {
-            moves++;
-            findMove(rank-1, file-2, moves);
-        } else {    // Search unsuccessful, backtrack.
-            board[rank][file] = 0;
-            moves--;
-            break;
+    if (moves == boardSize * boardSize) 
+        return true;
+
+    for (int i = 0; i < 8; i++) {
+        int nextRank = i + rankMove[i];
+        int nextFile = i + fileMove[i];
+
+        if (canPlaceKnight(nextRank, nextFile)) {
+            board[rank][file] = moves;
+            if (findMove(nextRank, nextFile, moves))
+                return true;
+            board[nextRank][nextFile] = 0;
         }
     }
+    return false;
 }
 
 void knightsTour::printTour() const
@@ -86,7 +69,6 @@ void knightsTour::beginTour(int rank, int file)
 {
     assert(canPlaceKnight(rank, file));
 
-    findMove(rank, file, 1);
-
-    printTour();    // Tour found, print result.
+    if (findMove(rank, file, 1))
+        printTour();    // Tour found, print result.
 }

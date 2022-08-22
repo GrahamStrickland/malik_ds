@@ -23,7 +23,7 @@ public:
         // Precondition: Returns true if board[rank][file] == 0;
         //  otherwise false.
         
-    void findMove(int rank, int file, int moves);
+    bool findMove(int rank, int file, int moves);
         // Function to find a move of from the current square in 
         //  the board.
         // Postcondition: Each square in the board assigned a
@@ -42,5 +42,7 @@ public:
 private: 
     int boardSize;
     int **board;
+    int rankMove[8];
+    int fileMove[8]; 
 };
 #endif // KNIGHTS_TOUR_H
