@@ -6,60 +6,71 @@
 #include <cassert>
 #include "knightsTour.h"
 
-knightsTour::knightsTour(int size) : boardSize(size),
-    rankMove{1, 2, 2, 1, -1, -2, -2, -1},
-    fileMove{2, 1, -1, -2, -2, -1, 1, 2}
+int knightsTour::s_NumMoves = 8;
+
+knightsTour::knightsTour(int size) : m_BoardSize(size)
 {
-    *board = new int[boardSize];
+    m_RankMove = new int[s_NumMoves];
+    m_FileMove = new int[s_NumMoves];
+    for (int i = 0; i < s_NumMoves; i++) {
+        m_RankMove[i] = (i / 2) - 2;
+        m_FileMove[i] = (std::abs(m_RankMove[i]) == 1 ? 2 : 1) * (i % 2 == 0 ? 1 : -1);
+    }
+
+    *m_Board = new int[m_BoardSize];
 
     clearBoard();
 }
 
 void knightsTour::clearBoard()
 {
-    for (int rank = 0; rank < boardSize; rank++) {
-        board[rank] = new int[boardSize];
-        for (int file = 0; file < boardSize; file++) {
-            board[rank][file] = 0;
+    for (int rank = 0; rank < m_BoardSize; rank++) {
+        m_Board[rank] = new int[m_BoardSize];
+        for (int file = 0; file < m_BoardSize; file++) {
+            m_Board[rank][file] = 0;
         }
     }
 }
 
 bool knightsTour::canPlaceKnight(int rank, int file)
 {
-    if (rank >= 0 && rank < boardSize && 
-            file >= 0 && file < boardSize && 
-            board[rank][file] == 0)
+    if (rank >= 0 && rank < m_BoardSize && 
+            file >= 0 && file < m_BoardSize && 
+            m_Board[rank][file] == 0)
         return true;
     else return false;
 }
 
 bool knightsTour::findMove(int rank, int file, int moves) 
 {
-    // Move through squares and backtrack if taken.
-    if (moves == boardSize * boardSize) 
+    // Return true if all squares on board used.
+    if (moves == m_BoardSize * m_BoardSize) 
         return true;
 
-    for (int i = 0; i < 8; i++) {
-        int nextRank = i + rankMove[i];
-        int nextFile = i + fileMove[i];
+    // Create variables for next move.
+    int nextRank, nextFile;
+
+    // Find moves and backtrack if no moves available.
+    for (int i = 0; i < s_NumMoves; i++) {
+        nextRank = i + m_RankMove[i];
+        nextFile = i + m_FileMove[i];
 
         if (canPlaceKnight(nextRank, nextFile)) {
-            board[rank][file] = moves;
+            m_Board[nextRank][nextFile] = ++moves;
             if (findMove(nextRank, nextFile, moves))
                 return true;
-            board[nextRank][nextFile] = 0;
+            m_Board[nextRank][nextFile] = 0;
         }
     }
-    return false;
+    return false;   // No moves available, return false.
 }
 
 void knightsTour::printTour() const
 {
     std::cout << '\n';
-    for (int rank = 0; rank < boardSize; rank++) {
-        for (int file = 0; file < boardSize; file++)
-            std::cout << std::setw(3) << board[rank][file];
+    for (int rank = 0; rank < m_BoardSize; rank++) {
+        for (int file = 0; file < m_BoardSize; file++)
+            std::cout << std::setw(3) << m_Board[rank][file];
         std::cout << '\n';
     }
     std::cout << '\n';
@@ -71,4 +82,7 @@ void knightsTour::beginTour(int rank, int file)
 
     if (findMove(rank, file, 1))
         printTour();    // Tour found, print result.
+    else
+        std::cout << "No tour exists starting at rank " << rank
+                  << ", file " << file << ".\n";
 }

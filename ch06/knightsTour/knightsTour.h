@@ -40,9 +40,10 @@ public:
         //  this board.
         // Postcondition: Search for knight's tour started.
 private: 
-    int boardSize;
-    int **board;
-    int rankMove[8];
-    int fileMove[8]; 
+    static int s_NumMoves;
+    int m_BoardSize;
+    int **m_Board;
+    int *m_RankMove;
+    int *m_FileMove; 
 };
 #endif // KNIGHTS_TOUR_H
