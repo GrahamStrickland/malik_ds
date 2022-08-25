@@ -8,14 +8,13 @@ class knightsTour
 {
 public:
     knightsTour(int size = 8);
-        // Default constructor.
+        // Constructor with single argument.
         // Precondition: size > 0.
         // Postcondition: boardSize = size, board initialized
         //  to size x size matrix of zeros.
         
-    void clearBoard();
-        // Function to clear the board.
-        // Postcondition: Each square in board set to 0.
+    ~knightsTour();
+        //Destructor.
 
     bool canPlaceKnight(int rank, int file);
         // Function to check whether the given rank and file

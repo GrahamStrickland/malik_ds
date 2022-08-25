@@ -14,22 +14,27 @@ knightsTour::knightsTour(int size) : m_BoardSize(size)
     m_FileMove = new int[s_NumMoves];
     for (int i = 0; i < s_NumMoves; i++) {
         m_RankMove[i] = (i / 2) - 2;
-        m_FileMove[i] = (std::abs(m_RankMove[i]) == 1 ? 2 : 1) * (i % 2 == 0 ? 1 : -1);
+        m_FileMove[i] = (std::abs(m_RankMove[i]) == 1 ? 2 : 1) 
+                        * (i % 2 == 0 ? 1 : -1);
     }
 
-    *m_Board = new int[m_BoardSize];
-
-    clearBoard();
-}
-
-void knightsTour::clearBoard()
-{
+    m_Board = new int*;
     for (int rank = 0; rank < m_BoardSize; rank++) {
         m_Board[rank] = new int[m_BoardSize];
         for (int file = 0; file < m_BoardSize; file++) {
             m_Board[rank][file] = 0;
         }
     }
+}
+
+knightsTour::~knightsTour()
+{
+    delete [] m_RankMove;
+    delete [] m_FileMove;
+
+    for (int i = 0; i < m_BoardSize; i++)
+        delete [] m_Board[i];
+    delete [] m_Board;
 }
 
 bool knightsTour::canPlaceKnight(int rank, int file)
