@@ -13,7 +13,7 @@ knightsTour::knightsTour(int size) : m_BoardSize(size)
     m_RankMove = new int[s_NumMoves];
     m_FileMove = new int[s_NumMoves];
     for (int i = 0; i < s_NumMoves; i++) {
-        m_RankMove[i] = (i / 2) - 2;
+        m_RankMove[i] = (i / 2) - (i > 3 ? 1 : 2);
         m_FileMove[i] = (std::abs(m_RankMove[i]) == 1 ? 2 : 1) 
                         * (i % 2 == 0 ? 1 : -1);
     }
