@@ -18,7 +18,7 @@ knightsTour::knightsTour(int size) : m_BoardSize(size)
                         * (i % 2 == 0 ? 1 : -1);
     }
 
-    m_Board = new int*;
+    m_Board = new int*[m_BoardSize];
     for (int rank = 0; rank < m_BoardSize; rank++) {
         m_Board[rank] = new int[m_BoardSize];
         for (int file = 0; file < m_BoardSize; file++) {
@@ -61,10 +61,11 @@ bool knightsTour::findMove(int rank, int file, int moves)
         nextFile = i + m_FileMove[i];
 
         if (canPlaceKnight(nextRank, nextFile)) {
-            m_Board[nextRank][nextFile] = ++moves;
+            m_Board[rank][file] = moves++;
             if (findMove(nextRank, nextFile, moves))
                 return true;
             m_Board[nextRank][nextFile] = 0;
+            moves--;
         }
     }
     return false;   // No moves available, return false.
