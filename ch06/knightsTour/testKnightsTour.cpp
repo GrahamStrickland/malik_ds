@@ -6,7 +6,7 @@
 #include "knightsTour.h"
 
 int main() {
-    knightsTour tour(5);
+    knightsTour tour(8);
 
     tour.beginTour(0,0);
 
