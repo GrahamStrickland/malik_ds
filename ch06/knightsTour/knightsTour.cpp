@@ -57,15 +57,15 @@ bool knightsTour::findMove(int rank, int file, int moves)
 
     // Find moves and backtrack if no moves available.
     for (int i = 0; i < s_NumMoves; i++) {
-        nextRank = i + m_RankMove[i];
-        nextFile = i + m_FileMove[i];
+        nextRank = rank + m_RankMove[i];
+        nextFile = file + m_FileMove[i];
 
         if (canPlaceKnight(nextRank, nextFile)) {
-            m_Board[rank][file] = moves++;
-            if (findMove(nextRank, nextFile, moves))
+            m_Board[nextRank][nextFile] = moves + 1;
+            if (findMove(nextRank, nextFile, moves + 1))
                 return true;
-            m_Board[nextRank][nextFile] = 0;
-            moves--;
+            else 
+                m_Board[nextRank][nextFile] = 0;
         }
     }
     return false;   // No moves available, return false.
@@ -85,6 +85,8 @@ void knightsTour::printTour() const
 void knightsTour::beginTour(int rank, int file)
 {
     assert(canPlaceKnight(rank, file));
+
+    m_Board[rank][file] = 1;
 
     if (findMove(rank, file, 1))
         printTour();    // Tour found, print result.
