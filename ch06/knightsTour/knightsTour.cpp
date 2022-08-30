@@ -8,7 +8,7 @@
 
 int knightsTour::s_NumMoves = 8;
 
-knightsTour::knightsTour(int size) : m_BoardSize(size)
+knightsTour::knightsTour(int rank, int file) : m_BoardRank(rank), m_BoardFile(file)
 {
     m_RankMove = new int[s_NumMoves];
     m_FileMove = new int[s_NumMoves];
@@ -18,10 +18,10 @@ knightsTour::knightsTour(int size) : m_BoardSize(size)
                         * (i % 2 == 0 ? 1 : -1);
     }
 
-    m_Board = new int*[m_BoardSize];
-    for (int rank = 0; rank < m_BoardSize; rank++) {
-        m_Board[rank] = new int[m_BoardSize];
-        for (int file = 0; file < m_BoardSize; file++) {
+    m_Board = new int*[m_BoardRank];
+    for (int rank = 0; rank < m_BoardRank; rank++) {
+        m_Board[rank] = new int[m_BoardFile];
+        for (int file = 0; file < m_BoardFile; file++) {
             m_Board[rank][file] = 0;
         }
     }
@@ -32,15 +32,15 @@ knightsTour::~knightsTour()
     delete [] m_RankMove;
     delete [] m_FileMove;
 
-    for (int i = 0; i < m_BoardSize; i++)
+    for (int i = 0; i < m_BoardRank; i++)
         delete [] m_Board[i];
     delete [] m_Board;
 }
 
 bool knightsTour::canPlaceKnight(int rank, int file)
 {
-    if (rank >= 0 && rank < m_BoardSize && 
-            file >= 0 && file < m_BoardSize && 
+    if (rank >= 0 && rank < m_BoardRank && 
+            file >= 0 && file < m_BoardFile && 
             m_Board[rank][file] == 0)
         return true;
     else return false;
@@ -49,7 +49,7 @@ bool knightsTour::canPlaceKnight(int rank, int file)
 bool knightsTour::findMove(int rank, int file, int moves) 
 {
     // Return true if all squares on board used.
-    if (moves == m_BoardSize * m_BoardSize) 
+    if (moves == m_BoardRank * m_BoardFile) 
         return true;
 
     // Create variables for next move.
@@ -74,8 +74,8 @@ bool knightsTour::findMove(int rank, int file, int moves)
 void knightsTour::printTour() const
 {
     std::cout << '\n';
-    for (int rank = 0; rank < m_BoardSize; rank++) {
-        for (int file = 0; file < m_BoardSize; file++)
+    for (int rank = 0; rank < m_BoardRank; rank++) {
+        for (int file = 0; file < m_BoardFile; file++)
             std::cout << std::setw(3) << m_Board[rank][file];
         std::cout << '\n';
     }

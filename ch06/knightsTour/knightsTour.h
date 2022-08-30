@@ -7,7 +7,7 @@
 class knightsTour
 {
 public:
-    knightsTour(int size = 8);
+    knightsTour(int rank = 8, int file = 8);
         // Constructor with single argument.
         // Precondition: size > 0.
         // Postcondition: boardSize = size, board initialized
@@ -40,7 +40,8 @@ public:
         // Postcondition: Search for knight's tour started.
 private: 
     static int s_NumMoves;
-    int m_BoardSize;
+    int m_BoardRank;
+    int m_BoardFile;
     int **m_Board;
     int *m_RankMove;
     int *m_FileMove; 
