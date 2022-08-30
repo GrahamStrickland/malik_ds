@@ -124,6 +124,11 @@ public:
         //sorted subarray from the first index to the entire array.
         //Postcondition: list is sorted in ascending order.
 
+    void shellSort();
+        //Function to sort elements in the list, increasing the
+        //sorted subarray using an increment sequence.
+        //Postcondition: list is sorted in ascending order.
+
     void quickSort();
         //Function to sort elements in the list, using a recursive
         //divide and conquer approach with a pivot. Calls the function
@@ -160,6 +165,12 @@ protected:
         //in list[first]...list[last].
         //Postcondition: Returned index of smallest element.
         
+    void intervalInsertionSort(int begin, int inc);
+        //Function to sort a sublist beginning at begin using an
+        //increment inc.
+        //Postcondition: Elements in sublist starting at begin
+        //  sorted at a distance of inc.
+
     int partition(int first, int last);
         //Function to partition the list into two with a pivot.
         //for the quicksort() function.
@@ -180,6 +191,26 @@ protected:
     void buildHeap();
         //Function to convert the list into a heap using heapify().
 };
+
+template <class elemType>
+const arrayListType<elemType>& arrayListType<elemType>::operator=
+                        (const arrayListType<elemType>& otherList)
+{
+    if (this != &otherList) //avoid self-assignment
+    {
+        delete [] list;
+        maxSize = otherList.maxSize;
+        length = otherList.length;
+
+        list = new elemType[maxSize];   //create the array
+        assert(list != NULL);           //if unable to allocate memory
+                                        //space, terminate the program
+        for (int i = 0; i < length; i++)
+            list[i] = otherList.list[i];
+    }
+
+    return *this;
+}
 
 template <class elemType>
 bool arrayListType<elemType>::isEmpty() const
@@ -241,7 +272,7 @@ void arrayListType<elemType>::insertAt
 
             length++;       //increment the length
         }
-}   //end insertAt
+} //end insertAt
 
 template <class elemType>
 void arrayListType<elemType>::insertEnd(const elemType& insertItem)
@@ -253,7 +284,7 @@ void arrayListType<elemType>::insertEnd(const elemType& insertItem)
         list[length] = insertItem;  //insert the item at the end
         length++;   //increment the length
     }
-}   //end insertEnd
+} //end insertEnd
 
 template <class elemType>
 void arrayListType<elemType>::removeAt(int location)
@@ -268,7 +299,7 @@ void arrayListType<elemType>::removeAt(int location)
 
         length--;
     }
-}   //end removeAt
+} //end removeAt
 
 template <class elemType>
 void arrayListType<elemType>::retrieveAt
@@ -290,72 +321,13 @@ void arrayListType<elemType>::replaceAt
                   << "out of range.\n";
     else
         list[location] = repItem;
-}   //end replaceAt
+} //end replaceAt
 
 template <class elemType>
 void arrayListType<elemType>::clearList()
 {
     length = 0;
-}   //end clearList
-
-template <class elemType>
-arrayListType<elemType>::arrayListType(int size)
-{
-    if (size < 0)
-    {
-        std::cerr << "The array size must be positive. Creating "
-                  << "an array of size 100.\n";
-
-        maxSize = 100;
-    }
-    else
-        maxSize = size;
-
-    length = 0;
-
-    list = new elemType[maxSize];
-    assert(list != NULL);
-}
-
-template <class elemType>
-arrayListType<elemType>::~arrayListType()
-{
-    delete [] list;
-}
-
-template <class elemType>
-arrayListType<elemType>::arrayListType
-                    (const arrayListType<elemType>& otherList)
-{
-    maxSize = otherList.maxSize;
-    length = otherList.length;
-    list = new elemType[maxSize];   //create the array
-    assert(list != NULL);           //terminate if unable to allocate
-                                    //memory space
-
-    for (int j = 0; j < length; j++)    //copy otherList
-        list[j] = otherList.list[j];
-}   //end copy constructor
-
-template <class elemType>
-const arrayListType<elemType>& arrayListType<elemType>::operator=
-                        (const arrayListType<elemType>& otherList)
-{
-    if (this != &otherList) //avoid self-assignment
-    {
-        delete [] list;
-        maxSize = otherList.maxSize;
-        length = otherList.length;
-
-        list = new elemType[maxSize];   //create the array
-        assert(list != NULL);           //if unable to allocate memory
-                                        //space, terminate the program
-        for (int i = 0; i < length; i++)
-            list[i] = otherList.list[i];
-    }
-
-    return *this;
-}
+} //end clearList
 
 template <class elemType>
 int arrayListType<elemType>::seqSearch(const elemType& item) const
@@ -374,7 +346,7 @@ int arrayListType<elemType>::seqSearch(const elemType& item) const
         return loc;
     else
         return -1;
-}   //end seqSearch
+} //end seqSearch
 
 template <class elemType>
 void arrayListType<elemType>::insert(const elemType& insertItem)
@@ -397,7 +369,7 @@ void arrayListType<elemType>::insert(const elemType& insertItem)
             std::cerr << "The item to be inserted is already in "
                       << "the list. No duplicates are allowed.\n";
     }
-}   //end insert
+} //end insert
 
 template <class elemType>
 void arrayListType<elemType>::remove(const elemType& removeItem)
@@ -415,7 +387,7 @@ void arrayListType<elemType>::remove(const elemType& removeItem)
         else
             std::cout << "The item to be deleted is not in the list.\n";
     }
-}   //end remove
+} //end remove
 
 template <class elemType>
 void arrayListType<elemType>::selectionSort()
@@ -427,7 +399,7 @@ void arrayListType<elemType>::selectionSort()
         minIndex = minLocation(loc, length - 1);
         swap(loc, minIndex);
     }
-}   //end selectionSort
+} //end selectionSort
 
 template <class elemType>
 void arrayListType<elemType>::insertionSort()
@@ -450,13 +422,26 @@ void arrayListType<elemType>::insertionSort()
             
             list[location] = temp;
         }
-}   //end insertionSort
+} //end insertionSort
+
+template <class elemType>
+void arrayListType<elemeType>::shellSort()
+{
+    int inc;
+
+    for (int = 1; inc < (length - 1) / 9; inc = 3 * inc + 1)
+        do
+        {
+            for (int begin = 0; begin < int; begin++)
+                intervalInsertionSort(begin, inc);
+        } while (inc > 0);
+} //end shellSort
 
 template <class elemType>
 void arrayListType<elemType>::quickSort()
 {
     recQuickSort(0, length - 1);
-}   //end quickSort
+} //end quickSort
 
 template <class elemType>
 void arrayListType<elemType>::heapSort()
@@ -472,8 +457,47 @@ void arrayListType<elemType>::heapSort()
         list[lastOutOfOrder] = list[0];
         list[0] = temp;
         heapify(0, lastOutOfOrder - 1);
-    }   //end for
-}   //end heapSort
+    } //end for
+} //end heapSort
+
+template <class elemType>
+arrayListType<elemType>::arrayListType(int size)
+{
+    if (size < 0)
+    {
+        std::cerr << "The array size must be positive. Creating "
+                  << "an array of size 100.\n";
+
+        maxSize = 100;
+    }
+    else
+        maxSize = size;
+
+    length = 0;
+
+    list = new elemType[maxSize];
+    assert(list != NULL);
+}
+
+template <class elemType>
+arrayListType<elemType>::arrayListType
+                    (const arrayListType<elemType>& otherList)
+{
+    maxSize = otherList.maxSize;
+    length = otherList.length;
+    list = new elemType[maxSize];   //create the array
+    assert(list != NULL);           //terminate if unable to allocate
+                                    //memory space
+
+    for (int j = 0; j < length; j++)    //copy otherList
+        list[j] = otherList.list[j];
+} //end copy constructor
+
+template <class elemType>
+arrayListType<elemType>::~arrayListType()
+{
+    delete [] list;
+}
 
 template <class elemType>
 int arrayListType<elemType>::minLocation(int first, int last)
@@ -487,7 +511,27 @@ int arrayListType<elemType>::minLocation(int first, int last)
             minIndex = loc;
 
     return minIndex;
-}   //end minLocation
+} //end minLocation
+
+template <class elemType>
+void arrayListType<elemType>::intervalInsertionSort(int begin, int inc)
+{
+    int location;
+
+    for (int firstOutOfOrder = begin + inc; firstOutOfOrder < length - 1; firstOutOfOrder += inc)
+        if (list[firstOutOfOrder] < list[firstOutOfOrder - inc])
+        {
+            temp = list[firstOutOfOrder];
+            location = firstOutOfOrder;
+
+            do {
+                list[location] = list[location - inc];
+                location -= inc;
+            } while (location > 0 && list[location - inc] > temp);
+
+            list[location] = temp;
+        }
+} //end intervalInsertionSort
 
 template <class elemType>
 int arrayListType<elemType>::partition(int first, int last)
@@ -511,7 +555,7 @@ int arrayListType<elemType>::partition(int first, int last)
     swap(first, smallIndex);
 
     return smallIndex;
-}   //end partition
+} //end partition
 
 template <class elemType>
 void arrayListType<elemType>::recQuickSort(int first, int last)
@@ -524,7 +568,7 @@ void arrayListType<elemType>::recQuickSort(int first, int last)
         recQuickSort(first, pivotLocation - 1);
         recQuickSort(pivotLocation + 1, last);
     }
-}   //end recQuickSort
+} //end recQuickSort
 
 template <class elemType>
 void arrayListType<elemType>::swap(int first, int second)
@@ -534,7 +578,7 @@ void arrayListType<elemType>::swap(int first, int second)
     temp = list[first];
     list[first] = list[second];
     list[second] = temp;
-}   //end swap
+} //end swap
 
 template <class elemType>
 void arrayListType<elemType>::heapify(int low, int high)
@@ -561,15 +605,15 @@ void arrayListType<elemType>::heapify(int low, int high)
             low = largeIndex;   //go to the subtree to restore the heap
             largeIndex = 2 * low + 1;
         }
-    }   //end while
+    } //end while
 
     list[low] = temp;   //insert temp into the tree, that is, list
-}   //end heapify
+} //end heapify
 
 template <class elemType>
 void arrayListType<elemType>::buildHeap()
 {
     for (int index = length / 2 - 1; index >= 0; index--)
         heapify(index, length - 1);
-}   //end buildHeap
+} //end buildHeap
 #endif //ARRAY_LIST_TYPE_H
