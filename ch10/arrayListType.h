@@ -425,15 +425,14 @@ void arrayListType<elemType>::insertionSort()
 } //end insertionSort
 
 template <class elemType>
-void arrayListType<elemeType>::shellSort()
+void arrayListType<elemType>::shellSort()
 {
-    int inc;
-
-    for (int = 1; inc < (length - 1) / 9; inc = 3 * inc + 1)
+    for (int inc = 1; inc < (length - 1) / 9; inc = 3 * inc + 1)
         do
         {
-            for (int begin = 0; begin < int; begin++)
+            for (int begin = 0; begin < inc; begin++)
                 intervalInsertionSort(begin, inc);
+            inc /= 3;
         } while (inc > 0);
 } //end shellSort
 
@@ -516,18 +515,15 @@ int arrayListType<elemType>::minLocation(int first, int last)
 template <class elemType>
 void arrayListType<elemType>::intervalInsertionSort(int begin, int inc)
 {
-    int location;
-
     for (int firstOutOfOrder = begin + inc; firstOutOfOrder < length - 1; firstOutOfOrder += inc)
         if (list[firstOutOfOrder] < list[firstOutOfOrder - inc])
         {
-            temp = list[firstOutOfOrder];
-            location = firstOutOfOrder;
+            int temp = list[firstOutOfOrder], location = firstOutOfOrder;
 
             do {
                 list[location] = list[location - inc];
                 location -= inc;
-            } while (location > 0 && list[location - inc] > temp);
+            } while (location >= 0 && list[location - inc] > temp);
 
             list[location] = temp;
         }
