@@ -427,13 +427,15 @@ void arrayListType<elemType>::insertionSort()
 template <class elemType>
 void arrayListType<elemType>::shellSort()
 {
-    for (int inc = 1; inc < (length - 1) / 9; inc = 3 * inc + 1)
-        do
-        {
-            for (int begin = 0; begin < inc; begin++)
-                intervalInsertionSort(begin, inc);
-            inc /= 3;
-        } while (inc > 0);
+    int inc;
+    for (inc = 1; inc < (length - 1) / 9; inc = 3 * inc + 1);
+
+    do
+    {
+        for (int begin = 0; begin < inc; begin++)
+            intervalInsertionSort(begin, inc);
+        inc = inc / 3;
+    } while (inc > 0);
 } //end shellSort
 
 template <class elemType>
