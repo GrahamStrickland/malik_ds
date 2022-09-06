@@ -6,19 +6,16 @@
 int main()
 {
     arrayListType<int> list;
+    int num;
 
-    //Add items to list.
-    list.insert(15);
-    list.insert(60);
-    list.insert(72);
-    list.insert(70);
-    list.insert(56);
-    list.insert(32);
-    list.insert(62);
-    list.insert(92);
-    list.insert(45);
-    list.insert(30);
-    list.insert(65);
+    //Insert items into list.
+    std::cout << "Please enter a list of integers (-999 to terminate): ";
+    std::cin >> num;
+    while (num != -999)
+    {
+        list.insert(num);
+        std::cin >> num;
+    }
 
     //Output list before sorting.
     std::cout << "list before sorting: ";
@@ -26,7 +23,7 @@ int main()
     std::cout << '\n';
 
     //Sort and output result.
-    std::cout << "list after sorting: ";
+    std::cout << "list after calling heapSort: ";
     list.heapSort();
     list.print();
     std::cout << '\n';

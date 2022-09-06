@@ -187,7 +187,7 @@ protected:
     void heapify(int low, int high);
         //Function to restore the heap in a subtree by making one
         //item assignment each time through the loop.
-    
+
     void buildHeap();
         //Function to convert the list into a heap using heapify().
 };
