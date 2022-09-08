@@ -5,17 +5,15 @@
 int main()
 {
     unorderedLinkedList<int> list;
+    int num;
 
     //Insert items into list.
-    list.insertFirst(65);
-    list.insertFirst(18);
-    list.insertFirst(85);
-    list.insertFirst(95);
-    list.insertFirst(25);
-    list.insertFirst(20);
-    list.insertFirst(45);
-    list.insertFirst(75);
-    list.insertFirst(30);
+    std::cout << "Please enter a list of integers (-999) to terminate: ";
+    std::cin >> num;
+    while (num != -999) {
+        list.insertFirst(num);
+        std::cin >> num;
+    }
 
     //Print list.
     std::cout << "list before sorting: ";
