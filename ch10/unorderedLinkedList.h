@@ -52,6 +52,11 @@ public:
         //recursively.
         //Postcondition: List is sorted in ascending order.
 
+    void selectionSort();
+        //Function to sort elements in the list, one at a time,
+        //moving them to the correct position in ascending order.
+        //Postcondition: List is sorted in ascending order.
+
 private:
     void divideList(nodeType<Type>* first1, nodeType<Type>* &first2);
         //Function to divide the list into two sublists to be used
@@ -87,7 +92,7 @@ bool unorderedLinkedList<Type>::
             current = current->link;    //make current point to
                                         //the next node
     return found;
-}   //end search
+} //end search
 
 template <class Type>
 void unorderedLinkedList<Type>::insertFirst(const Type& newItem)
@@ -104,7 +109,7 @@ void unorderedLinkedList<Type>::insertFirst(const Type& newItem)
                         //the last node in the list
         this->last = newNode;
 
-}   //end insertFirst
+} //end insertFirst
 
 template <class Type>
 void unorderedLinkedList<Type>::insertLast(const Type& newItem)
@@ -128,7 +133,7 @@ void unorderedLinkedList<Type>::insertLast(const Type& newItem)
                         //last node in the list
         this->count++;        //increment count
     }
-}   //end insertLast
+} //end insertLast
 
 template <class Type>
 void unorderedLinkedList<Type>::deleteNode(const Type& deleteItem)
@@ -183,17 +188,17 @@ void unorderedLinkedList<Type>::deleteNode(const Type& deleteItem)
             else
                 std::cout << "The item to be deleted is not in "
                           << "the list.\n";
-        }   //end else
-    }   //end else
-}   //end deleteNode
+        } //end else
+    } //end else
+} //end deleteNode
 
-template <class elemType>
-void unorderedLinkedList<elemType>::insertionSort()
+template <class Type>
+void unorderedLinkedList<Type>::insertionSort()
 {
-    nodeType<elemType> *lastInOrder;
-    nodeType<elemType> *firstOutOfOrder;
-    nodeType<elemType> *current;
-    nodeType<elemType> *trailCurrent;
+    nodeType<Type> *lastInOrder;
+    nodeType<Type> *firstOutOfOrder;
+    nodeType<Type> *current;
+    nodeType<Type> *trailCurrent;
 
     lastInOrder = this->first;
 
@@ -233,8 +238,8 @@ void unorderedLinkedList<elemType>::insertionSort()
                 else
                     lastInOrder = lastInOrder->link;
             }
-        }   //end while
-}   //end insertionSort
+        } //end while
+} //end insertionSort
 
 template <class Type>
 void unorderedLinkedList<Type>::mergeSort()
@@ -249,7 +254,48 @@ void unorderedLinkedList<Type>::mergeSort()
         while (this->last->link != NULL)
             this->last = this->last->link;
     }
-}   //end mergeSort
+} //end mergeSort
+
+template <class Type>
+void unorderedLinkedList<Type>::selectionSort()
+{
+    nodeType<Type> *current;
+    nodeType<Type> *trailCurrent;
+    nodeType<Type> *secondary;
+    nodeType<Type> *trailSecondary;
+    nodeType<Type> *smallest;
+    nodeType<Type> *trailSmallest;
+
+    current = this->first;
+
+    if (this->first == NULL)
+        std::cerr << "Cannot sort an empty list.\n";
+    else if (this->first->link == NULL)
+        std::cerr << "The list is of length 1. "
+                  << "It is already in order.\n";
+    else {  //list not empty, begin sort
+        while (current != NULL) {   
+            secondary = current;
+            smallest = secondary;
+            while (secondary != NULL) { //find smallest item in list
+                if (secondary->info < smallest->info) {
+                    smallest = secondary;
+                    trailSmallest = trailSecondary;
+                }
+
+                trailSecondary = secondary;
+                secondary = secondary->link;
+            }
+            //swap current with smallest
+            trailCurrent->link = smallest;
+            smallest->link = current->link;
+
+            //advance current to next node in list
+            trailCurrent = current;
+            current = current->link;
+        } //end while
+    } //end else
+} //end selectionSort
 
 template <class Type>
 void unorderedLinkedList<Type>::
@@ -282,8 +328,8 @@ void unorderedLinkedList<Type>::
                                 //node of the second sublist
         middle->link = NULL;    //set the link of the las node
                                 //of the first sublist to NULL
-    }   //end else
-}   //end divideList
+    } //end else
+} //end divideList
 
 template <class Type>
 nodeType<Type>* unorderedLinkedList<Type>::
@@ -336,7 +382,7 @@ nodeType<Type>* unorderedLinkedList<Type>::
 
         return newHead;
     }
-}   //end mergeList
+} //end mergeList
 
 template <class Type>
 void unorderedLinkedList<Type>::recMergeSort(nodeType<Type>* &head)
@@ -351,5 +397,5 @@ void unorderedLinkedList<Type>::recMergeSort(nodeType<Type>* &head)
             recMergeSort(otherHead);
             head = mergeList(head, otherHead);
         }
-}   //end recMergeSort
+} //end recMergeSort
 #endif // UNORDERED_LINKED_LIST_H
