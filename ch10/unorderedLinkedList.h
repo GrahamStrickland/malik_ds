@@ -39,7 +39,7 @@ public:
         //  node, last points to the last node of the updated
         //  list, and count is decremented by 1.
 
-    void linkedInsertionSort();
+    void insertionSort();
         //Function to sort the list in ascending order by moving
         //the sorted sublist from the first index to the first
         //two, to three, etc., moving the out-of-order elements
@@ -188,7 +188,7 @@ void unorderedLinkedList<Type>::deleteNode(const Type& deleteItem)
 }   //end deleteNode
 
 template <class elemType>
-void unorderedLinkedList<elemType>::linkedInsertionSort()
+void unorderedLinkedList<elemType>::insertionSort()
 {
     nodeType<elemType> *lastInOrder;
     nodeType<elemType> *firstOutOfOrder;
@@ -234,7 +234,7 @@ void unorderedLinkedList<elemType>::linkedInsertionSort()
                     lastInOrder = lastInOrder->link;
             }
         }   //end while
-}   //end linkedInsertionSort
+}   //end insertionSort
 
 template <class Type>
 void unorderedLinkedList<Type>::mergeSort()

@@ -26,7 +26,7 @@ int main()
     list.print();
     std::cout << '\n';
 
-    list.linkedInsertionSort();
+    list.insertionSort();
 
     std::cout << "Line 19: The list after sorting:\n";
     list.print();
