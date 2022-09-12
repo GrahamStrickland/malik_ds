@@ -8,7 +8,7 @@ int main()
     int num;
 
     //Insert items into list.
-    std::cout << "Please enter a list of integers (-999) to terminate: ";
+    std::cout << "Please enter a list of integers (-999 to terminate): ";
     std::cin >> num;
     while (num != -999) {
         list.insertFirst(num);

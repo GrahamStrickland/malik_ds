@@ -288,11 +288,14 @@ void unorderedLinkedList<Type>::selectionSort()
             }
             //swap current with smallest
             trailCurrent->link = smallest;
-            smallest->link = current->link;
+            trailCurrent = current;
+            trailSmallest->link = current;
+            trailSmallest = smallest;
+            current->link = trailSmallest->link;
+            smallest->link = trailCurrent->link;
 
             //advance current to next node in list
-            trailCurrent = current;
-            current = current->link;
+            current = trailCurrent->link;
         } //end while
     } //end else
 } //end selectionSort
