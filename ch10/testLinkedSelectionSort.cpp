@@ -11,7 +11,7 @@ int main()
     std::cout << "Please enter a list of integers (-999 to terminate): ";
     std::cin >> num;
     while (num != -999) {
-        list.insertFirst(num);
+        list.insertLast(num);
         std::cin >> num;
     }
 

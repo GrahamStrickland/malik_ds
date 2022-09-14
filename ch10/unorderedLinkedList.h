@@ -267,6 +267,7 @@ void unorderedLinkedList<Type>::selectionSort()
     nodeType<Type> *trailSmallest;
 
     current = this->first;
+    trailCurrent = NULL;
 
     if (this->first == NULL)
         std::cerr << "Cannot sort an empty list.\n";
@@ -274,29 +275,37 @@ void unorderedLinkedList<Type>::selectionSort()
         std::cerr << "The list is of length 1. "
                   << "It is already in order.\n";
     else {  //list not empty, begin sort
-        while (current != NULL) {   
+        while (current != NULL)
+        {
+            smallest = current;
+            trailSmallest = trailCurrent;
             secondary = current;
-            smallest = secondary;
-            while (secondary != NULL) { //find smallest item in list
-                if (secondary->info < smallest->info) {
-                    smallest = secondary;
-                    trailSmallest = trailSecondary;
-                }
 
+            while (secondary->link != NULL)   //find smallest
+            {
                 trailSecondary = secondary;
                 secondary = secondary->link;
+                if (secondary->info < smallest->info) {
+                    trailSmallest = trailSecondary;
+                    smallest = secondary;
+                }
             }
-            //swap current with smallest
-            trailCurrent->link = smallest;
-            trailCurrent = current;
-            trailSmallest->link = current;
-            trailSmallest = smallest;
-            current->link = trailSmallest->link;
-            smallest->link = trailCurrent->link;
 
-            //advance current to next node in list
-            current = trailCurrent->link;
-        } //end while
+            //swap current and smallest
+            if (trailCurrent == NULL) { //first swap
+                this->first = smallest;
+                this->first->link = current->link;
+            } else {    //subsequent swaps
+                trailCurrent->link = smallest;
+                trailCurrent->link->link = current->link;
+            }
+            trailSmallest->link = current;
+            trailSmallest->link->link = smallest->link;
+
+            //advance to next item
+            trailCurrent = current;
+            current = current->link;
+        } // end while
     } //end else
 } //end selectionSort
 
