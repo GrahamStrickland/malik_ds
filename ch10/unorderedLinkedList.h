@@ -260,41 +260,47 @@ template <class Type>
 void unorderedLinkedList<Type>::selectionSort()
 {
     nodeType<Type> *current;
+    nodeType<Type> *trailCurrent;
     nodeType<Type> *temp;
-    nodeType<Type> *secondary;
     nodeType<Type> *smallest;
+    nodeType<Type> *trailSmallest;
 
     current = this->first;
+    trailCurrent = NULL;
 
     if (this->first == NULL)
         std::cerr << "Cannot sort an empty list.\n";
     else if (this->first->link == NULL)
         std::cerr << "The list is of length 1. "
                   << "It is already in order.\n";
-    else {  //list not empty, begin sort
-        while (current != NULL)
+    else {  //List not empty, begin sort.
+        while (current->link != NULL)
         {
-            smallest = current;
-            secondary = current;
+            trailSmallest = current;
+            smallest = current->link;
 
-            while (secondary->link != NULL)   //find smallest
+            while (smallest->link != NULL)   //Find smallest.
             {
-                secondary = secondary->link;
-                if (secondary->info < smallest->info)
-                    smallest = secondary;
+                temp = smallest;
+                smallest = smallest->link;
+                if (trailSmallest->link->info < smallest->info)
+                    trailSmallest = temp;
             }
+            smallest = trailSmallest->link;
 
-            //swap current and smallest
+            //Swap current and smallest.
             temp = current->link;
+            if (trailCurrent != NULL)
+                trailCurrent->link = smallest;
+            else 
+                this->first = smallest;
             current->link = smallest->link;
             smallest->link = temp;
-            current = current->link;
-            smallest = smallest->link;
-            temp = current->link;
-            current->link = smallest->link;
-            smallest->link = temp;
+            trailSmallest->link = current; 
+            current = smallest;
 
-            //advance to next item
+            //Advance current to next node.
+            trailCurrent = current;
             current = current->link;
         } // end while
     } //end else
