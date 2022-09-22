@@ -274,7 +274,7 @@ void unorderedLinkedList<Type>::selectionSort()
         std::cerr << "The list is of length 1. "
                   << "It is already in order.\n";
     else {  //List not empty, begin sort.
-        while (current != this->last)
+        while (current->link != NULL)
         {
             trailSmallest = current;
             smallest = current->link;
@@ -288,17 +288,25 @@ void unorderedLinkedList<Type>::selectionSort()
             }
             smallest = trailSmallest->link;
 
-            if (smallest != current) {  //Swap current and smallest.
-                temp = current->link;
-                if (trailCurrent != NULL)
-                    trailCurrent->link = smallest;
-                else 
-                    this->first = smallest;
-                current->link = smallest->link;
-                smallest->link = temp;
-                trailSmallest->link = current;
-                current = smallest;
+            // Swap smallest with current.
+            if (trailCurrent != NULL) {
+                temp = trailCurrent->link;
+                trailSmallest->link = trailCurrent->link;
+            } else {
+                temp = this->first;
+                trailSmallest->link = this->first;
             }
+            trailSmallest->link = temp;
+            temp = current->link;
+            smallest->link = current->link;
+            smallest->link = temp;
+
+            // Return current and first to correct positions.
+            if (trailCurrent != NULL)
+                current = trailCurrent;
+            else
+                this->first = smallest;
+                current = this->first;
 
             //Advance current to next node.
             trailCurrent = current;
