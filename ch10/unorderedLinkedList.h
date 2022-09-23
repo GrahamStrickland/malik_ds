@@ -289,24 +289,16 @@ void unorderedLinkedList<Type>::selectionSort()
             smallest = trailSmallest->link;
 
             // Swap smallest with current.
-            if (trailCurrent != NULL) {
-                temp = trailCurrent->link;
-                trailSmallest->link = trailCurrent->link;
-            } else {
-                temp = this->first;
-                trailSmallest->link = this->first;
-            }
-            trailSmallest->link = temp;
-            temp = current->link;
-            smallest->link = current->link;
-            smallest->link = temp;
-
-            // Return current and first to correct positions.
+            temp = smallest;
             if (trailCurrent != NULL)
-                current = trailCurrent;
+                trailCurrent->link = temp;
             else
-                this->first = smallest;
-                current = this->first;
+                this->first = temp;
+            trailSmallest->link = current;
+            temp = current->link;
+            current->link = smallest->link;
+            smallest->link = temp;
+            current = smallest;
 
             //Advance current to next node.
             trailCurrent = current;
