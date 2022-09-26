@@ -57,6 +57,12 @@ public:
         //moving them to the correct position in ascending order.
         //Postcondition: List is sorted in ascending order.
 
+    void quickSort();
+        //Function to sort elements in the list, using a recursive
+        //divide and conquer approach with a pivot. Calls the function
+        //recQuickSort of the original list.
+        //Postcondition: list is sorted in ascending order.
+
 private:
     void divideList(nodeType<Type>* first1, nodeType<Type>* &first2);
         //Function to divide the list into two sublists to be used
@@ -70,10 +76,22 @@ private:
         //Postcondition: Returned pointer to first node of sublist
         //  sorted in ascending order.
     
+    nodeType<Type>* partition(nodeType<Type>* &first,
+        nodeType<Type>* &last);
+        //Function to partition the list into two with a pivot.
+        //for the quickSort() function.
+        //Postcondition: Returned small (initial position
+        //  of pivot).
+
     void recMergeSort(nodeType<Type>* &head);
         //Function to recursively sort the sublist pointed to by head
         //in the mergeSort() algorithm.
         //Postcondition: Sublist sorted in ascending order.
+
+    void recQuickSort(nodeType<Type>* &first, nodeType<Type>* &last);
+        //Function to implement the recursive version of quickSort()
+        //given the starting and ending indices of the sublist.
+
 };
 
 template <class Type>
@@ -312,6 +330,12 @@ void unorderedLinkedList<Type>::selectionSort()
 } //end selectionSort
 
 template <class Type>
+void unorderedLInkedList<Type>::quickSort()
+{
+    recQuickSort(this->first, this->last);
+} //end quickSort
+
+template <class Type>
 void unorderedLinkedList<Type>::
                 divideList(nodeType<Type>* first1,
                             nodeType<Type>* &first2)
@@ -399,6 +423,15 @@ nodeType<Type>* unorderedLinkedList<Type>::
 } //end mergeList
 
 template <class Type>
+nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
+    &first, nodeType<Type>* &last)
+{
+    nodeType<Type> *pivot;
+
+    
+} //end partition
+
+template <class Type>
 void unorderedLinkedList<Type>::recMergeSort(nodeType<Type>* &head)
 {
     nodeType<Type> *otherHead;
@@ -412,4 +445,17 @@ void unorderedLinkedList<Type>::recMergeSort(nodeType<Type>* &head)
             head = mergeList(head, otherHead);
         }
 } //end recMergeSort
+
+template <class Type>
+void unorderedLinkedList<Type>::recQuickSort(nodeType<Type>* &first,
+    nodeType<Type>* &last) 
+{
+    nodeType<Type> *pivot;
+
+    if (first < last) {
+        pivot = partition(first, last);
+        recQuickSort(first, pivot);
+        recQuickSort(pivotLocation->link, last);
+    }
+} //end recQuickSort
 #endif // UNORDERED_LINKED_LIST_H
