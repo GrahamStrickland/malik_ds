@@ -76,7 +76,7 @@ private:
         //  sorted in ascending order.
     
     nodeType<Type>* partition(nodeType<Type>* first,
-        nodeType<Type>* last, int pivotIndex);
+        nodeType<Type>* last);
         //Function to partition the list into two with a pivot.
         //for the quickSort() function.
         //Postcondition: Returned small (initial position
@@ -87,8 +87,7 @@ private:
         //in the mergeSort() algorithm.
         //Postcondition: Sublist sorted in ascending order.
 
-    void recQuickSort(nodeType<Type>* &first, nodeType<Type>* &last,
-        int& pivotIndex);
+    void recQuickSort(nodeType<Type>* first, nodeType<Type>* last);
         //Function to implement the recursive version of quickSort()
         //given the starting and ending indices of the sublist.
 
@@ -332,7 +331,7 @@ void unorderedLinkedList<Type>::selectionSort()
 template <class Type>
 void unorderedLInkedList<Type>::quickSort()
 {
-    recQuickSort(this->first, this->last, this->count / 2);
+    recQuickSort(this->first, this->last);
 } //end quickSort
 
 template <class Type>
@@ -424,24 +423,56 @@ nodeType<Type>* unorderedLinkedList<Type>::
 
 template <class Type>
 nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
-    first, nodeType<Type>* last, int pivotIndex)
+    first, nodeType<Type>* last)
 {
     nodeType<Type> *pivot;
     nodeType<Type> *trailFirst;
-    nodeType<Type> *current;
-    nodeType<Type> *trailCurrent;
+    nodeType<Type> *smallest;
+    nodeType<Type> *trailSmallest;
+    int count = 1, pivotIndex;
 
     // 1. Swap first and list[pivotIndex];
     trailFirst = NULL;
     if (first != this->first) {
         trailFirst = this->first;
-        while (trailFirst->link != first)
+        while (trailFirst->link != first) {
             trailFirst = trailFirst->link;
+            count++;
+        }
     }
-    current = first;
-    trailCurrent = trailFirst;
+    
+    while (first != last) {
+        first = first->link;
+        count++;
+    }
+    if (trailFirst != NULL)
+        first = trailFirst->link;
+    else
+        first = this->first;
+
+    pivotIndex = count / 2;
+    count = 0;
+    smallest = first;
+    trailSmallest = trailFirst;
+    while (count < pivotIndex) {
+        trailSmallest = smallest;
+        smallest = smallest->link;
+        pivotIndex++;
+    }
+
+    pivot = smallest;
+    if (trailFirst != NULL)
+        trailFirst->link = pivot;
+    else
+        this->first = pivot;
+    trailSmallest->link = first;
+    pivot = smallest->link;
+    smallest->link = first->link;
+    first->link = pivot;
+    first = smallest;
 
     // 2. Assign pivot to list[first], smallIndex to first;
+    pivot = first;
 
     // 3. Loop from index = first + 1 through last (inclusive).
     //  a. if (list[index] < pivot)
@@ -469,15 +500,15 @@ void unorderedLinkedList<Type>::recMergeSort(nodeType<Type>* &head)
 } //end recMergeSort
 
 template <class Type>
-void unorderedLinkedList<Type>::recQuickSort(nodeType<Type>* &first,
-    nodeType<Type>* &last, int& pivotIndex)
+void unorderedLinkedList<Type>::recQuickSort(nodeType<Type>* first,
+    nodeType<Type>* last)
 {
     nodeType<Type> *pivot;
 
     if (first != last) {
-        pivot = partition(first, last, pivotIndex / 2);
-        recQuickSort(first, pivot, pivotIndex / 2);
-        recQuickSort(pivot->link, last, pivotIndex + (pivotIndex / 2));
+        pivot = partition(first, last);
+        recQuickSort(first, pivot);
+        recQuickSort(pivot->link, last);
     }
 } //end recQuickSort
 #endif // UNORDERED_LINKED_LIST_H
