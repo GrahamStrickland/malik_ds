@@ -91,6 +91,10 @@ private:
         //Function to implement the recursive version of quickSort()
         //given the starting and ending indices of the sublist.
 
+    void swap(nodeType<Type>* &first, nodeType<Type>* &second, 
+        nodeType<Type>* &trailFirst, nodeType<Type>* &trailSecond);
+        //Function to swap two nodes in the list without exchanging
+        //  their info data members.
 };
 
 template <class Type>
@@ -309,15 +313,7 @@ void unorderedLinkedList<Type>::selectionSort()
 
             // Swap smallest with current.
             if (smallest != current) {
-                temp = smallest;
-                if (trailCurrent != NULL)
-                    trailCurrent->link = temp;
-                else
-                    this->first = temp;
-                trailSmallest->link = current;
-                temp = current->link;
-                current->link = smallest->link;
-                smallest->link = temp;
+                swap(current, smallest, trailCurrent, trailSmallest);
                 current = smallest;
             }
 
@@ -329,7 +325,7 @@ void unorderedLinkedList<Type>::selectionSort()
 } //end selectionSort
 
 template <class Type>
-void unorderedLInkedList<Type>::quickSort()
+void unorderedLinkedList<Type>::quickSort()
 {
     recQuickSort(this->first, this->last);
 } //end quickSort
@@ -425,13 +421,14 @@ template <class Type>
 nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
     first, nodeType<Type>* last)
 {
-    nodeType<Type> *pivot;
     nodeType<Type> *trailFirst;
     nodeType<Type> *smallest;
     nodeType<Type> *trailSmallest;
+    nodeType<Type> *current;
+    nodeType<Type> *trailCurrent;
     int count = 1, pivotIndex;
 
-    // 1. Swap first and list[pivotIndex];
+    // Find correct position for trailFirst.
     trailFirst = NULL;
     if (first != this->first) {
         trailFirst = this->first;
@@ -441,6 +438,7 @@ nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
         }
     }
     
+    // Find count of list[first..last]
     while (first != last) {
         first = first->link;
         count++;
@@ -450,38 +448,44 @@ nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
     else
         first = this->first;
 
+    // Find pivotIndex and move smallest to pivot position,
+    // trailSmallest follows.
     pivotIndex = count / 2;
     count = 0;
     smallest = first;
     trailSmallest = trailFirst;
-    while (count < pivotIndex) {
+    while (smallest->link != NULL && count < pivotIndex) {
         trailSmallest = smallest;
         smallest = smallest->link;
         pivotIndex++;
     }
 
-    pivot = smallest;
-    if (trailFirst != NULL)
-        trailFirst->link = pivot;
-    else
-        this->first = pivot;
-    trailSmallest->link = first;
-    pivot = smallest->link;
-    smallest->link = first->link;
-    first->link = pivot;
+    // Swap first and smallest.
+    swap(first, smallest, trailFirst, trailSmallest);
     first = smallest;
 
-    // 2. Assign pivot to list[first], smallIndex to first;
-    pivot = first;
+    // Loop from first + 1 through last (inclusive).
+    trailCurrent = first;
+    current = first->link;
+    while (current != last) {
+        // Increment smallest.
+        if (current->info < first->info) {
+            trailSmallest = smallest;
+            smallest = smallest->link;
 
-    // 3. Loop from index = first + 1 through last (inclusive).
-    //  a. if (list[index] < pivot)
-    //      1. Increment smallIndex.
-    //      2. Swap list[smallIndex] and list[index].
+            // Swap smallest and current.
+            if (smallest != current) {
+                swap(smallest, current, trailSmallest, trailCurrent);
+            }
+        }
 
-    // 4. Swap first with list[smallIndex].
+    }
 
-    // 5. Return list[smallIndex].
+    // Swap first and smallest.
+    swap(first, smallest, trailFirst, trailSmallest);
+
+    // Return pivot.
+    return smallest;
 } //end partition
 
 template <class Type>
@@ -511,4 +515,25 @@ void unorderedLinkedList<Type>::recQuickSort(nodeType<Type>* first,
         recQuickSort(pivot->link, last);
     }
 } //end recQuickSort
+
+template <class Type>
+void unorderedLinkedList<Type>::swap(nodeType<Type>* &first,
+    nodeType<Type>* &second, nodeType<Type>* &trailFirst,
+    nodeType<Type>* &trailSecond)
+{
+    nodeType<Type>* temp = second;
+
+    if (trailFirst != NULL)
+        trailFirst->link = temp;
+    else
+        this->first = temp;
+    trailSecond->link = first;
+    temp = first->link;
+    first->link = second->link;
+    second->link = temp;
+
+    temp = trailSecond;
+    trailSecond = trailFirst;
+    trailFirst = temp;
+}
 #endif // UNORDERED_LINKED_LIST_H

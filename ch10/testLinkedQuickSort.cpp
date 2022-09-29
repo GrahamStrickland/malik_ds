@@ -14,7 +14,7 @@ int main()
               << "(-999 to terminate): ";
     std::cin >> num;
     while (num != -999) {
-        list.insert(num);
+        list.insertLast(num);
         std::cin >> num;
     }
     
