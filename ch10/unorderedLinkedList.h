@@ -439,14 +439,11 @@ nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
     }
     
     // Find count of list[first..last]
-    while (first != last) {
-        first = first->link;
+    current = first;
+    while (current != last) {
+        current = current->link;
         count++;
     }
-    if (trailFirst != NULL)
-        first = trailFirst->link;
-    else
-        first = this->first;
 
     // Find pivotIndex and move smallest to pivot position,
     // trailSmallest follows.
@@ -462,6 +459,7 @@ nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
 
     // Swap first and smallest.
     swap(first, smallest, trailFirst, trailSmallest);
+    trailFirst = trailSmallest;
     first = smallest;
 
     // Loop from first + 1 through last (inclusive).
@@ -474,11 +472,13 @@ nodeType<Type>* unorderedLinkedList<Type>::partition(nodeType<Type>*
             smallest = smallest->link;
 
             // Swap smallest and current.
-            if (smallest != current) {
+            if (smallest != current)
                 swap(smallest, current, trailSmallest, trailCurrent);
-            }
         }
-
+        
+        // Advance current and trailCurrent.
+        trailCurrent = current;
+        current = current->link;
     }
 
     // Swap first and smallest.
