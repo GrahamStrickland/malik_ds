@@ -3,8 +3,8 @@
 #include "binarySearchTree.h"
 #include <iostream>
 
-void print(int& x);
-//Helper function to print a value x to be called with inorderTraversal().
+void printParity(int& x);
+//Helper function to print "Even" if x is even, or "Odd" if x is odd.
 
 int main()
 {
@@ -33,31 +33,37 @@ int main()
 
     //Test isEmpty().
     std::cout << "After insert statements, tree is" 
-              << (tree.isEmpty() ? " " : " not ") << "empty.\n";
+              << (tree.isEmpty() ? " " : " not ") << "empty.\n\n";
 
     //Test treeNodeCount() and treeLeavesCount().
     std::cout << "tree contains " << tree.treeNodeCount() << " nodes and "
-              << tree.treeLeavesCount() << " leaves.\n";
+              << tree.treeLeavesCount() << " leaves.\n\n";
 
     //Test inorderTraversal().
     std::cout << "Inorder traversal of tree: ";
-    tree.inorderTraversal(print);
+    tree.inorderTraversal();
     std::cout << '\n';
+    tree.inorderTraversal(printParity);
+    std::cout << "\n\n";
 
     //Test preorderTraversal().
     std::cout << "Preorder traversal of tree: ";
-    tree.preorderTraversal(print);
+    tree.preorderTraversal();
     std::cout << '\n';
+    tree.preorderTraversal(printParity);
+    std::cout << "\n\n";
 
     //Test postorderTraversal().
     std::cout << "Postorder traversal of tree: ";
-    tree.preorderTraversal(print);
+    tree.postorderTraversal();
     std::cout << '\n';
+    tree.postorderTraversal(printParity);
+    std::cout << "\n\n";
 
     return EXIT_SUCCESS;
 }
 
-void print(int& x)
+void printParity(int& x)
 {
-    std::cout << " " << x << " ";
+    std::cout << (x % 2 == 0 ? "Even " : "Odd ");
 }
