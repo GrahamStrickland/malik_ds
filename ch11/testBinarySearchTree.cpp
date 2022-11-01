@@ -3,6 +3,9 @@
 #include "binarySearchTree.h"
 #include <iostream>
 
+void print(int& x);
+//Helper function to print a value x to be called with inorderTraversal().
+
 int main()
 {
     //Test constructor.
@@ -36,5 +39,25 @@ int main()
     std::cout << "tree contains " << tree.treeNodeCount() << " nodes and "
               << tree.treeLeavesCount() << " leaves.\n";
 
+    //Test inorderTraversal().
+    std::cout << "Inorder traversal of tree: ";
+    tree.inorderTraversal(print);
+    std::cout << '\n';
+
+    //Test preorderTraversal().
+    std::cout << "Preorder traversal of tree: ";
+    tree.preorderTraversal(print);
+    std::cout << '\n';
+
+    //Test postorderTraversal().
+    std::cout << "Postorder traversal of tree: ";
+    tree.preorderTraversal(print);
+    std::cout << '\n';
+
     return EXIT_SUCCESS;
+}
+
+void print(int& x)
+{
+    std::cout << " " << x << " ";
 }

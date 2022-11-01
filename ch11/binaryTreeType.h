@@ -45,8 +45,18 @@ public:
     void preorderTraversal() const;
         //Function to do a preorder traversal of the binary tree.
     
+    void preorderTraversal(void (*visit) (elemType&));
+        //Function to do a preorder traversal of the binary tree.
+        //The parameter visit, which is a function, specifies the
+        //action to be taken at each node.
+
     void postorderTraversal() const;
         //Function to do a postorder traversal of the binary tree.
+
+    void postorderTraversal(void (*visit) (elemType&));
+        //Function to do a postorder traversal of the binary tree.
+        //The parameter visit, which is a function, specifies the
+        //action to be taken at each node.
 
     void nonRecursiveInTraversal() const;
         //Function to do a non-recursive inorder traversal of the 
@@ -110,9 +120,21 @@ private:
         //Function to do a preorder traversal of the binary
         //tree to which p points.
     
+    void preorder(binaryTreeNode<elemType> *p, void (*visit) (elemType&));
+        //Function to do a preorder traversal of the binary
+        //tree, starting at the node specified by the parameter p.
+        //The parameter visit, which is a function, specifies the
+        //action to be taken at each node.
+
     void postorder(binaryTreeNode<elemType> *p) const;
         //Function to do a postorder traversal of the binary
         //tree to which p points.
+
+    void postorder(binaryTreeNode<elemType> *p, void (*visit) (elemType&));
+        //Function to do a postorder traversal of the binary
+        //tree, starting at the node specified by the parameter p.
+        //The parameter visit, which is a function, specifies the
+        //action to be taken at each node.
 
     int height(binaryTreeNode<elemType> *p) const;
         //Function to return the height of the binary tree
@@ -176,9 +198,23 @@ void binaryTreeType<elemType>::preorderTraversal() const
 }
 
 template <class elemType>
+void binaryTreeType<elemType>::preorderTraversal
+                                (void (*visit) (elemType& item))
+{
+    preorder(this->root, *visit);
+}
+
+template <class elemType>
 void binaryTreeType<elemType>::postorderTraversal() const
 {
     postorder(this->root);
+}
+
+template <class elemType>
+void binaryTreeType<elemType>::postorderTraversal
+                                (void (*visit) (elemType& item))
+{
+    postorder(this->root, *visit);
 }
 
 template <class elemType>
@@ -388,6 +424,18 @@ void binaryTreeType<elemType>::
 }
 
 template <class elemType>
+void binaryTreeType<elemType>::preorder(binaryTreeNode<elemType>* p,
+                                        void (*visit) (elemType& item))
+{
+    if (p != NULL)
+    {
+        (*visit) (p->info);
+        inorder(p->llink, *visit);
+        inorder(p->rlink, *visit);
+    }
+}
+
+template <class elemType>
 void binaryTreeType<elemType>::
                     postorder(binaryTreeNode<elemType> *p) const
 {
@@ -396,6 +444,18 @@ void binaryTreeType<elemType>::
         postorder(p->llink);
         postorder(p->rlink);
         std::cout << p->info << " ";
+    }
+}
+
+template <class elemType>
+void binaryTreeType<elemType>::postorder(binaryTreeNode<elemType> *p,
+                                        void (*visit) (elemType& item))
+{
+    if (p != NULL)
+    {
+        postorder(p->llink, *visit);
+        postorder(p->rlink, *visit);
+        (*visit) (p->info);
     }
 }
 
@@ -433,13 +493,12 @@ template <class elemType>
 int binaryTreeType<elemType>::
                     leavesCount(binaryTreeNode<elemType> *p) const
 {
-    if (p->llink != NULL && p->rlink != NULL)
-        return leavesCount(p->llink) + leavesCount(p->rlink);
-    else if (p->llink == NULL)
-        return leavesCount(p->rlink);
+    if (p->llink == NULL & p->rlink == NULL)
+        return 1;
     else if (p->rlink == NULL)
         return leavesCount(p->llink);
-    else
-        return 1;
+    else if (p->llink == NULL)
+        return leavesCount(p->rlink);
+    return leavesCount(p->llink) + leavesCount(p->rlink);
 }
 #endif //BINARY_TREE_TYPE_H
