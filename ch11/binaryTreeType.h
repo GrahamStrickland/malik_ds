@@ -493,12 +493,10 @@ template <class elemType>
 int binaryTreeType<elemType>::
                     leavesCount(binaryTreeNode<elemType> *p) const
 {
-    if (p->llink == NULL & p->rlink == NULL)
+    if (p == NULL)
+        return 0;
+    if (p->llink == NULL && p->rlink == NULL)
         return 1;
-    else if (p->rlink == NULL)
-        return leavesCount(p->llink);
-    else if (p->llink == NULL)
-        return leavesCount(p->rlink);
     return leavesCount(p->llink) + leavesCount(p->rlink);
 }
 #endif //BINARY_TREE_TYPE_H
