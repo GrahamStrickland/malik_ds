@@ -16,29 +16,34 @@ int main()
               << (tree.isEmpty() ? " " : " not ") << "empty.\n";
 
     //Test insert() member function.
-    tree.insert(60);
     tree.insert(50);
     tree.insert(30);
-    tree.insert(35);
-    tree.insert(32);
+    tree.insert(25);
     tree.insert(40);
     tree.insert(48);
     tree.insert(45);
-    tree.insert(53);
-    tree.insert(57);
-    tree.insert(70);
     tree.insert(80);
+    tree.insert(55);
+    tree.insert(52);
+    tree.insert(58);
+    tree.insert(70);
+    tree.insert(65);
+    tree.insert(79);
     tree.insert(75);
-    tree.insert(77);
+    tree.insert(98);
+    tree.insert(85);
+    tree.insert(90);
+    tree.insert(110);
 
     //Test isEmpty().
     std::cout << "After insert statements, tree is" 
               << (tree.isEmpty() ? " " : " not ") << "empty.\n\n";
 
-    //Test treeNodeCount(), treeLeavesCount() and singleParent().
-    std::cout << "tree contains " << tree.treeNodeCount() << " nodes, "
-              << tree.treeLeavesCount() << " leaves, and "
-              << tree.singleParent() << " nodes with only one child.\n\n";
+    //Test treeHeight(), treeNodeCount(), treeLeavesCount() and singleParent().
+    std::cout << "The tree has height " << tree.treeHeight() << " and contains " 
+              << tree.treeNodeCount() << " nodes, " << tree.treeLeavesCount() 
+              << " leaves, and " << tree.singleParent() 
+              << " nodes with only one child.\n\n";
 
     //Test inorderTraversal().
     std::cout << "Inorder traversal of tree: ";

@@ -530,7 +530,7 @@ int binaryTreeType<elemType>::
         return 0;
     if (p->llink != NULL && p->rlink == NULL)
         return 1 + singleParentRecursive(p->llink);
-    if (p->llink == NULL && p->rlink == NULL)
+    if (p->llink == NULL && p->rlink != NULL)
         return 1 + singleParentRecursive(p->rlink);
     return singleParentRecursive(p->llink) + singleParentRecursive(p->rlink);
 }
