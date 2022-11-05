@@ -79,6 +79,10 @@ public:
     int treeLeavesCount() const;
         //Returns the number of leaves in the binary tree.
     
+    int singleParent() const;
+        //Returns the number of nodes in the binary tree that have
+        //only one child node.
+
     void destroyTree();
         //Deallocates the memory space occupied by the binary tree.
         //Postcondition: root = NULL;
@@ -155,8 +159,12 @@ private:
         //Function to return the number of leaves in the binary
         //tree to which p points.
     
-    void swapLeftRightChildren(binaryTreeNode<elemType> *p);
-        //Function to swap the left and right children of the
+    int singleParentRecursive(binaryTreeNode<elemType> *p) const;
+        //Function to return the number of nodes with only one
+        //child node in the binary tree to which p points.
+
+    void swapSubtreesRecursive(binaryTreeNode<elemType> *p);
+        //Function to swap the left and right subtrees of the
         //node to which p points.
 };
 
@@ -320,6 +328,13 @@ void binaryTreeType<elemType>::nonRecursivePostTraversal() const
 }
 
 template <class elemType>
+int binaryTreeType<elemType>::
+                    singleParent() const
+{
+    return singleParentRecursive(this->root);
+}
+
+template <class elemType>
 int binaryTreeType<elemType>::treeHeight() const
 {
     return height(this->root);
@@ -380,7 +395,7 @@ void binaryTreeType<elemType>::copyTree
 template <class elemType>
 void binaryTreeType<elemType>::swapSubtrees()
 {
-    swapLeftRightChildren(this->root);
+    swapSubtreesRecursive(this->root);
 }   //end swapSubtrees
 
 template <class elemType>
@@ -514,16 +529,29 @@ int binaryTreeType<elemType>::
 }
 
 template <class elemType>
+int binaryTreeType<elemType>::
+            singleParentRecursive(binaryTreeNode<elemType> *p) const
+{
+    if (p == NULL)
+        return 0;
+    if (p->llink != NULL && p->rlink == NULL)
+        return 1 + singleParentRecursive(p->llink);
+    if (p->llink == NULL && p->rlink == NULL)
+        return 1 + singleParentRecursive(p->rlink);
+    return singleParentRecursive(p->llink) + singleParentRecursive(p->rlink);
+}
+
+template <class elemType>
 void binaryTreeType<elemType>::
-                    swapLeftRightChildren(binaryTreeNode<elemType> *p)
+                    swapSubtreesRecursive(binaryTreeNode<elemType> *p)
 {
     binaryTreeNode<elemType> *temp = p->rlink;
     p->rlink = p->llink;
     p->llink = temp;
 
     if (p->llink != NULL)
-        swapLeftRightChildren(p->llink);
+        swapSubtreesRecursive(p->llink);
     if (p->rlink != NULL)
-        swapLeftRightChildren(p->rlink);
+        swapSubtreesRecursive(p->rlink);
 }
 #endif //BINARY_TREE_TYPE_H

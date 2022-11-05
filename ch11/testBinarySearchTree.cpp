@@ -35,9 +35,10 @@ int main()
     std::cout << "After insert statements, tree is" 
               << (tree.isEmpty() ? " " : " not ") << "empty.\n\n";
 
-    //Test treeNodeCount() and treeLeavesCount().
-    std::cout << "tree contains " << tree.treeNodeCount() << " nodes and "
-              << tree.treeLeavesCount() << " leaves.\n\n";
+    //Test treeNodeCount(), treeLeavesCount() and singleParent().
+    std::cout << "tree contains " << tree.treeNodeCount() << " nodes, "
+              << tree.treeLeavesCount() << " leaves, and "
+              << tree.singleParent() << " nodes with only one child.\n\n";
 
     //Test inorderTraversal().
     std::cout << "Inorder traversal of tree: ";
