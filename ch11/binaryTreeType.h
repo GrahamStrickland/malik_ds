@@ -482,11 +482,10 @@ template <class elemType>
 int binaryTreeType<elemType>::
                     nodeCount(binaryTreeNode<elemType> *p) const
 {
-    if (p->llink != NULL)
-        return 1 + nodeCount(p->llink);
-    if (p->rlink != NULL)
-        return 1 + nodeCount(p->rlink);
-    return 1;
+    if (p == NULL)
+        return 0;
+    else 
+        return 1 + nodeCount(p->llink) + nodeCount(p->rlink);
 }
 
 template <class elemType>
