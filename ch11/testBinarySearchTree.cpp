@@ -43,21 +43,27 @@ int main()
     //Test inorderTraversal().
     std::cout << "Inorder traversal of tree: ";
     tree.inorderTraversal();
-    std::cout << '\n';
+    std::cout << "\nNon-recursive inorder traversal of tree: ";
+    tree.nonRecursiveInTraversal();
+    std::cout << "\nInorder parity traversal of tree: ";
     tree.inorderTraversal(printParity);
     std::cout << "\n\n";
 
     //Test preorderTraversal().
     std::cout << "Preorder traversal of tree: ";
     tree.preorderTraversal();
-    std::cout << '\n';
+    std::cout << "\nNon-recursive preorder traversal of tree: ";
+    tree.nonRecursivePreTraversal();
+    std::cout << "\nPreorder parity traversal of tree: ";
     tree.preorderTraversal(printParity);
     std::cout << "\n\n";
 
     //Test postorderTraversal().
     std::cout << "Postorder traversal of tree: ";
     tree.postorderTraversal();
-    std::cout << '\n';
+    std::cout << "\nNon-recursive postorder traversal of tree: ";
+    tree.nonRecursivePostTraversal();
+    std::cout << "\nPostorder parity traversal of tree: ";
     tree.postorderTraversal(printParity);
     std::cout << "\n\n";
 

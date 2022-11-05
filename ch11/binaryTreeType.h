@@ -253,8 +253,6 @@ void binaryTreeType<elemType>::nonRecursiveInTraversal() const
             std::cout << current->info << " ";
             current = current->rlink;
         }
-
-    std::cout << '\n';
 }
 
 template <class elemType>
@@ -278,8 +276,6 @@ void binaryTreeType<elemType>::nonRecursivePreTraversal() const
             stack.pop();
             current = current->rlink;
         }
-
-    std::cout << '\n';
 }
 
 template <class elemType>
@@ -288,10 +284,9 @@ void binaryTreeType<elemType>::nonRecursivePostTraversal() const
     stackType<binaryTreeNode<elemType>*> nodeStack;
     stackType<int> intStack;
     binaryTreeNode<elemType> *current;
-    int v;
+    int v = 0;
 
     current = this->root;
-    v = 0;
 
     if (current == NULL)
         std::cout << "The binary tree is empty.\n";
@@ -300,11 +295,12 @@ void binaryTreeType<elemType>::nonRecursivePostTraversal() const
         intStack.push(1);
         current = current->llink;
 
-        while (!nodeStack.isEmptyStack() && !intStack.isEmptyStack())
+        while (!nodeStack.isEmptyStack())
             if (current != NULL && v == 0)
             {
                 nodeStack.push(current);
-                intStack.push(v);
+                intStack.push(1);
+                current = current->llink;
             }
             else
             {
@@ -323,8 +319,6 @@ void binaryTreeType<elemType>::nonRecursivePostTraversal() const
                     std::cout << current->info << " ";
             }
     }
-
-    std::cout << '\n';
 }
 
 template <class elemType>
