@@ -82,6 +82,22 @@ int main()
               << "traversal of tree:\n";
     tree.inorderTraversal();
     std::cout << "\n\n";
+    tree.swapSubtrees();
+
+    //Test search().
+    int item = 48;
+    std::cout << item << (tree.search(item) ? " is " : " is not ") 
+              << "in the tree.\n";
+    item = 1;
+    std::cout << item << (tree.search(item) ? " is " : " is not ") 
+              << "in the tree.\n\n";
+
+    //Test deleteNode().
+    item = 25;
+    tree.deleteNode(item);
+    std::cout << "After deleting node " << item << ", inorder traversal: ";
+    tree.inorderTraversal();
+    std::cout << '\n';
 
     return EXIT_SUCCESS;
 }

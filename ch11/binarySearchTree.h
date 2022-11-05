@@ -137,19 +137,19 @@ void bSearchTreeType<elemType>::deleteNode(const elemType& deleteItem)
                     current = current->rlink;
             }
         }   //end while
-    }
 
-    if (current == NULL)
-        std::cerr << "Error: The delete item is not in the tree.\n";
-    else if (found)
-    {
-        if (current == this->root)
-            deleteFromTree(this->root);
-        else if (trailCurrent->info > deleteItem)
-            deleteFromTree(trailCurrent->llink);
-        else
-            deleteFromTree(trailCurrent->rlink);
-    }   //end if
+        if (current == NULL)
+            std::cerr << "Error: The delete item is not in the tree.\n";
+        else if (found)
+        {
+            if (current == this->root)
+                deleteFromTree(this->root);
+            else if (trailCurrent->info > deleteItem)
+                deleteFromTree(trailCurrent->llink);
+            else
+                deleteFromTree(trailCurrent->rlink);
+        }   //end if
+    }
 }   //end deleteNode
 
 template <class elemType>
