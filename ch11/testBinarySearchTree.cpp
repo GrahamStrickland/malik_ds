@@ -60,6 +60,17 @@ int main()
     tree.postorderTraversal(printParity);
     std::cout << "\n\n";
 
+    //Test swapSubtrees().
+    std::cout << "Before swapSubtrees, inorder "
+              << "traversal of tree:\n";
+    tree.inorderTraversal();
+    std::cout << '\n';
+    tree.swapSubtrees();
+    std::cout << "After swapSubtrees, inorder "
+              << "traversal of tree:\n";
+    tree.inorderTraversal();
+    std::cout << "\n\n";
+
     return EXIT_SUCCESS;
 }
 

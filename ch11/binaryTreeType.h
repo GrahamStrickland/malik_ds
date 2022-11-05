@@ -83,6 +83,10 @@ public:
         //Deallocates the memory space occupied by the binary tree.
         //Postcondition: root = NULL;
 
+    void swapSubtrees();
+        //Swaps all of the left and right subtrees of the binary 
+        //  tree.
+
     binaryTreeType(const binaryTreeType<elemType>& otherTree);
         //Copy constructor
     
@@ -150,6 +154,10 @@ private:
     int leavesCount(binaryTreeNode<elemType> *p) const;
         //Function to return the number of leaves in the binary
         //tree to which p points.
+    
+    void swapLeftRightChildren(binaryTreeNode<elemType> *p);
+        //Function to swap the left and right children of the
+        //node to which p points.
 };
 
     //overloading the assignment operator
@@ -370,6 +378,12 @@ void binaryTreeType<elemType>::copyTree
 }   //end copyTree
 
 template <class elemType>
+void binaryTreeType<elemType>::swapSubtrees()
+{
+    swapLeftRightChildren(this->root);
+}   //end swapSubtrees
+
+template <class elemType>
 void binaryTreeType<elemType>::destroy(binaryTreeNode<elemType>* &p)
 {
     if (p != NULL)
@@ -497,5 +511,19 @@ int binaryTreeType<elemType>::
     if (p->llink == NULL && p->rlink == NULL)
         return 1;
     return leavesCount(p->llink) + leavesCount(p->rlink);
+}
+
+template <class elemType>
+void binaryTreeType<elemType>::
+                    swapLeftRightChildren(binaryTreeNode<elemType> *p)
+{
+    binaryTreeNode<elemType> *temp = p->rlink;
+    p->rlink = p->llink;
+    p->llink = temp;
+
+    if (p->llink != NULL)
+        swapLeftRightChildren(p->llink);
+    if (p->rlink != NULL)
+        swapLeftRightChildren(p->rlink);
 }
 #endif //BINARY_TREE_TYPE_H
