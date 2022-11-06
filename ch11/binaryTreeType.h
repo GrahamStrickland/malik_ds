@@ -9,8 +9,10 @@
 // binary tree.
 //*************************************************************
 
-#include <iostream>
 #include "arrStack.h"
+#include "orderedLinkedList.h"
+
+#include <iostream>
 
     //Definition of the node
 template <class elemType>
@@ -90,6 +92,12 @@ public:
     void swapSubtrees();
         //Swaps all of the left and right subtrees of the binary 
         //  tree.
+
+    orderedLinkedList<elemType> binaryTreeInsertLinkedList();
+        //Function to insert the nodes of the tree into an ordered 
+        //linked list.
+        //Postcondition: Returned an ordered linked list with each 
+        //  node corresponding to a node in tree.
 
     binaryTreeType(const binaryTreeType<elemType>& otherTree);
         //Copy constructor
@@ -357,10 +365,10 @@ template <class elemType>
 binaryTreeType<elemType>::binaryTreeType
                 (const binaryTreeType<elemType>& otherTree)
 {
-    if (otherTree->root == NULL) //otherTree is empty
+    if (otherTree.root == NULL) //otherTree is empty
         this->root = NULL;
     else
-        copyTree(this->root, otherTree->root);
+        copyTree(this->root, otherTree.root);
 }
 
     //destructor
@@ -391,6 +399,33 @@ void binaryTreeType<elemType>::swapSubtrees()
 {
     swapSubtreesRecursive(this->root);
 }   //end swapSubtrees
+
+template <class elemType>
+orderedLinkedList<elemType> binaryTreeType<elemType>::
+        binaryTreeInsertLinkedList()
+{
+    orderedLinkedList<elemType> list;
+    stackType<binaryTreeNode<elemType>*> stack;
+    binaryTreeNode<elemType> *current;
+
+    current = this->root;
+
+    while ((current != NULL) || (!stack.isEmptyStack()))
+        if (current != NULL)
+        {
+            stack.push(current);
+            current = current->llink;
+        }
+        else
+        {
+            current = stack.top();
+            stack.pop();
+            list.insert(current->info);
+            current = current->rlink;
+        }
+
+    return list;
+}
 
 template <class elemType>
 void binaryTreeType<elemType>::destroy(binaryTreeNode<elemType>* &p)
