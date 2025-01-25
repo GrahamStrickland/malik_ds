@@ -9,37 +9,27 @@
 
 using namespace std;
 
-void personType::print(ostream& outs) const
-{
-    outs << firstName << " " << lastName;
+void personType::print(ostream &outs) const {
+  outs << firstName << " " << lastName;
 }
 
-void personType::setName(string first, string last)
-{
-    firstName = first;
-    lastName = last;
+void personType::setName(string first, string last) {
+  firstName = first;
+  lastName = last;
 }
 
-string personType::getFirstName() const
-{
-    return firstName;
+string personType::getFirstName() const { return firstName; }
+
+string personType::getLastName() const { return lastName; }
+
+// Default constructor
+personType::personType() {
+  firstName = "";
+  lastName = "";
 }
 
-string personType::getLastName() const
-{
-    return lastName;
-}
-
-    //Default constructor
-personType::personType()
-{
-    firstName = "";
-    lastName = "";
-}
-
-    //Constructor with parameters
-personType::personType(string first, string last)
-{
-    firstName = first;
-    lastName = last;
+// Constructor with parameters
+personType::personType(string first, string last) {
+  firstName = first;
+  lastName = last;
 }

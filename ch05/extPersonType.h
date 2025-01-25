@@ -10,59 +10,58 @@
 //  Inherits from class personType, dateType, & addressType.
 //************************************************************
 
-#include <string>
-#include <iostream>
-#include <fstream>
-#include "personType.h"
-#include "dateType.h"
 #include "addressType.h"
+#include "dateType.h"
+#include "personType.h"
+#include <fstream>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
-class extPersonType: public personType, public dateType, public addressType
-{
+class extPersonType : public personType, public dateType, public addressType {
 public:
-    bool operator==(const extPersonType& rightPerson) const;
-        // Function to evaluate equality for objects of type extPersonType.
-        // Postcondition: Returned true if objects are equal, otherwise false.
+  bool operator==(const extPersonType &rightPerson) const;
+  // Function to evaluate equality for objects of type extPersonType.
+  // Postcondition: Returned true if objects are equal, otherwise false.
 
-    void print(ostream& outs = cout) const;
-        // Function to print all member variables to the console.
-        // Precondition: Member variables of derived class
-        //  and base classes set to string values.
-        // Postcondition: All member variables printed to console.
+  void print(ostream &outs = cout) const;
+  // Function to print all member variables to the console.
+  // Precondition: Member variables of derived class
+  //  and base classes set to string values.
+  // Postcondition: All member variables printed to console.
 
-    void setRelationship();
-        // Function to set the relationship of the calling object
-        //  to the owner of an address book.
-        // Postcondition: Dialogue displayed to prompt the user
-        //  to select either "family member", "friend", or 
-        //  "business associate". relationship set to one of the
-        //  above options.
-    
-    void setPhone(string phone);
-        // Function to set the phone number of the person.
-        // Precondition: phone is a string of numerical values.
-        // Postcondition: phoneNumber set to value of phone.
+  void setRelationship();
+  // Function to set the relationship of the calling object
+  //  to the owner of an address book.
+  // Postcondition: Dialogue displayed to prompt the user
+  //  to select either "family member", "friend", or
+  //  "business associate". relationship set to one of the
+  //  above options.
 
-    string getRelationship() const;
-        // Function to return the relationship of the calling object
-        //  to the owner of an address book.
-        // Postcondition: Returned relationship.
+  void setPhone(string phone);
+  // Function to set the phone number of the person.
+  // Precondition: phone is a string of numerical values.
+  // Postcondition: phoneNumber set to value of phone.
 
-    string getPhoneNumber() const;
-        // Function to return the phone number of the calling object.
-        // Postconition: Returned phoneNumber.
-    
-    extPersonType(string first = "", string last = "", int month = 1,
-            int day = 1, int year = 1900, string sAdd = "", string cty
-            = "", string sta = "", string zip = "0000", string rel = 
-            "Family Member", string phone = "");
-        // Constructor function with appropriate default values.
+  string getRelationship() const;
+  // Function to return the relationship of the calling object
+  //  to the owner of an address book.
+  // Postcondition: Returned relationship.
+
+  string getPhoneNumber() const;
+  // Function to return the phone number of the calling object.
+  // Postconition: Returned phoneNumber.
+
+  extPersonType(string first = "", string last = "", int month = 1, int day = 1,
+                int year = 1900, string sAdd = "", string cty = "",
+                string sta = "", string zip = "0000",
+                string rel = "Family Member", string phone = "");
+  // Constructor function with appropriate default values.
 
 private:
-    string relationship;
-    string phoneNumber;
+  string relationship;
+  string phoneNumber;
 };
 
 #endif // EXT_PERSON_TYPE_H

@@ -1,7 +1,7 @@
 // Driver program to test recursive star printing function.
 
-#include <iostream>
 #include <cassert>
+#include <iostream>
 
 using namespace std;
 
@@ -11,29 +11,28 @@ void printStars(int n);
 // Precondition: n >= 1
 // Postcondition: 2n rows printed to console.
 
-int main()
-{
-    int n;
+int main() {
+  int n;
 
-    cout << "Please enter the number of lines in the pattern: ";
-    cin >> n;
+  cout << "Please enter the number of lines in the pattern: ";
+  cin >> n;
 
-    printStars(n);
+  printStars(n);
 
-    return 0;
+  return 0;
 }
 
-void printStars(int n)
-{
-    assert(n >= 1);
+void printStars(int n) {
+  assert(n >= 1);
 
-    for (int stars = 0; stars < n; ++stars)
-        cout << '*';
-    cout << endl;
+  for (int stars = 0; stars < n; ++stars)
+    cout << '*';
+  cout << endl;
 
-    if (n != 1) printStars(n - 1);
+  if (n != 1)
+    printStars(n - 1);
 
-    for (int stars = 0; stars < n; ++stars)
-        cout << '*';
-    cout << endl;
+  for (int stars = 0; stars < n; ++stars)
+    cout << '*';
+  cout << endl;
 }

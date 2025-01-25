@@ -13,33 +13,28 @@ double newtonSqrt(double x, double a, double epsilon);
 //  epsilon.
 // Postcondition: Returned square root of x.
 
-int main()
-{
-    double x, epsilon;
+int main() {
+  double x, epsilon;
 
-    std::cout << "Calculating the square root of a value within "
-              << "a given tolerance, using Newton\'s method.\n"
-              << "Please enter value: ";
-    std::cin >> x;
-    std::cout << "Please enter tolerance: ";
-    std::cin >> epsilon;
-    std::cout << "Square root of " << x << " = " 
-              << newtonSqrt(x, x, epsilon) << std::endl;
+  std::cout << "Calculating the square root of a value within "
+            << "a given tolerance, using Newton\'s method.\n"
+            << "Please enter value: ";
+  std::cin >> x;
+  std::cout << "Please enter tolerance: ";
+  std::cin >> epsilon;
+  std::cout << "Square root of " << x << " = " << newtonSqrt(x, x, epsilon)
+            << std::endl;
 
-    return 0;
+  return 0;
 }
 
-double absVal(double val)
-{
-    return val >= 0.0 ? val : -val;
-}
+double absVal(double val) { return val >= 0.0 ? val : -val; }
 
-double newtonSqrt(double x, double a, double epsilon)
-{
-    if (a == 0.0 || a == 1.0)
-        return a;
-    else if (absVal(a*a - x) <= epsilon)
-        return a;
-    else
-        return newtonSqrt(x, (a*a + x) / (2.0 * a), epsilon);
+double newtonSqrt(double x, double a, double epsilon) {
+  if (a == 0.0 || a == 1.0)
+    return a;
+  else if (absVal(a * a - x) <= epsilon)
+    return a;
+  else
+    return newtonSqrt(x, (a * a + x) / (2.0 * a), epsilon);
 }

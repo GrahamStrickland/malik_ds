@@ -3,57 +3,59 @@
 // in an arithmetic expression.
 
 #include <iostream>
-#include <string>
 #include <stack>
-    
+#include <string>
+
 using namespace std;
 
-bool checkGrouping(const string& arithExp);
+bool checkGrouping(const string &arithExp);
 
-int main()
-{
-    string arithExp;
+int main() {
+  string arithExp;
 
-    cout << "Please enter an arithmetic expression: ";
-    getline(cin, arithExp);
+  cout << "Please enter an arithmetic expression: ";
+  getline(cin, arithExp);
 
-    cout << arithExp << " is " << (checkGrouping(arithExp) ? 
-            "a valid expression!" : "an invalid expression!")
-         << endl;
+  cout << arithExp << " is "
+       << (checkGrouping(arithExp) ? "a valid expression!"
+                                   : "an invalid expression!")
+       << endl;
 
-    return 0;
+  return 0;
 }
 
-bool checkGrouping(const string& arithExp)
-{
-    stack<char> groupingSymbols;
-    int pos = 0;
+bool checkGrouping(const string &arithExp) {
+  stack<char> groupingSymbols;
+  int pos = 0;
 
-    while (pos < arithExp.length()) {
-        switch (arithExp.at(pos)) {
-        case '(':
-        case '{':
-        case '[':
-            groupingSymbols.push(arithExp.at(pos));
-            break;
-        case ')':
-            if (groupingSymbols.top() == '(')
-                groupingSymbols.pop();
-            else return false;
-            break;
-        case '}':
-            if (groupingSymbols.top() == '{')
-                groupingSymbols.pop();
-            else return false;
-            break;
-        case ']':
-            if (groupingSymbols.top() == '[')
-                groupingSymbols.pop();
-            else return false;
-            break;
-        }
-        pos++;
+  while (pos < arithExp.length()) {
+    switch (arithExp.at(pos)) {
+    case '(':
+    case '{':
+    case '[':
+      groupingSymbols.push(arithExp.at(pos));
+      break;
+    case ')':
+      if (groupingSymbols.top() == '(')
+        groupingSymbols.pop();
+      else
+        return false;
+      break;
+    case '}':
+      if (groupingSymbols.top() == '{')
+        groupingSymbols.pop();
+      else
+        return false;
+      break;
+    case ']':
+      if (groupingSymbols.top() == '[')
+        groupingSymbols.pop();
+      else
+        return false;
+      break;
     }
-    
-    return groupingSymbols.empty();
+    pos++;
+  }
+
+  return groupingSymbols.empty();
 }

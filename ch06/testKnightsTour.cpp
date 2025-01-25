@@ -2,13 +2,13 @@
 // that simulates a search for a knight's tour around a
 // chessboard of given size, starting at a given square.
 
-#include <iostream>
 #include "knightsTour.h"
+#include <iostream>
 
 int main() {
-    knightsTour tour(4, 5);
+  knightsTour tour(4, 5);
 
-    tour.beginTour(0, 0);
+  tour.beginTour(0, 0);
 
-    return 0;
+  return 0;
 }

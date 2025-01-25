@@ -9,19 +9,18 @@
 // of waiting customers.
 //************************************************************
 
-#include <queue>
 #include "customerType.h"
+#include <queue>
 
 using namespace std;
 
-class waitingCustomerQueueType: public queue<customerType>
-{
+class waitingCustomerQueueType : public queue<customerType> {
 public:
-    waitingCustomerQueueType();
-        //Constructor
+  waitingCustomerQueueType();
+  // Constructor
 
-    void updateWaitingQueue();
-        //Function to increment the waiting time of each
-        //customer in the queue by one time unit.
+  void updateWaitingQueue();
+  // Function to increment the waiting time of each
+  // customer in the queue by one time unit.
 };
-#endif //WAITING_CUSTOMER_QUEUE_TYPE_H
+#endif // WAITING_CUSTOMER_QUEUE_TYPE_H
